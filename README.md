@@ -46,8 +46,11 @@
 * **Script Remote Config (`locket_unlocked.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_unlocked.js`
 * **Script gộp Full (`locket_gold_30s_bokhanh.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_gold_30s_bokhanh.js`
 * **Script xóa ETag (`deleteheader.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/deleteheader.js`
-* **Ảnh Icon/Khung (`Code_Generated_Image.png`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png`
-* **Hồ sơ DNS giữ Gold (`BoKhanh_LocketGold.mobileconfig`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/BoKhanh_LocketGold.mobileconfig`
+* **Script Filter & Photobooth (`locket_filter.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_filter.js`
+* **Ảnh Icon/Khung (`Code_Generated_Image.png`):** `https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/Code_Generated_Image.png`
+* **📲 Link Cài Hồ Sơ DNS Giữ Gold Trực Tiếp Trên Safari iPhone (`BoKhanh_LocketGold.mobileconfig`):**
+  👉 **[BẤM VÀO ĐÂY TRÊN SAFARI ĐỂ CÀI HỒ SƠ DNS](https://khangtestbot.github.io/ngduykhanhsiudz/BoKhanh_LocketGold.mobileconfig)**
+  *(Hoặc link tải trực tiếp từ Release: `https://github.com/KhangTestBot/ngduykhanhsiudz/releases/latest/download/BoKhanh_LocketGold.mobileconfig` — Lưu ý: Không dùng link `raw.githubusercontent.com` cho file `.mobileconfig` vì GitHub Raw ép hiển thị dạng chữ XML thay vì tải hồ sơ).*
 
 ## 📱 Quy trình hướng dẫn người dùng cài đặt
 
