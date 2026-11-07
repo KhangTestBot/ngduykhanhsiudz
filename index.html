@@ -403,16 +403,20 @@
         </div>
 
         <input type="text" id="customTitle" class="input-text" placeholder="Nhập dòng chữ trên đỉnh khung (VD: Thứ 7 rồi bạn iu ơi)" oninput="renderPhotobooth()" />
+        <input type="text" id="locketCaption" class="input-text" placeholder="💬 Nhập Caption hiển thị trên Locket (tuỳ chọn)..." />
 
         <div class="preview-wrap">
           <canvas id="boothCanvas" width="1280" height="1280"></canvas>
         </div>
 
+        <button class="btn btn-gold" id="btnDirectPost" onclick="postDirectlyToLocket()" style="margin-bottom:8px;font-size:15px;">🚀 Bắn Thẳng 4 Ảnh Lên Locket (1-Click)</button>
+        <div id="postStatusMsg" style="display:none;font-size:12.5px;text-align:center;padding:8px 10px;border-radius:10px;margin-bottom:8px;background:rgba(255,255,255,0.08);color:#fde68a;"></div>
+
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="shareOrSaveImage()">📲 Lưu Ảnh / Đăng Locket</button>
-          <button class="btn btn-gold" onclick="downloadImage()">⬇️ Tải File PNG Nét</button>
+          <button class="btn btn-primary" onclick="shareOrSaveImage()">📲 Lưu Ảnh / Chia Sẻ</button>
+          <button class="btn btn-secondary" onclick="downloadImage()">⬇️ Tải File PNG Nét</button>
         </div>
-        <p class="hint">💡 Sau khi bấm <b>Lưu Ảnh</b>, mở app <b>Locket</b> ➔ bấm nút chọn ảnh từ Thư viện (đã mở khóa sẵn bởi Module Locket Gold) để đăng nguyên khung Photobooth 4 ảnh lên Widget!</p>
+        <p class="hint">💡 <b>3 Cách Dùng Photobooth:</b><br>1️⃣ Trong camera Locket bấm nút <b>✨ Filter</b> ở góc phải dưới ➔ mục <b>📸 Photobooth & Khung VIP</b> để chụp kèm khung ngay trong Locket.<br>2️⃣ Hoặc chụp 4 ảnh tại đây rồi bấm <b>🚀 Bắn Thẳng 4 Ảnh Lên Locket</b> (tự động lấy phiên từ Shadowrocket, không cần lưu ảnh).<br>3️⃣ Trong Cài đặt Locket bấm nút <b>TikTok / Instagram</b> để mở thẳng Photobooth này ngay bên trong app Locket!</p>
       </div>
     </div>
 
@@ -810,6 +814,131 @@
       link.download = `Locket_Photobooth_${Date.now()}.png`;
       link.href = boothCanvas.toDataURL('image/png');
       link.click();
+    }
+
+    async function postDirectlyToLocket() {
+      const statusEl = document.getElementById('postStatusMsg');
+      const btn = document.getElementById('btnDirectPost');
+      statusEl.style.display = 'block';
+      statusEl.style.color = '#fde68a';
+      statusEl.textContent = '⏳ Đang kết nối cầu nối Shadowrocket Locket...';
+      btn.disabled = true;
+
+      try {
+        let idToken = localStorage.getItem('bk_locket_token') || '';
+        let uid = localStorage.getItem('bk_locket_uid') || '';
+
+        // 1. Thử lấy tự động từ cầu nối Shadowrocket (locket_filter.js)
+        try {
+          const bridgeRes = await fetch('https://api.locketcamera.com/bokhanh-photobooth-bridge', { cache: 'no-store' });
+          if (bridgeRes.ok) {
+            const bridgeData = await bridgeRes.json();
+            if (bridgeData && bridgeData.ok && bridgeData.idToken && bridgeData.uid) {
+              idToken = bridgeData.idToken;
+              uid = bridgeData.uid;
+              localStorage.setItem('bk_locket_token', idToken);
+              localStorage.setItem('bk_locket_uid', uid);
+            }
+          }
+        } catch (_) {}
+
+        if (!idToken || !uid) {
+          statusEl.style.color = '#fca5a5';
+          statusEl.innerHTML = '⚠️ Chưa bắt được phiên Locket tự động. Hãy bật <b>Shadowrocket</b> (đã cài Module mới nhất), mở app <b>Locket</b> 1 lần rồi quay lại bấm nút này — hoặc bấm <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới nhé!';
+          btn.disabled = false;
+          return;
+        }
+
+        statusEl.textContent = '☁️ Đang tải ảnh Photobooth 4 ô lên máy chủ Locket...';
+        const blob = await new Promise(resolve => boothCanvas.toBlob(resolve, 'image/webp', 0.92));
+        const imgName = `photobooth_${Date.now()}.webp`;
+        const storagePath = `users/${uid}/moments/thumbnails/${imgName}`;
+        const encodedPath = encodeURIComponent(storagePath);
+        const startUrl = `https://firebasestorage.googleapis.com/v0/b/locket-img/o/${encodedPath}?uploadType=resumable&name=${encodedPath}`;
+
+        const startRes = await fetch(startUrl, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json; charset=UTF-8',
+            'authorization': `Bearer ${idToken}`,
+            'x-goog-upload-protocol': 'resumable',
+            'x-goog-upload-command': 'start',
+            'x-goog-upload-content-length': String(blob.size),
+            'x-goog-upload-content-type': 'image/webp',
+            'x-firebase-storage-version': 'ios/10.13.0',
+            'x-firebase-gmpid': '1:641029076083:ios:cc8eb46290d69b234fa606'
+          },
+          body: JSON.stringify({
+            name: storagePath,
+            contentType: 'image/*',
+            bucket: '',
+            metadata: { creator: uid, visibility: 'private' }
+          })
+        });
+
+        const uploadUrl = startRes.headers.get('X-Goog-Upload-URL') || startRes.headers.get('x-goog-upload-url');
+        if (!uploadUrl) throw new Error('Không lấy được Upload URL (hãy mở lại Locket để làm mới Token)');
+
+        await fetch(uploadUrl, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/octet-stream',
+            'x-goog-upload-protocol': 'resumable',
+            'x-goog-upload-offset': '0',
+            'x-goog-upload-command': 'upload, finalize'
+          },
+          body: blob
+        });
+
+        const metaRes = await fetch(`https://firebasestorage.googleapis.com/v0/b/locket-img/o/${encodedPath}`, {
+          headers: { 'authorization': `Bearer ${idToken}` }
+        });
+        const metaData = await metaRes.json();
+        const dlToken = metaData.downloadTokens;
+        const finalImgUrl = `https://firebasestorage.googleapis.com/v0/b/locket-img/o/${encodedPath}?alt=media&token=${dlToken}`;
+
+        statusEl.textContent = '🚀 Đang bắn ảnh lên Widget Locket của bạn bè...';
+        const captionText = (document.getElementById('locketCaption').value || '').trim();
+        const postPayload = {
+          data: {
+            thumbnail_url: finalImgUrl,
+            caption: captionText,
+            sent_to_all: true
+          }
+        };
+        if (captionText) {
+          postPayload.data.overlays = [{
+            data: {
+              text: captionText,
+              text_color: '#FFFFFFE6',
+              type: 'standard',
+              max_lines: 4,
+              background: { colors: ['#FF6B9D', '#C44569'], material_blur: 'ultra_thin' }
+            },
+            alt_text: captionText,
+            overlay_id: 'caption:standard',
+            overlay_type: 'caption'
+          }];
+        }
+
+        const postRes = await fetch('https://api.locketcamera.com/postMomentV2', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            'authorization': `Bearer ${idToken}`
+          },
+          body: JSON.stringify(postPayload)
+        });
+
+        if (!postRes.ok) throw new Error('Lỗi khi gọi postMomentV2');
+        statusEl.style.color = '#86efac';
+        statusEl.innerHTML = '🎉 <b>Đã đăng thẳng ảnh Photobooth 4 ô lên Locket thành công!</b> Mở Locket kiểm tra ngay nhé!';
+      } catch (err) {
+        statusEl.style.color = '#fca5a5';
+        statusEl.innerHTML = '⚠️ ' + (err.message || 'Không thể đăng trực tiếp') + ' — Hãy bấm nút <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới để lưu về máy rồi chọn từ thư viện Locket nhé!';
+      } finally {
+        btn.disabled = false;
+      }
     }
 
     async function shareOrSaveImage() {

@@ -10,11 +10,14 @@ var obj = JSON.parse($response.body || "{}");
 
 if (true) {
     obj.state = "UPDATE";
+    obj.templateVersion = String(Date.now());
     obj.Attention = "Chúc mừng bạn! Vui lòng không sử dụng chúng dưới mục đích thương mại!";
     obj.entries = obj.entries || {};
+    obj.entries.cache_ttl_seconds = "0";
+    obj.entries.client_cache_ttl_sec = "0";
 
     // ============================================================
-    // 1. CẤU HÌNH GOLD, FEATURE GATES & PAYWALL
+    // 1. CẤU HÌNH GOLD, FEATURE GATES & PAYWALL (ĐẦY ĐỦ CỜ FILTER ✨ & KHUNG V2)
     // ============================================================
     Object.assign(obj.entries, {
         feature_gates: JSON.stringify({
@@ -30,21 +33,73 @@ if (true) {
             remove_ads: "enabled",
             video: "enabled",
             custom_widget_frames: "enabled",
-            streak_recovery: "enabled"
+            widget_frames_v2: "enabled",
+            advanced_widget_frames: "enabled",
+            remote_widget_frames: "enabled",
+            streak_recovery: "enabled",
+            camera_filters: "enabled",
+            camera_filter: "enabled",
+            filter: "enabled",
+            filters: "enabled",
+            holiday_effects: "enabled",
+            holiday_filters: "enabled",
+            holiday_filter: "enabled",
+            ar_filters: "enabled",
+            ai_filters: "enabled",
+            ai_filter: "enabled",
+            photo_filters: "enabled",
+            face_filters: "enabled",
+            profile_cover: "enabled",
+            profile_cover_photo: "enabled",
+            profile_customization: "enabled"
         }),
         upsell_features: JSON.stringify({
-            app_icon_picker: true,
-            camera_roll: true,
-            camera_theme: true,
-            locket_views: true,
-            remove_ads: true,
-            custom_widget_frames: true
+            app_icon_picker: false,
+            camera_roll: false,
+            camera_theme: false,
+            locket_views: false,
+            remove_ads: false,
+            custom_widget_frames: false,
+            filter: false,
+            filters: false,
+            camera_filter: false,
+            camera_filters: false,
+            holiday_filter: false,
+            holiday_filters: false,
+            holiday_effects: false,
+            ai_filter: false,
+            ai_filters: false
         }),
+        country_code: "US",
+        region_code: "US",
+        is_us_user: "true",
+        camera_filters_enabled: "true",
+        camera_filter_enabled: "true",
+        holiday_filters_enabled: "true",
+        ai_filters_enabled: "true",
+        camera_filter_gold_only: "false",
+        camera_filters_gold_only: "false",
+        holiday_filters_gold_only: "false",
+        filter_paywall_enabled: "false",
+        camera_filter_paywall_enabled: "false",
+        filter_upsell_enabled: "false",
+        require_gold_for_filters: "false",
+        free_filters_enabled: "true",
+        camera_filter_sheet_selection_enabled: "true",
+        sheet_filters_selectable: "true",
+        dismiss_filter_sheet_on_select: "true",
+        camera_filter_max_count: "50",
+        max_camera_filters: "50",
         paywall_presentation_config: JSON.stringify({
             uid: "paywall_testflight",
             onboarding: false,
             after_sent_moment: false,
+            after_moment: false,
+            after_capture: false,
             on_foreground: false,
+            holiday_effects: false,
+            camera_filters: false,
+            filters: false,
             interval: 2592000,
             profile_banner: true
         }),
@@ -57,7 +112,7 @@ if (true) {
                 {
                     title: "Hẹ Hẹ Hẹ ✨",
                     body: " BỐ KHÁNH NÈ MẤY EM  💛",
-                    imageURL: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png"
+                    imageURL: "https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/Code_Generated_Image.png"
                 }
             ],
             primary_button_title: "Xong",
@@ -68,7 +123,9 @@ if (true) {
         }),
         android_subscribe_gold_button_enabled: "false",
         profile_badge_visible: "true",
-        lunar_new_year_app_icon_enabled: "true"
+        lunar_new_year_app_icon_enabled: "true",
+        settings_instagram_url: "https://khangtestbot.github.io/ngduykhanhsiudz/",
+        settings_tiktok_url: "https://khangtestbot.github.io/ngduykhanhsiudz/"
     });
 
     // ============================================================
@@ -139,6 +196,10 @@ if (true) {
             sheet_enabled: true,
             open_sheet_immediately: true,
             sheet_filters: [
+                {
+                    title: { en: "📸 Photobooth & Khung VIP", vi: "📸 Photobooth & Khung VIP" },
+                    filter_ids: ["okay_wig", "cutesy", "sticker_face", "flower_crown", "love_bug"]
+                },
                 { title: { en: "Goofy" }, filter_ids: ["okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows"] },
                 { title: { en: "Looks" }, filter_ids: ["bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns", "tatted", "mohawk", "braces", "bye_brows"] },
                 { title: { en: "Celebrate" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] },
@@ -147,11 +208,12 @@ if (true) {
                 { title: { en: "Holidays" }, filter_ids: ["easter_bunney_cutout", "easter_chick_cutout", "bearded", "leprechaun", "lucky_face", "sweet_hearts", "elf_cutout", "santa_cutout", "frosty"] }
             ],
             picker_filters: [
-                "okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows",
+                "okay_wig", "cutesy", "sticker_face", "flower_crown", "love_bug",
+                "influencer", "looks_maxxing", "toothless", "bye_brows",
                 "bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns",
                 "tatted", "mohawk", "braces", "slimed", "princess",
-                "disco_lights", "cash_money", "happy_birthday", "cutesy", "sticker_face",
-                "flower_crown", "love_bug", "wedding", "cowboy_cowgirl", "giraffe",
+                "disco_lights", "cash_money", "happy_birthday",
+                "wedding", "cowboy_cowgirl", "giraffe",
                 "clown", "easter_bunney_cutout", "easter_chick_cutout", "bearded", "leprechaun",
                 "lucky_face", "sweet_hearts", "elf_cutout", "santa_cutout", "frosty"
             ]
@@ -287,6 +349,9 @@ if (true) {
         android_widget_frame_event_enabled: "true",
         ios_widget_frame_event_enabled: "true",
         widget_frame_event_enabled: "true",
+        widget_frames_v2_enabled: "true",
+        advanced_widget_frames_enabled: "true",
+        remote_widget_frames_enabled: "true",
         custom_widget_frames: "enabled",
         custom_widget_frames_enabled: "true",
         widget_badge_enabled: "true",
@@ -295,12 +360,93 @@ if (true) {
         widget_last_sent_indicator: "false",
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
-            uid: "bokhanh_v5_day_" + vnWidgetDay,
+            uid: "bokhanh_v6_" + vnWidgetDay + "_" + vnWidgetTime.getDate(),
             url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
             start_at: "2020-01-01T00:00:00",
             end_at: "2099-12-31T23:59:59"
+        }),
+        widget_frames_config: JSON.stringify({
+            enabled: true,
+            allow_custom_frames: true,
+            unlock_all_styles: true,
+            default_style: "neon_pink",
+            styles: [
+                {
+                    id: "neon_pink",
+                    name: "🌸 Loopy 3D Theo Thứ",
+                    border_style: "custom",
+                    overlay_asset: activeWidgetFrameUrl,
+                    overlay_url: activeWidgetFrameUrl,
+                    image_url: activeWidgetFrameUrl,
+                    thumbnail_url: activeWidgetFrameUrl
+                },
+                {
+                    id: "neon_orange",
+                    name: "📸 Photobooth 4 Ô",
+                    border_style: "custom",
+                    overlay_asset: frameCatalog.photobooth,
+                    overlay_url: frameCatalog.photobooth,
+                    image_url: frameCatalog.photobooth,
+                    thumbnail_url: frameCatalog.photobooth
+                },
+                {
+                    id: "neon_yellow",
+                    name: "🎀 Loopy Nơ Hồng",
+                    border_style: "custom",
+                    overlay_asset: frameCatalog.bokhanh_vip,
+                    overlay_url: frameCatalog.bokhanh_vip,
+                    image_url: frameCatalog.bokhanh_vip,
+                    thumbnail_url: frameCatalog.bokhanh_vip
+                },
+                {
+                    id: "neon_green",
+                    name: "🐱 Hello Kitty",
+                    border_style: "custom",
+                    overlay_asset: frameCatalog.hello_kitty,
+                    overlay_url: frameCatalog.hello_kitty,
+                    image_url: frameCatalog.hello_kitty,
+                    thumbnail_url: frameCatalog.hello_kitty
+                },
+                {
+                    id: "neon_blue",
+                    name: "🖍️ Shin Bút Chì",
+                    border_style: "custom",
+                    overlay_asset: frameCatalog.shin_chan,
+                    overlay_url: frameCatalog.shin_chan,
+                    image_url: frameCatalog.shin_chan,
+                    thumbnail_url: frameCatalog.shin_chan
+                },
+                {
+                    id: "neon_purple",
+                    name: "🔔 Doraemon",
+                    border_style: "custom",
+                    overlay_asset: frameCatalog.doraemon,
+                    overlay_url: frameCatalog.doraemon,
+                    image_url: frameCatalog.doraemon,
+                    thumbnail_url: frameCatalog.doraemon
+                },
+                {
+                    id: "pastel_pink",
+                    name: "📷 Khung Instagram",
+                    border_style: "custom",
+                    overlay_asset: frameCatalog.khung_ins,
+                    overlay_url: frameCatalog.khung_ins,
+                    image_url: frameCatalog.khung_ins,
+                    thumbnail_url: frameCatalog.khung_ins
+                }
+            ]
+        }),
+        widget_frame_styles: JSON.stringify([
+            "neon_pink", "neon_orange", "neon_yellow", "neon_green",
+            "neon_blue", "neon_purple", "pastel_pink"
+        ]),
+        seasonal_frames_config: JSON.stringify({
+            enabled: true,
+            auto_rotate: false,
+            override_default: true,
+            current_season_theme: "neon_pink"
         }),
         live_activity_onboarding: "true",
         live_activity_onboarding_variant: "friending",
