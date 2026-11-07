@@ -1,7 +1,7 @@
 // ============================================================
 // Locket Gold + Remote Config Full Unlock (Bản Nâng Cấp: Video 45s Chuẩn Server + Khung 640x640 iOS + AI + Caption VIP)
 // Thương hiệu: Bố Khánh
-// Kho GitHub: https://github.com/KhangTestBot/modul-locketgold-bokhanh
+// Kho GitHub: https://github.com/KhangTestBot/ngduykhanhsiudz
 // LƯU Ý QUAN TRỌNG: TẮT DỊCH TỰ ĐỘNG CỦA TRÌNH DUYỆT CỐC CỐC KHI TẢI HOẶC XEM FILE NÀY!
 // ============================================================
 
@@ -114,7 +114,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
                 {
                     title: "Lên Locket Gold thành công rồi nha ✨",
                     body: "BỐ KHÁNH NÈ MẤY EM 💛",
-                    imageURL: "https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/Code_Generated_Image.png"
+                    imageURL: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png"
                 }
             ],
             primary_button_title: "Xong rồi nhé!",
@@ -338,7 +338,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
             uid: "midautumn_2026",
-            url: "https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/Code_Generated_Image.png",
+            url: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png",
             use_local_time_zone: true,
             placement: "below",
             start_at: "2020-01-01T00:00:00",

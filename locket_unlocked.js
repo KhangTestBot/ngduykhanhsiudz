@@ -56,7 +56,7 @@ if (ua.includes("Locket")) {
                 {
                     title: "Hẹ Hẹ Hẹ ✨",
                     body: " BỐ KHÁNH NÈ MẤY EM  💛",
-                    imageURL: "https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/Code_Generated_Image.png"
+                    imageURL: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png"
                 }
             ],
             primary_button_title: "Xong",

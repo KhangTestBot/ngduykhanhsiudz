@@ -1,7 +1,7 @@
 # 👑 Dự Án Locket Gold 30s/60s + Khung Tiện Ích Doraemon — Bố Khánh
 
 * **Thương hiệu:** **Bố Khánh**
-* **GitHub:** [KhangTestBot/modul-locketgold-bokhanh](https://github.com/KhangTestBot/modul-locketgold-bokhanh)
+* **GitHub:** [KhangTestBot/ngduykhanhsiudz](https://github.com/KhangTestBot/ngduykhanhsiudz)
 
 ## ✨ Tính năng tích hợp trong bản cập nhật này
 
@@ -17,22 +17,22 @@
 ### 1. Link tự động mở Shadowrocket (Dùng để gắn vào nút bấm trên Web)
 * **Nút Bước 1 — Cài Cấu Hình (`.conf`):**
   ```text
-  shadowrocket://config/add/https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/BoKhanh_Locket_30s.conf
+  shadowrocket://config/add/https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/BoKhanh_Locket_30s.conf
   ```
 * **Nút Bước 2 — Thêm Module (`.sgmodule`):**
   ```text
-  shadowrocket://install?module=https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/BoKhanh_Locket_30s.sgmodule
+  shadowrocket://install?module=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/BoKhanh_Locket_30s.sgmodule
   ```
 
 ### 2. Link Raw trực tiếp trên GitHub
-* **File Cấu hình (`.conf`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/BoKhanh_Locket_30s.conf`
-* **File Module (`.sgmodule`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/BoKhanh_Locket_30s.sgmodule`
-* **Script mở khóa Gold (`locket_vip.js`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/locket_vip.js`
-* **Script Remote Config (`locket_unlocked.js`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/locket_unlocked.js`
-* **Script gộp Full (`locket_gold_30s_bokhanh.js`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/locket_gold_30s_bokhanh.js`
-* **Script xóa ETag (`deleteheader.js`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/deleteheader.js`
-* **Ảnh Icon/Khung (`Code_Generated_Image.png`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/Code_Generated_Image.png`
-* **Hồ sơ DNS giữ Gold (`BoKhanh_LocketGold.mobileconfig`):** `https://raw.githubusercontent.com/KhangTestBot/modul-locketgold-bokhanh/refs/heads/main/BoKhanh_LocketGold.mobileconfig`
+* **File Cấu hình (`.conf`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/BoKhanh_Locket_30s.conf`
+* **File Module (`.sgmodule`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/BoKhanh_Locket_30s.sgmodule`
+* **Script mở khóa Gold (`locket_vip.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_vip.js`
+* **Script Remote Config (`locket_unlocked.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_unlocked.js`
+* **Script gộp Full (`locket_gold_30s_bokhanh.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_gold_30s_bokhanh.js`
+* **Script xóa ETag (`deleteheader.js`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/deleteheader.js`
+* **Ảnh Icon/Khung (`Code_Generated_Image.png`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png`
+* **Hồ sơ DNS giữ Gold (`BoKhanh_LocketGold.mobileconfig`):** `https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/BoKhanh_LocketGold.mobileconfig`
 
 ## 📱 Quy trình hướng dẫn người dùng cài đặt
 
