@@ -256,7 +256,7 @@ if (true) {
     var nowWidgetUtc = new Date();
     var vnWidgetTime = new Date(nowWidgetUtc.getTime() + 7 * 3600 * 1000 + nowWidgetUtc.getTimezoneOffset() * 60000);
     var vnWidgetDay = vnWidgetTime.getDay(); // 0: Chủ Nhật, 1: Thứ 2 ... 6: Thứ 7
-    var baseFramesUrl = "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/frames/";
+    var baseFramesUrl = "https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/frames/";
 
     var dailyLoopyFrames = [
         "chu_nhat.png", // Chủ Nhật rồi bạn iu ơi
@@ -283,17 +283,19 @@ if (true) {
     var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || frameCatalog.auto_daily;
 
     Object.assign(obj.entries, {
-        widget_frame_event_max_images: "5",
+        widget_frame_event_max_images: "10",
         android_widget_frame_event_enabled: "true",
         ios_widget_frame_event_enabled: "true",
         widget_frame_event_enabled: "true",
+        custom_widget_frames: "enabled",
+        custom_widget_frames_enabled: "true",
         widget_badge_enabled: "true",
         widget_badge_v2: "true",
         widget_stale_state_enabled: "false",
         widget_last_sent_indicator: "false",
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
-            uid: "midautumn_2026",
+            uid: "bokhanh_v5_day_" + vnWidgetDay,
             url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",

@@ -25,7 +25,6 @@
                     <string>api.rc-backup.com</string>
                     <string>api2.amplitude.com</string>
                     <string>oy24bn.skadsdkless.appsflyersdk.com</string>
-                    <string>firebaseremoteconfig.googleapis.com</string>
                     <string>appsflyersdk.com</string>
                     <string>ingest.sentry.io</string>
                 </array>
