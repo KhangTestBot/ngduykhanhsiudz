@@ -324,8 +324,35 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     });
 
     // ============================================================
-    // 6. WIDGET, THÔNG BÁO & GIAO DIỆN (JOURNAL / PROFILE)
+    // 6. WIDGET KHUNG ĐỔI THEO TỪNG NGÀY TRONG TUẦN (LOOPY 3D + KHO KHUNG)
     // ============================================================
+    var nowWidgetUtc = new Date();
+    var vnWidgetTime = new Date(nowWidgetUtc.getTime() + 7 * 3600 * 1000 + nowWidgetUtc.getTimezoneOffset() * 60000);
+    var vnWidgetDay = vnWidgetTime.getDay();
+    var baseFramesUrl = "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/frames/";
+
+    var dailyLoopyFrames = [
+        "chu_nhat.png",
+        "thu_2.png",
+        "thu_3.png",
+        "thu_4.png",
+        "thu_5.png",
+        "thu_6.png",
+        "thu_7.png"
+    ];
+
+    var frameCatalog = {
+        auto_daily: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
+        bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
+        hello_kitty: baseFramesUrl + "hello_kitty.png",
+        shin_chan: baseFramesUrl + "shin_chan.png",
+        doraemon: baseFramesUrl + "doraemon.png",
+        khung_ins: baseFramesUrl + "khung_ins.png"
+    };
+
+    var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "auto_daily";
+    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || frameCatalog.auto_daily;
+
     Object.assign(obj.entries, {
         widget_frame_event_max_images: "5",
         android_widget_frame_event_enabled: "true",
@@ -338,7 +365,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
             uid: "midautumn_2026",
-            url: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png",
+            url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
             start_at: "2020-01-01T00:00:00",

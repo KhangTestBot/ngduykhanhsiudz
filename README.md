@@ -8,7 +8,16 @@
 1. **Mở khóa Locket Gold Vĩnh Viễn (Hạn đến năm 9999):** Lên huy hiệu Gold, mở toàn bộ tính năng VIP thông qua RevenueCat.
 2. **Bảng thông báo Popup Chào Mừng Chính Chủ:** Khi xoá Locket tải lại và mở app, Locket tự động bật bảng thông báo chào mừng của **Bố Khánh**.
 3. **Quay Video 60s & Đăng Video Thư Viện 30s Có Tiếng:** Bật sẵn thu âm micro (`microphone_enabled`, `video_sound_enabled`), cam góc rộng, flash và bộ lọc Filter.
-4. **Khung Viền Tiện Ích (Widget Frame) Nền Trong Suốt:** Tích hợp trực tiếp vào `widget_frame_event`.
+4. **Khung Viền Tiện Ích (Widget Frame) Loopy 3D Tự Đổi Theo Từng Ngày Trong Tuần (`frames/`):**
+   - Tự động nhận diện thứ trong tuần (theo giờ Việt Nam `UTC+7`) để đổi khung Widget Loopy 3D hồng mỗi ngày:
+     - `frames/thu_2.png` — *"Thứ 2 rồi bạn iu ơi"*
+     - `frames/thu_3.png` — *"Thứ 3 rồi bạn iu ơi"*
+     - `frames/thu_4.png` — *"Thứ 4 rồi bạn iu ơi"*
+     - `frames/thu_5.png` — *"Thứ 5 rồi bạn iu ơi"*
+     - `frames/thu_6.png` — *"Thứ 6 rồi bạn iu ơi"*
+     - `frames/thu_7.png` — *"Thứ 7 rồi bạn iu ơi"*
+     - `frames/chu_nhat.png` — *"Chủ Nhật rồi bạn iu ơi"*
+   - Kèm kho khung phụ chọn nhanh trong `frames/`: `bokhanh_vip.png`, `hello_kitty.png`, `shin_chan.png`, `doraemon.png`, `khung_ins.png`.
 5. **Caption Động Thông Minh Theo Thời Gian Thực (`⚡ Caption Động Thời Gian Thực • Bố Khánh`):**
    - **Đồng hồ Live (`UTC+7`):** Tự động cập nhật Thứ, Ngày/Tháng và Giờ:Phút thực tế kèm nền kính mờ (`ultra_thin` blur) và icon `sf_symbol`.
    - **Mood Tự Động Theo Khung Giờ:** Tự động đổi lời chúc, màu Gradient và biểu tượng theo 5 khung giờ trong ngày (Sáng sớm, Nghỉ trưa, Buổi chiều, Buổi tối, Hội cú đêm).

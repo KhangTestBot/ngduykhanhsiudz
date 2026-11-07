@@ -250,11 +250,41 @@ if (ua.includes("Locket")) {
     });
 
     // ============================================================
-    // 6. WIDGET, THÔNG BÁO & GIAO DIỆN (JOURNAL / PROFILE)
+    // 6. WIDGET KHUNG ĐỔI THEO TỪNG NGÀY TRONG TUẦN (LOOPY 3D + KHO KHUNG)
     // ============================================================
+    var nowWidgetUtc = new Date();
+    var vnWidgetTime = new Date(nowWidgetUtc.getTime() + 7 * 3600 * 1000 + nowWidgetUtc.getTimezoneOffset() * 60000);
+    var vnWidgetDay = vnWidgetTime.getDay(); // 0: Chủ Nhật, 1: Thứ 2 ... 6: Thứ 7
+    var baseFramesUrl = "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/frames/";
+
+    var dailyLoopyFrames = [
+        "chu_nhat.png", // Chủ Nhật rồi bạn iu ơi
+        "thu_2.png",    // Thứ 2 rồi bạn iu ơi
+        "thu_3.png",    // Thứ 3 rồi bạn iu ơi
+        "thu_4.png",    // Thứ 4 rồi bạn iu ơi
+        "thu_5.png",    // Thứ 5 rồi bạn iu ơi
+        "thu_6.png",    // Thứ 6 rồi bạn iu ơi
+        "thu_7.png"     // Thứ 7 rồi bạn iu ơi
+    ];
+
+    var frameCatalog = {
+        auto_daily: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
+        bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
+        hello_kitty: baseFramesUrl + "hello_kitty.png",
+        shin_chan: baseFramesUrl + "shin_chan.png",
+        doraemon: baseFramesUrl + "doraemon.png",
+        khung_ins: baseFramesUrl + "khung_ins.png"
+    };
+
+    // Mặc định "auto_daily" sẽ tự động đổi khung Loopy 3D theo từng thứ trong tuần (Thứ 2 -> Chủ Nhật)
+    var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "auto_daily";
+    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || frameCatalog.auto_daily;
+
     Object.assign(obj.entries, {
         widget_frame_event_max_images: "5",
         android_widget_frame_event_enabled: "true",
+        ios_widget_frame_event_enabled: "true",
+        widget_frame_event_enabled: "true",
         widget_badge_enabled: "true",
         widget_badge_v2: "true",
         widget_stale_state_enabled: "false",
@@ -262,10 +292,7 @@ if (ua.includes("Locket")) {
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
             uid: "midautumn_2026",
-            //url: "https://i.ibb.co/S74Rm5mm/khungsin.png",
-            url: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
-            // url: "https://i.ibb.co/RTm5P1n9/kitty-1.png",
-            // url: "https://i.ibb.co/JjLZ3cvD/khung-ins.png",
+            url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
             start_at: "2020-01-01T00:00:00",
