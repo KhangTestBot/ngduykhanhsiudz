@@ -9,7 +9,12 @@
 2. **Bảng thông báo Popup Chào Mừng Chính Chủ:** Khi xoá Locket tải lại và mở app, Locket tự động bật bảng thông báo chào mừng của **Bố Khánh**.
 3. **Quay Video 60s & Đăng Video Thư Viện 30s Có Tiếng:** Bật sẵn thu âm micro (`microphone_enabled`, `video_sound_enabled`), cam góc rộng, flash và bộ lọc Filter.
 4. **Khung Viền Tiện Ích (Widget Frame) Nền Trong Suốt:** Tích hợp trực tiếp vào `widget_frame_event`.
-5. **Bộ Hàng Trăm Khung Caption Tiếng Việt + Danh Mục Riêng:** Thêm mục `🎨 Decorative by Bố Khánh` cùng toàn bộ caption Tình yêu, Gen Z, Meme, Bất ổn, Deadline, Daily.
+5. **Caption Động Thông Minh Theo Thời Gian Thực (`⚡ Caption Động Thời Gian Thực • Bố Khánh`):**
+   - **Đồng hồ Live (`UTC+7`):** Tự động cập nhật Thứ, Ngày/Tháng và Giờ:Phút thực tế kèm nền kính mờ (`ultra_thin` blur) và icon `sf_symbol`.
+   - **Mood Tự Động Theo Khung Giờ:** Tự động đổi lời chúc, màu Gradient và biểu tượng theo 5 khung giờ trong ngày (Sáng sớm, Nghỉ trưa, Buổi chiều, Buổi tối, Hội cú đêm).
+   - **Bộ Đếm Ngược Tự Động (Countdown):** Tự động tính số ngày còn lại tới **Cuối tuần**, **Tết Nguyên Đán**, **Giáng Sinh**, và **Năm Mới**.
+   - **Thanh Tiến Độ Năm (`Year Progress`):** Hiển thị trực quan phần trăm năm đã trôi qua (`▓▓▓▓▓▓▓▓░░ 85%`).
+   - **Bộ Huy Hiệu Độc Quyền (`🎨 Decorative by Bố Khánh`):** `Bố Khánh 👑`, `Bố Khánh VIP ✨`, `Verified by Bố Khánh`, `Khánh Siu Dz 😎` cùng hàng trăm caption Tiếng Việt.
 6. **Hồ sơ DNS Giữ Gold (`BoKhanh_LocketGold.mobileconfig`):** Chặn thu hồi Locket Gold sau khi tắt VPN Shadowrocket, hiển thị tên **Bố Khánh** trong Cài đặt iPhone.
 
 ## 🔗 Danh sách Link Raw & Deep Link Cài Đặt Nhanh (1 Chạm)

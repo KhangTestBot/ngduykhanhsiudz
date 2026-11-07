@@ -412,6 +412,83 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     // ============================================================
     // 8. OVERLAY & CUSTOM CAPTIONS
     // ============================================================
+    var nowUtc = new Date();
+    var vnTime = new Date(nowUtc.getTime() + 7 * 3600 * 1000 + nowUtc.getTimezoneOffset() * 60000);
+    var vnHour = vnTime.getHours();
+    var vnMin = vnTime.getMinutes();
+    var vnDay = vnTime.getDay();
+    var vnDate = vnTime.getDate();
+    var vnMonth = vnTime.getMonth() + 1;
+    var vnYear = vnTime.getFullYear();
+    var pad2 = function(n) { return n < 10 ? "0" + n : "" + n; };
+    var dayNames = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+    var liveClockText = dayNames[vnDay] + ", " + pad2(vnDate) + "/" + pad2(vnMonth) + " • " + pad2(vnHour) + ":" + pad2(vnMin);
+
+    var sessionText = "Hội cú đêm cùng Bố Khánh 🦉";
+    var sessionColors = ["#0F172A", "#1E1B4B", "#312E81"];
+    var sessionTextColor = "#E0E7FF";
+    var sessionIcon = "moon.stars.fill";
+    if (vnHour >= 5 && vnHour < 10) {
+        sessionText = "Chào buổi sáng năng lượng ☀️";
+        sessionColors = ["#FF8008", "#FFC837"];
+        sessionTextColor = "#FFFFFF";
+        sessionIcon = "sun.max.fill";
+    } else if (vnHour >= 10 && vnHour < 14) {
+        sessionText = "Nghỉ trưa nạp năng lượng 🍱";
+        sessionColors = ["#11998E", "#38EF7D"];
+        sessionTextColor = "#FFFFFF";
+        sessionIcon = "cup.and.saucer.fill";
+    } else if (vnHour >= 14 && vnHour < 18) {
+        sessionText = "Chiều chill hết nấc ☕";
+        sessionColors = ["#FF512F", "#F09819"];
+        sessionTextColor = "#FFFFFF";
+        sessionIcon = "cloud.sun.fill";
+    } else if (vnHour >= 18 && vnHour < 22) {
+        sessionText = "Tối lên đồ đi cháy phố 🌃";
+        sessionColors = ["#8E2DE2", "#4A00E0"];
+        sessionTextColor = "#FFFFFF";
+        sessionIcon = "sparkles";
+    }
+
+    var daysUntil = function(targetDate) {
+        var diff = targetDate.getTime() - vnTime.getTime();
+        return Math.max(0, Math.ceil(diff / (1000 * 3600 * 24)));
+    };
+    var xmasTarget = new Date(vnYear, 11, 25);
+    if (vnMonth === 12 && vnDate > 25) xmasTarget = new Date(vnYear + 1, 11, 25);
+    var daysToXmas = daysUntil(xmasTarget);
+
+    var nextNewYear = new Date(vnYear + 1, 0, 1);
+    var daysToNewYear = daysUntil(nextNewYear);
+
+    var tetDates = [
+        new Date(2026, 1, 17),
+        new Date(2027, 1, 6),
+        new Date(2028, 0, 26),
+        new Date(2029, 1, 13)
+    ];
+    var nextTet = tetDates[tetDates.length - 1];
+    for (var ti = 0; ti < tetDates.length; ti++) {
+        if (tetDates[ti].getTime() >= vnTime.getTime() - 3 * 86400000) {
+            nextTet = tetDates[ti];
+            break;
+        }
+    }
+    var daysToTet = daysUntil(nextTet);
+    var tetText = daysToTet === 0 ? "Chúc Mừng Năm Mới 🧧" : ("Còn " + daysToTet + " ngày nữa là Tết 🧧");
+
+    var weekendText = (vnDay === 0 || vnDay === 6)
+        ? "Cuối tuần bung xõa thôi! 🎉"
+        : ("Còn " + (6 - vnDay) + " ngày nữa tới cuối tuần ⏳");
+
+    var startOfYear = new Date(vnYear, 0, 1);
+    var endOfYear = new Date(vnYear + 1, 0, 1);
+    var yearPercent = Math.min(100, Math.max(1, Math.round(((vnTime - startOfYear) / (endOfYear - startOfYear)) * 100)));
+    var filledBlocks = Math.round(yearPercent / 10);
+    var progressBar = "";
+    for (var bi = 0; bi < 10; bi++) progressBar += (bi < filledBlocks ? "▓" : "░");
+    var yearProgressText = vnYear + ": " + progressBar + " " + yearPercent + "%";
+
     Object.assign(obj.entries, {
         overlay_navigator_enabled: "true",
         overlays_v2_config: JSON.stringify({ suggestions_enabled: true }),
@@ -425,6 +502,18 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
             "good_morning", "goodnight", "ootd", "miss_you", "custom", "halloween_2026"
         ]),
         overlay_items: JSON.stringify([
+            {
+                section: "⚡ Caption Động Thời Gian Thực • Bố Khánh",
+                items: [
+                    { overlay_id: "caption:bk_live_clock", source: "remote", caption: { background: { colors: ["#1E293B", "#0F172A"], material_blur: "ultra_thin" }, icon: { data: "clock.fill", type: "sf_symbol", color: "#38BDF8" }, max_lines: 1, text: liveClockText, text_color: "#F8FAFC", type: "static_content" } },
+                    { overlay_id: "caption:bk_auto_session", source: "remote", caption: { background: { colors: sessionColors }, icon: { data: sessionIcon, type: "sf_symbol", color: sessionTextColor }, max_lines: 1, text: sessionText, text_color: sessionTextColor, type: "static_content" } },
+                    { overlay_id: "caption:bk_weekend_status", source: "remote", caption: { background: { colors: ["#6366F1", "#A855F7", "#EC4899"] }, icon: { data: "calendar.badge.clock", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: weekendText, text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:bk_countdown_tet", source: "remote", caption: { background: { colors: ["#DC2626", "#991B1B", "#F59E0B"] }, icon: { data: "sparkles", type: "sf_symbol", color: "#FEF08A" }, max_lines: 1, text: tetText, text_color: "#FEF08A", type: "static_content" } },
+                    { overlay_id: "caption:bk_countdown_xmas", source: "remote", caption: { background: { colors: ["#166534", "#15803D", "#DC2626"] }, icon: { data: "🎄", type: "emoji" }, max_lines: 1, text: "Còn " + daysToXmas + " ngày tới Giáng Sinh", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:bk_countdown_newyear", source: "remote", caption: { background: { colors: ["#1D4ED8", "#7E22CE", "#F43F5E"] }, icon: { data: "🥂", type: "emoji" }, max_lines: 1, text: "Đếm ngược " + daysToNewYear + " ngày sang " + (vnYear + 1), text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:bk_year_progress", source: "remote", caption: { background: { colors: ["#090D16", "#1E293B"], material_blur: "regular" }, icon: { data: "chart.bar.fill", type: "sf_symbol", color: "#4ADE80" }, max_lines: 1, text: yearProgressText, text_color: "#4ADE80", type: "static_content" } },
+                ]
+            },
             {
                 section: "🎨 General",
                 items: [
@@ -473,6 +562,10 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
                 items: [
                     { overlay_id: "caption:bokhanh", source: "remote", caption: { background: { colors: ["#B8E7FF", "#A8F5D0", "#DCCBFF"] }, icon: { data: "crown.fill", type: "sf_symbol", color: "#183153" }, max_lines: 1, text: "Bố Khánh 👑", text_color: "#183153", type: "static_content" } },
                     { overlay_id: "caption:bokhanh_vip", source: "remote", caption: { background: { colors: ["#FFE0A0", "#F59E0B", "#B45309"] }, icon: { data: "sparkles", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Bố Khánh VIP ✨", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:bokhanh_verified", source: "remote", caption: { background: { colors: ["#0EA5E9", "#2563EB", "#1D4ED8"], material_blur: "thin" }, icon: { data: "checkmark.seal.fill", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Verified by Bố Khánh", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:khanh_siu_dz", source: "remote", caption: { background: { colors: ["#F43F5E", "#FB923C", "#FACC15"] }, icon: { data: "flame.fill", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Khánh Siu Dz 😎", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:bk_morning_slot", source: "remote", daily_start_hour: 5, daily_end_hour: 11, caption: { background: { colors: ["#FF8008", "#FFC837"] }, icon: { data: "sun.and.horizon.fill", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Sáng sớm cùng Bố Khánh ☀️", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:bk_night_slot", source: "remote", daily_start_hour: 21, daily_end_hour: 5, caption: { background: { colors: ["#0F172A", "#312E81", "#581C87"] }, icon: { data: "moon.stars.fill", type: "sf_symbol", color: "#FDE047" }, max_lines: 1, text: "Đêm muộn tâm sự 🌙", text_color: "#F8FAFC", type: "static_content" } },
                     { overlay_id: "caption:cu", source: "remote", caption: { background: { colors: ["#FFD6A5", "#FFF1A8", "#FFC4D6"] }, max_lines: 1, text: "Cu 🐎", text_color: "#633B24", type: "static_content" } },
                     { overlay_id: "caption:tuat", source: "remote", caption: { background: { colors: ["#2C1A0E", "#5D4037", "#D7A86E"] }, icon: { data: "🐕", type: "emoji" }, max_lines: 1, text: "Tuất", text_color: "#FFFFFFE6", type: "static_content" } },
                     { overlay_id: "caption:snake_vibes", source: "remote", caption: { background: { colors: ["#2E7D32", "#66BB6A"] }, icon: { data: "🐍", type: "emoji" }, max_lines: 1, text: "Snake Vibes", localized_text: { en: "Snake Vibes", vn: "Chất rắn" }, text_color: "#FFFFFFE6", type: "static_content" } },
