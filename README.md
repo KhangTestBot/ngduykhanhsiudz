@@ -2,6 +2,7 @@
 
 * **Thương hiệu:** **Bố Khánh**
 * **GitHub:** [KhangTestBot/ngduykhanhsiudz](https://github.com/KhangTestBot/ngduykhanhsiudz)
+* **📸 Web App Chụp & Ghép Photobooth 4 Ảnh Chuẩn Locket:** [https://khangtestbot.github.io/ngduykhanhsiudz/](https://khangtestbot.github.io/ngduykhanhsiudz/)
 
 ## ✨ Tính năng tích hợp trong bản cập nhật này
 

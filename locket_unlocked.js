@@ -270,6 +270,7 @@ if (true) {
 
     var frameCatalog = {
         auto_daily: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
+        photobooth: baseFramesUrl + "photobooth.png",
         bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
         hello_kitty: baseFramesUrl + "hello_kitty.png",
         shin_chan: baseFramesUrl + "shin_chan.png",
@@ -463,6 +464,7 @@ if (true) {
             {
                 section: "⚡ Caption Động Thời Gian Thực",
                 items: [
+                    { overlay_id: "caption:bk_photobooth_tag", source: "remote", caption: { background: { colors: ["#FF6B9D", "#EC4899", "#F43F5E"], material_blur: "thin" }, icon: { data: "camera.viewfinder", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "📸 Photobooth 4 Cut • " + pad2(vnDate) + "/" + pad2(vnMonth), text_color: "#FFFFFF", type: "static_content" } },
                     { overlay_id: "caption:bk_live_clock", source: "remote", caption: { background: { colors: ["#1E293B", "#0F172A"], material_blur: "ultra_thin" }, icon: { data: "clock.fill", type: "sf_symbol", color: "#38BDF8" }, max_lines: 1, text: liveClockText, text_color: "#F8FAFC", type: "static_content" } },
                     { overlay_id: "caption:bk_auto_session", source: "remote", caption: { background: { colors: sessionColors }, icon: { data: sessionIcon, type: "sf_symbol", color: sessionTextColor }, max_lines: 1, text: sessionText, text_color: sessionTextColor, type: "static_content" } },
                     { overlay_id: "caption:bk_weekend_status", source: "remote", caption: { background: { colors: ["#6366F1", "#A855F7", "#EC4899"] }, icon: { data: "calendar.badge.clock", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: weekendText, text_color: "#FFFFFF", type: "static_content" } },
