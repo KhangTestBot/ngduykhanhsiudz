@@ -451,7 +451,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     var dayNames = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
     var liveClockText = dayNames[vnDay] + ", " + pad2(vnDate) + "/" + pad2(vnMonth) + " • " + pad2(vnHour) + ":" + pad2(vnMin);
 
-    var sessionText = "Hội cú đêm cùng Bố Khánh 🦉";
+    var sessionText = "Hội cú đêm thức khuya 🦉";
     var sessionColors = ["#0F172A", "#1E1B4B", "#312E81"];
     var sessionTextColor = "#E0E7FF";
     var sessionIcon = "moon.stars.fill";
@@ -530,7 +530,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
         ]),
         overlay_items: JSON.stringify([
             {
-                section: "⚡ Caption Động Thời Gian Thực • Bố Khánh",
+                section: "⚡ Caption Động Thời Gian Thực",
                 items: [
                     { overlay_id: "caption:bk_live_clock", source: "remote", caption: { background: { colors: ["#1E293B", "#0F172A"], material_blur: "ultra_thin" }, icon: { data: "clock.fill", type: "sf_symbol", color: "#38BDF8" }, max_lines: 1, text: liveClockText, text_color: "#F8FAFC", type: "static_content" } },
                     { overlay_id: "caption:bk_auto_session", source: "remote", caption: { background: { colors: sessionColors }, icon: { data: sessionIcon, type: "sf_symbol", color: sessionTextColor }, max_lines: 1, text: sessionText, text_color: sessionTextColor, type: "static_content" } },
@@ -585,13 +585,9 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
                 ]
             },
             {
-                section: "🎨 Decorative by Bố Khánh",
+                section: "🎨 Decorative VIP",
                 items: [
-                    { overlay_id: "caption:bokhanh", source: "remote", caption: { background: { colors: ["#B8E7FF", "#A8F5D0", "#DCCBFF"] }, icon: { data: "crown.fill", type: "sf_symbol", color: "#183153" }, max_lines: 1, text: "Bố Khánh 👑", text_color: "#183153", type: "static_content" } },
-                    { overlay_id: "caption:bokhanh_vip", source: "remote", caption: { background: { colors: ["#FFE0A0", "#F59E0B", "#B45309"] }, icon: { data: "sparkles", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Bố Khánh VIP ✨", text_color: "#FFFFFF", type: "static_content" } },
-                    { overlay_id: "caption:bokhanh_verified", source: "remote", caption: { background: { colors: ["#0EA5E9", "#2563EB", "#1D4ED8"], material_blur: "thin" }, icon: { data: "checkmark.seal.fill", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Verified by Bố Khánh", text_color: "#FFFFFF", type: "static_content" } },
-                    { overlay_id: "caption:khanh_siu_dz", source: "remote", caption: { background: { colors: ["#F43F5E", "#FB923C", "#FACC15"] }, icon: { data: "flame.fill", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Khánh Siu Dz 😎", text_color: "#FFFFFF", type: "static_content" } },
-                    { overlay_id: "caption:bk_morning_slot", source: "remote", daily_start_hour: 5, daily_end_hour: 11, caption: { background: { colors: ["#FF8008", "#FFC837"] }, icon: { data: "sun.and.horizon.fill", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Sáng sớm cùng Bố Khánh ☀️", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:bk_morning_slot", source: "remote", daily_start_hour: 5, daily_end_hour: 11, caption: { background: { colors: ["#FF8008", "#FFC837"] }, icon: { data: "sun.and.horizon.fill", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "Chào ngày mới rực rỡ ☀️", text_color: "#FFFFFF", type: "static_content" } },
                     { overlay_id: "caption:bk_night_slot", source: "remote", daily_start_hour: 21, daily_end_hour: 5, caption: { background: { colors: ["#0F172A", "#312E81", "#581C87"] }, icon: { data: "moon.stars.fill", type: "sf_symbol", color: "#FDE047" }, max_lines: 1, text: "Đêm muộn tâm sự 🌙", text_color: "#F8FAFC", type: "static_content" } },
                     { overlay_id: "caption:cu", source: "remote", caption: { background: { colors: ["#FFD6A5", "#FFF1A8", "#FFC4D6"] }, max_lines: 1, text: "Cu 🐎", text_color: "#633B24", type: "static_content" } },
                     { overlay_id: "caption:tuat", source: "remote", caption: { background: { colors: ["#2C1A0E", "#5D4037", "#D7A86E"] }, icon: { data: "🐕", type: "emoji" }, max_lines: 1, text: "Tuất", text_color: "#FFFFFFE6", type: "static_content" } },
