@@ -196,6 +196,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
             sheet_enabled: true,
             open_sheet_immediately: true,
             sheet_filters: [
+                { title: { en: "📸 Chụp Photobooth 4 Ô" }, filter_ids: ["okay_wig", "cutesy", "sticker_face", "flower_crown", "love_bug"] },
                 { title: { en: "Goofy" }, filter_ids: ["okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows"] },
                 { title: { en: "Looks" }, filter_ids: ["bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns", "tatted", "mohawk", "braces", "bye_brows"] },
                 { title: { en: "Celebrate" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] },
