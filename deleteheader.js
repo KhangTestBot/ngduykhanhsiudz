@@ -1,8 +1,11 @@
 /***********************************************
 > deleteHeader by Bố Khánh
 ***********************************************/
-const version = 'V1.0.4';
+const version = 'V1.0.3';
+function setHeaderValue(e,a,d){var r=a.toLowerCase();r in e?e[r]=d:e[a]=d}
 var modifiedHeaders = $request.headers || {};
+setHeaderValue(modifiedHeaders, "X-RevenueCat-ETag", "");
+setHeaderValue(modifiedHeaders, "If-None-Match", "");
 delete modifiedHeaders["X-RevenueCat-ETag"];
 delete modifiedHeaders["x-revenuecat-etag"];
 delete modifiedHeaders["If-None-Match"];

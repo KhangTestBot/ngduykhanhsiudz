@@ -6,12 +6,7 @@
 // ============================================================
 
 var ua = ($request.headers && ($request.headers["User-Agent"] || $request.headers["user-agent"])) || "";
-var obj = {};
-try {
-    obj = JSON.parse($response.body || "{}");
-} catch (e) {
-    obj = {};
-}
+var obj = JSON.parse($response.body || "{}");
 
 if (true) {
     obj.state = "UPDATE";
@@ -19,7 +14,7 @@ if (true) {
     obj.entries = obj.entries || {};
 
     // ============================================================
-    // 1. CẤU HÌNH GOLD, FEATURE GATES, PAYWALL & AI FILTERS ✨
+    // 1. CẤU HÌNH GOLD, FEATURE GATES & PAYWALL
     // ============================================================
     Object.assign(obj.entries, {
         feature_gates: JSON.stringify({
@@ -35,13 +30,7 @@ if (true) {
             remove_ads: "enabled",
             video: "enabled",
             custom_widget_frames: "enabled",
-            streak_recovery: "enabled",
-            ai_appearance: "enabled",
-            ai_styles: "enabled",
-            generative_ai: "enabled",
-            magic_editor: "enabled",
-            camera_filters: "enabled",
-            holiday_filters: "enabled"
+            streak_recovery: "enabled"
         }),
         upsell_features: JSON.stringify({
             app_icon_picker: true,
@@ -49,31 +38,8 @@ if (true) {
             camera_theme: true,
             locket_views: true,
             remove_ads: true,
-            custom_widget_frames: true,
-            ai_appearance: true,
-            generative_ai: true
+            custom_widget_frames: true
         }),
-        camera_filters_enabled: "true",
-        camera_filter_enabled: "true",
-        holiday_filters_enabled: "true",
-        ai_filters_enabled: "true",
-        ai_appearance_enabled: "true",
-        ai_styles_enabled: "true",
-        generative_ai_enabled: "true",
-        magic_editor_enabled: "true",
-        camera_filter_gold_only: "false",
-        camera_filters_gold_only: "false",
-        holiday_filters_gold_only: "false",
-        filter_paywall_enabled: "false",
-        camera_filter_paywall_enabled: "false",
-        filter_upsell_enabled: "false",
-        require_gold_for_filters: "false",
-        free_filters_enabled: "true",
-        camera_filter_sheet_selection_enabled: "true",
-        sheet_filters_selectable: "true",
-        dismiss_filter_sheet_on_select: "true",
-        camera_filter_max_count: "50",
-        max_camera_filters: "50",
         paywall_presentation_config: JSON.stringify({
             uid: "paywall_testflight",
             onboarding: false,
@@ -95,16 +61,14 @@ if (true) {
                 }
             ],
             primary_button_title: "Xong",
-            campaign: "locket_gold_welcome_v8",
+            campaign: "locket_gold_welcome_v3",
             start_at: "2020-01-01T00:00:00",
             end_at: "2099-12-31T23:59:59",
             use_local_time_zone: true
         }),
         android_subscribe_gold_button_enabled: "false",
         profile_badge_visible: "true",
-        lunar_new_year_app_icon_enabled: "true",
-        settings_instagram_url: "https://khangtestbot.github.io/ngduykhanhsiudz/",
-        settings_tiktok_url: "https://khangtestbot.github.io/ngduykhanhsiudz/"
+        lunar_new_year_app_icon_enabled: "true"
     });
 
     // ============================================================
@@ -175,7 +139,6 @@ if (true) {
             sheet_enabled: true,
             open_sheet_immediately: true,
             sheet_filters: [
-                { title: { en: "📸 Photobooth & Khung VIP" }, filter_ids: ["okay_wig", "cutesy", "sticker_face", "flower_crown", "love_bug"] },
                 { title: { en: "Goofy" }, filter_ids: ["okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows"] },
                 { title: { en: "Looks" }, filter_ids: ["bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns", "tatted", "mohawk", "braces", "bye_brows"] },
                 { title: { en: "Celebrate" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] },
@@ -293,7 +256,7 @@ if (true) {
     var nowWidgetUtc = new Date();
     var vnWidgetTime = new Date(nowWidgetUtc.getTime() + 7 * 3600 * 1000 + nowWidgetUtc.getTimezoneOffset() * 60000);
     var vnWidgetDay = vnWidgetTime.getDay(); // 0: Chủ Nhật, 1: Thứ 2 ... 6: Thứ 7
-    var baseFramesUrl = "https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/frames/";
+    var baseFramesUrl = "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/frames/";
 
     var dailyLoopyFrames = [
         "chu_nhat.png", // Chủ Nhật rồi bạn iu ơi
@@ -307,7 +270,6 @@ if (true) {
 
     var frameCatalog = {
         auto_daily: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
-        photobooth: baseFramesUrl + "photobooth.png",
         bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
         hello_kitty: baseFramesUrl + "hello_kitty.png",
         shin_chan: baseFramesUrl + "shin_chan.png",
@@ -320,19 +282,17 @@ if (true) {
     var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || frameCatalog.auto_daily;
 
     Object.assign(obj.entries, {
-        widget_frame_event_max_images: "10",
+        widget_frame_event_max_images: "5",
         android_widget_frame_event_enabled: "true",
         ios_widget_frame_event_enabled: "true",
         widget_frame_event_enabled: "true",
-        custom_widget_frames: "enabled",
-        custom_widget_frames_enabled: "true",
         widget_badge_enabled: "true",
         widget_badge_v2: "true",
         widget_stale_state_enabled: "false",
         widget_last_sent_indicator: "false",
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
-            uid: "bokhanh_v5_day_" + vnWidgetDay,
+            uid: "midautumn_2026",
             url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
@@ -503,7 +463,6 @@ if (true) {
             {
                 section: "⚡ Caption Động Thời Gian Thực",
                 items: [
-                    { overlay_id: "caption:bk_photobooth_tag", source: "remote", caption: { background: { colors: ["#FF6B9D", "#EC4899", "#F43F5E"], material_blur: "thin" }, icon: { data: "camera.viewfinder", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "📸 Photobooth 4 Cut • " + pad2(vnDate) + "/" + pad2(vnMonth), text_color: "#FFFFFF", type: "static_content" } },
                     { overlay_id: "caption:bk_live_clock", source: "remote", caption: { background: { colors: ["#1E293B", "#0F172A"], material_blur: "ultra_thin" }, icon: { data: "clock.fill", type: "sf_symbol", color: "#38BDF8" }, max_lines: 1, text: liveClockText, text_color: "#F8FAFC", type: "static_content" } },
                     { overlay_id: "caption:bk_auto_session", source: "remote", caption: { background: { colors: sessionColors }, icon: { data: sessionIcon, type: "sf_symbol", color: sessionTextColor }, max_lines: 1, text: sessionText, text_color: sessionTextColor, type: "static_content" } },
                     { overlay_id: "caption:bk_weekend_status", source: "remote", caption: { background: { colors: ["#6366F1", "#A855F7", "#EC4899"] }, icon: { data: "calendar.badge.clock", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: weekendText, text_color: "#FFFFFF", type: "static_content" } },
@@ -822,8 +781,4 @@ if (true) {
     });
 }
 
-$done({
-    status: 200,
-    headers: $response.headers,
-    body: JSON.stringify(obj)
-});
+$done({ body: JSON.stringify(obj) });

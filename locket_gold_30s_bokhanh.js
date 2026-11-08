@@ -54,17 +54,9 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
 
     var goldProduct = "locket_1600_1y";
     obj.subscriber.subscriptions[goldProduct] = makeSub(goldProduct, 399000.0, "VND");
-    obj.subscriber.subscriptions["locket_gold_yearly"] = makeSub("locket_gold_yearly", 399000.0, "VND");
     obj.subscriber.entitlements["Gold"] = makeEnt(goldProduct);
-    obj.subscriber.entitlements["gold"] = makeEnt(goldProduct);
-    obj.subscriber.entitlements["pro"] = makeEnt(goldProduct);
-    obj.subscriber.entitlements["locket_gold"] = makeEnt(goldProduct);
 
-    $done({
-        status: 200,
-        headers: $response.headers,
-        body: JSON.stringify(obj)
-    });
+    $done({ body: JSON.stringify(obj) });
 } else {
     // 2. NẾU LÀ FIREBASE REMOTE CONFIG -> BƠM TRỌN BỘ TÍNH NĂNG (GIỐNG HỆT Locket_Unlocked.js)
     if (true) {
@@ -133,9 +125,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
         }),
         android_subscribe_gold_button_enabled: "false",
         profile_badge_visible: "true",
-        lunar_new_year_app_icon_enabled: "true",
-        settings_instagram_url: "https://khangtestbot.github.io/ngduykhanhsiudz/",
-        settings_tiktok_url: "https://khangtestbot.github.io/ngduykhanhsiudz/"
+        lunar_new_year_app_icon_enabled: "true"
     });
 
     // ============================================================
@@ -206,7 +196,6 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
             sheet_enabled: true,
             open_sheet_immediately: true,
             sheet_filters: [
-                { title: { en: "📸 Photobooth & Khung VIP" }, filter_ids: ["okay_wig", "cutesy", "sticker_face", "flower_crown", "love_bug"] },
                 { title: { en: "Goofy" }, filter_ids: ["okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows"] },
                 { title: { en: "Looks" }, filter_ids: ["bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns", "tatted", "mohawk", "braces", "bye_brows"] },
                 { title: { en: "Celebrate" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] },
@@ -340,7 +329,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     var nowWidgetUtc = new Date();
     var vnWidgetTime = new Date(nowWidgetUtc.getTime() + 7 * 3600 * 1000 + nowWidgetUtc.getTimezoneOffset() * 60000);
     var vnWidgetDay = vnWidgetTime.getDay();
-    var baseFramesUrl = "https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/frames/";
+    var baseFramesUrl = "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/frames/";
 
     var dailyLoopyFrames = [
         "chu_nhat.png",
@@ -354,7 +343,6 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
 
     var frameCatalog = {
         auto_daily: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
-        photobooth: baseFramesUrl + "photobooth.png",
         bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
         hello_kitty: baseFramesUrl + "hello_kitty.png",
         shin_chan: baseFramesUrl + "shin_chan.png",
@@ -366,19 +354,17 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || frameCatalog.auto_daily;
 
     Object.assign(obj.entries, {
-        widget_frame_event_max_images: "10",
+        widget_frame_event_max_images: "5",
         android_widget_frame_event_enabled: "true",
         ios_widget_frame_event_enabled: "true",
         widget_frame_event_enabled: "true",
-        custom_widget_frames: "enabled",
-        custom_widget_frames_enabled: "true",
         widget_badge_enabled: "true",
         widget_badge_v2: "true",
         widget_stale_state_enabled: "false",
         widget_last_sent_indicator: "false",
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
-            uid: "bokhanh_v5_day_" + vnWidgetDay,
+            uid: "midautumn_2026",
             url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
@@ -546,7 +532,6 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
             {
                 section: "⚡ Caption Động Thời Gian Thực",
                 items: [
-                    { overlay_id: "caption:bk_photobooth_tag", source: "remote", caption: { background: { colors: ["#FF6B9D", "#EC4899", "#F43F5E"], material_blur: "thin" }, icon: { data: "camera.viewfinder", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: "📸 Photobooth 4 Cut • " + pad2(vnDate) + "/" + pad2(vnMonth), text_color: "#FFFFFF", type: "static_content" } },
                     { overlay_id: "caption:bk_live_clock", source: "remote", caption: { background: { colors: ["#1E293B", "#0F172A"], material_blur: "ultra_thin" }, icon: { data: "clock.fill", type: "sf_symbol", color: "#38BDF8" }, max_lines: 1, text: liveClockText, text_color: "#F8FAFC", type: "static_content" } },
                     { overlay_id: "caption:bk_auto_session", source: "remote", caption: { background: { colors: sessionColors }, icon: { data: sessionIcon, type: "sf_symbol", color: sessionTextColor }, max_lines: 1, text: sessionText, text_color: sessionTextColor, type: "static_content" } },
                     { overlay_id: "caption:bk_weekend_status", source: "remote", caption: { background: { colors: ["#6366F1", "#A855F7", "#EC4899"] }, icon: { data: "calendar.badge.clock", type: "sf_symbol", color: "#FFFFFF" }, max_lines: 1, text: weekendText, text_color: "#FFFFFF", type: "static_content" } },
@@ -865,9 +850,5 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     });
 }
 
-$done({
-    status: 200,
-    headers: $response.headers,
-    body: JSON.stringify(obj)
-});
+$done({ body: JSON.stringify(obj) });
 }
