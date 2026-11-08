@@ -342,7 +342,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     ];
 
     var frameCatalog = {
-        loopy_3d: "https://iili.io/nDYZGe9.png",
+        loopy_3d: "https://i.ibb.co/yc4xW9Xh/Code-Generated-Image.png",
         loopy_vip: "https://iili.io/nDYbi1j.png",
         loopy_chu_nhat: "https://iili.io/nDYm1Eb.png",
         loopy_thu: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
@@ -354,7 +354,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     };
 
     var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "loopy_3d";
-    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://iili.io/nDYZGe9.png";
+    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://i.ibb.co/yc4xW9Xh/Code-Generated-Image.png";
 
     Object.assign(obj.entries, {
         widget_frame_event_max_images: "5",
