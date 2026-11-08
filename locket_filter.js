@@ -52,9 +52,24 @@ function applyGoldBadge(target) {
 var reqUrl = (typeof $request !== "undefined" && $request && $request.url) ? String($request.url) : "";
 
 // =========================================================================
-// 0. CẦU NỐI TỰ ĐỘNG CHO WEB PHOTOBOOTH (ĐĂNG THẲNG 4 ẢNH LÊN LOCKET)
+// 0. CẦU NỐI TỰ ĐỘNG CHO WEB PHOTOBOOTH & PROFILE GOLD
 // =========================================================================
-if (reqUrl.indexOf("/bokhanh-photobooth-bridge") !== -1) {
+if (reqUrl.indexOf("/changeProfileInfo") !== -1) {
+    $done({
+        response: {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify({
+                data: { badge: "locket_gold", badge_tier: "gold", is_gold: true, success: true },
+                result: { badge: "locket_gold", badge_tier: "gold", is_gold: true, success: true }
+            })
+        }
+    });
+}
+else if (reqUrl.indexOf("/bokhanh-photobooth-bridge") !== -1) {
     var savedToken = (typeof $persistentStore !== "undefined") ? ($persistentStore.read(AUTH_TOKEN_KEY) || "") : "";
     var savedUid = (typeof $persistentStore !== "undefined") ? ($persistentStore.read(SELF_UID_KEY) || "") : "";
     var savedUsername = (typeof $persistentStore !== "undefined") ? ($persistentStore.read(SELF_USERNAME_KEY) || "") : "";
