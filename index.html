@@ -509,6 +509,33 @@
           <span class="pin-card-name">Vườn Hoa Lily Hồng</span>
           <span class="pin-card-tag">Botanical</span>
         </div>
+
+        <!-- Pin 11: Chiikawa Hachiware -->
+        <div class="pin-card" data-style="chiikawa_hachiware" onclick="selectStyle('chiikawa_hachiware')">
+          <div class="pin-preview-thumb" style="background:#e0f2fe; border: 2px solid #60a5fa;">
+            <span>🐱🍜</span>
+          </div>
+          <span class="pin-card-name">Chiikawa Hachiware</span>
+          <span class="pin-card-tag">Mèo Tai Xanh</span>
+        </div>
+
+        <!-- Pin 12: Chiikawa Momonga -->
+        <div class="pin-card" data-style="chiikawa_momonga" onclick="selectStyle('chiikawa_momonga')">
+          <div class="pin-preview-thumb" style="background:#eff6ff; border: 2px solid #818cf8;">
+            <span>🐿️👑</span>
+          </div>
+          <span class="pin-card-name">Chiikawa Momonga</span>
+          <span class="pin-card-tag">Sóc Bay Kiêu Kỳ</span>
+        </div>
+
+        <!-- Pin 13: Zanmang Loopy Hồng -->
+        <div class="pin-card" data-style="loopy_pink_cutie" onclick="selectStyle('loopy_pink_cutie')">
+          <div class="pin-preview-thumb" style="background:#fdf2f8; border: 2px solid #f472b6;">
+            <span>🎀🍓</span>
+          </div>
+          <span class="pin-card-name">Zanmang Loopy Hồng</span>
+          <span class="pin-card-tag">Hải Ly Đáng Yêu</span>
+        </div>
       </div>
 
       <!-- Preview Canvas -->
@@ -1163,6 +1190,416 @@
       ctx.restore();
     }
 
+    // ==========================================
+    // CÁC HÀM VẼ CHO 3 KHUNG MỚI: CHIIKAWA & LOOPY
+    // ==========================================
+
+    function drawPastelGingham(ctx, w, h, base = '#f0f9ff', stripe = 'rgba(147, 197, 253, 0.42)', sz = 40) {
+      ctx.save();
+      ctx.fillStyle = base; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = stripe;
+      for (let x = 0; x < w; x += sz * 2) ctx.fillRect(x, 0, sz, h);
+      for (let y = 0; y < h; y += sz * 2) ctx.fillRect(0, y, w, sz);
+      ctx.restore();
+    }
+
+    function drawDiamondPlaid(ctx, w, h, base = '#eff6ff', gridColor = 'rgba(147, 197, 253, 0.48)', sz = 50) {
+      ctx.save();
+      ctx.fillStyle = base; ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = gridColor; ctx.lineWidth = 14;
+      for (let i = -h; i < w + h; i += sz * 2) {
+        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + h, h); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(i, h); ctx.lineTo(i + h, 0); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawPinkGingham(ctx, w, h, base = '#fdf2f8', stripe = 'rgba(244, 114, 182, 0.38)', sz = 40) {
+      ctx.save();
+      ctx.fillStyle = base; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = stripe;
+      for (let x = 0; x < w; x += sz * 2) ctx.fillRect(x, 0, sz, h);
+      for (let y = 0; y < h; y += sz * 2) ctx.fillRect(0, y, w, sz);
+      ctx.restore();
+    }
+
+    // Hachiware Face Path
+    function createHachiwareFacePath(ctx, cx, cy, rw, rh) {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + rh);
+      ctx.bezierCurveTo(cx + rw * 0.45, cy + rh, cx + rw * 0.95, cy + rh * 0.65, cx + rw, cy + rh * 0.18);
+      ctx.bezierCurveTo(cx + rw * 1.02, cy - rh * 0.2, cx + rw * 0.85, cy - rh * 0.45, cx + rw * 0.65, cy - rh * 0.58);
+      ctx.bezierCurveTo(cx + rw * 0.62, cy - rh * 0.78, cx + rw * 0.54, cy - rh * 0.98, cx + rw * 0.38, cy - rh);
+      ctx.bezierCurveTo(cx + rw * 0.26, cy - rh * 0.88, cx + rw * 0.14, cy - rh * 0.65, cx, cy - rh * 0.52);
+      ctx.bezierCurveTo(cx - rw * 0.14, cy - rh * 0.65, cx - rw * 0.26, cy - rh * 0.88, cx - rw * 0.38, cy - rh);
+      ctx.bezierCurveTo(cx - rw * 0.54, cy - rh * 0.98, cx - rw * 0.62, cy - rh * 0.78, cx - rw * 0.65, cy - rh * 0.58);
+      ctx.bezierCurveTo(cx - rw * 0.85, cy - rh * 0.45, cx - rw * 1.02, cy - rh * 0.2, cx - rw, cy + rh * 0.18);
+      ctx.bezierCurveTo(cx - rw * 0.95, cy + rh * 0.65, cx - rw * 0.45, cy + rh, cx, cy + rh);
+      ctx.closePath();
+    }
+
+    function drawSleepingHachiware(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.ellipse(0, 10, 42, 24, -0.1, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(-22, 0, 22, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#93c5fd';
+      ctx.beginPath();
+      ctx.moveTo(-38, -6); ctx.lineTo(-34, -22); ctx.lineTo(-24, -12); ctx.lineTo(-14, -20); ctx.lineTo(-8, -4);
+      ctx.quadraticCurveTo(-22, -8, -38, -6); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(-28, 4, 4, Math.PI * 0.1, Math.PI * 0.9);
+      ctx.arc(-18, 4, 4, Math.PI * 0.1, Math.PI * 0.9);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(251, 113, 133, 0.6)';
+      ctx.beginPath(); ctx.arc(-32, 8, 4, 0, Math.PI * 2); ctx.arc(-14, 8, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(34, 16); ctx.quadraticCurveTo(46, 2, 40, -6); ctx.stroke();
+      ctx.fillStyle = '#93c5fd';
+      ctx.font = "bold 16px 'Baloo 2', sans-serif"; ctx.fillText("z", -40, -18);
+      ctx.font = "bold 20px 'Baloo 2', sans-serif"; ctx.fillText("Z", -48, -30);
+      ctx.restore();
+    }
+
+    function drawVintageCamera(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      roundRect(ctx, -42, -26, 88, 62, 12); ctx.fill();
+      ctx.fillStyle = '#334155'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      roundRect(ctx, -45, -28, 90, 60, 12); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#64748b'; roundRect(ctx, -30, -36, 22, 10, 4); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(22, -32, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#0f172a'; ctx.beginPath(); ctx.arc(0, 2, 20, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 3; ctx.stroke();
+      ctx.fillStyle = '#38bdf8'; ctx.beginPath(); ctx.arc(-6, -4, 6, 0, Math.PI * 2); ctx.fill();
+      drawCyberStar(ctx, -20, -42, 14, '#facc15');
+      drawCyberStar(ctx, 42, -10, 10, '#facc15');
+      ctx.restore();
+    }
+
+    function drawMiniPolaroidFrame(ctx, cx, cy, w, h, img) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(-0.08);
+      ctx.fillStyle = 'rgba(0,0,0,0.14)';
+      roundRect(ctx, -w/2 + 6, -h/2 + 6, w, h, 12); ctx.fill();
+      ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      roundRect(ctx, -w/2, -h/2, w, h, 12); ctx.fill(); ctx.stroke();
+      const pad = 10, botPad = 26;
+      const pw = w - pad * 2, ph = h - pad - botPad;
+      const px = -w/2 + pad, py = -h/2 + pad;
+      ctx.save();
+      roundRect(ctx, px, py, pw, ph, 8);
+      ctx.clip();
+      if (img) {
+        drawCoverImage(ctx, img, px, py, pw, ph, 0.38);
+      } else {
+        ctx.fillStyle = '#f0f9ff'; ctx.fillRect(px, py, pw, ph);
+        ctx.fillStyle = '#93c5fd'; ctx.font = "bold 26px sans-serif"; ctx.textAlign = 'center';
+        ctx.fillText("🐱🐰🐹", 0, py + ph / 2 + 8);
+      }
+      ctx.restore();
+      drawWashi(ctx, -25, -h/2 - 6, 50, 16, 8, 'rgba(253, 224, 71, 0.85)');
+      ctx.restore();
+    }
+
+    function drawRamenHachiware(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.ellipse(0, 20, 36, 32, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, -22, 34, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#93c5fd';
+      ctx.beginPath();
+      ctx.moveTo(-28, -28); ctx.lineTo(-24, -54); ctx.lineTo(-10, -42); ctx.lineTo(0, -32);
+      ctx.lineTo(10, -42); ctx.lineTo(24, -54); ctx.lineTo(28, -28);
+      ctx.quadraticCurveTo(0, -18, -28, -28); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(-14, -22, 6, Math.PI * 1.1, Math.PI * 1.9);
+      ctx.arc(14, -22, 6, Math.PI * 1.1, Math.PI * 1.9);
+      ctx.stroke();
+      ctx.fillStyle = '#fb7185';
+      ctx.beginPath(); ctx.ellipse(-20, -14, 7, 4, 0, 0, Math.PI * 2); ctx.ellipse(20, -14, 7, 4, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(0, -12, 8, 0, Math.PI); ctx.fill();
+      ctx.translate(0, 34);
+      ctx.fillStyle = '#78350f'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.ellipse(0, 0, 42, 18, 0, 0, Math.PI); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#facc15'; ctx.beginPath(); ctx.ellipse(0, 0, 38, 14, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(-10, -2, 12, 9, -0.2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.arc(-10, -2, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#14532d'; roundRect(ctx, 10, -10, 16, 14, 2); ctx.fill();
+      ctx.strokeStyle = '#d97706'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(18, -14); ctx.lineTo(38, -26); ctx.moveTo(18, -10); ctx.lineTo(38, -22); ctx.stroke();
+      ctx.fillStyle = '#f43f5e'; ctx.font = "24px sans-serif"; ctx.fillText("♡", 38, -75);
+      ctx.restore();
+    }
+
+    function drawHeroHachiware(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#f8fafc'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-16, 10); ctx.quadraticCurveTo(-45, 25, -40, 55); ctx.quadraticCurveTo(-20, 50, 0, 45);
+      ctx.quadraticCurveTo(20, 50, 40, 55); ctx.quadraticCurveTo(45, 25, 16, 10); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.ellipse(0, 20, 34, 30, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, -22, 34, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#93c5fd';
+      ctx.beginPath();
+      ctx.moveTo(-28, -28); ctx.lineTo(-24, -54); ctx.lineTo(-10, -42); ctx.lineTo(0, -32);
+      ctx.lineTo(10, -42); ctx.lineTo(24, -54); ctx.lineTo(28, -28);
+      ctx.quadraticCurveTo(0, -18, -28, -28); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#1e3a8a';
+      ctx.beginPath(); ctx.arc(-12, -22, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(12, -22, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(-18, -30); ctx.lineTo(-8, -28); ctx.moveTo(18, -30); ctx.lineTo(8, -28); ctx.stroke();
+      ctx.fillStyle = '#fb7185';
+      ctx.beginPath(); ctx.ellipse(-18, -14, 6, 3.5, 0, 0, Math.PI * 2); ctx.ellipse(18, -14, 6, 3.5, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(0, -14, 5, 0.2, Math.PI * 0.8); ctx.stroke();
+      ctx.save();
+      ctx.translate(-38, 5); ctx.rotate(-0.3);
+      ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = 5;
+      ctx.beginPath(); ctx.moveTo(0, -45); ctx.lineTo(0, 45); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-14, -62); ctx.quadraticCurveTo(-14, -45, 0, -45); ctx.quadraticCurveTo(14, -45, 14, -62);
+      ctx.stroke();
+      ctx.restore();
+      ctx.restore();
+    }
+
+    // Momonga Head Path
+    function createMomongaHeadPath(ctx, cx, cy, rw, rh) {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + rh);
+      ctx.bezierCurveTo(cx + rw * 0.5, cy + rh, cx + rw * 0.85, cy + rh * 0.7, cx + rw * 0.88, cy + rh * 0.3);
+      ctx.lineTo(cx + rw * 0.98, cy + rh * 0.25); ctx.lineTo(cx + rw * 0.88, cy + rh * 0.18);
+      ctx.lineTo(cx + rw * 1.0, cy + rh * 0.12); ctx.lineTo(cx + rw * 0.86, cy + rh * 0.05);
+      ctx.lineTo(cx + rw * 0.96, cy - rh * 0.02); ctx.lineTo(cx + rw * 0.8, cy - rh * 0.12);
+      ctx.bezierCurveTo(cx + rw * 0.75, cy - rh * 0.28, cx + rw * 0.65, cy - rh * 0.45, cx + rw * 0.55, cy - rh * 0.55);
+      ctx.bezierCurveTo(cx + rw * 0.85, cy - rh * 0.75, cx + rw * 0.75, cy - rh * 1.05, cx + rw * 0.42, cy - rh);
+      ctx.bezierCurveTo(cx + rw * 0.28, cy - rh * 0.95, cx + rw * 0.2, cy - rh * 0.75, cx + rw * 0.15, cy - rh * 0.62);
+      ctx.bezierCurveTo(cx + rw * 0.08, cy - rh * 0.64, cx - rw * 0.08, cy - rh * 0.64, cx - rw * 0.15, cy - rh * 0.62);
+      ctx.bezierCurveTo(cx - rw * 0.2, cy - rh * 0.75, cx - rw * 0.28, cy - rh * 0.95, cx - rw * 0.42, cy - rh);
+      ctx.bezierCurveTo(cx - rw * 0.75, cy - rh * 1.05, cx - rw * 0.85, cy - rh * 0.75, cx - rw * 0.55, cy - rh * 0.55);
+      ctx.bezierCurveTo(cx - rw * 0.65, cy - rh * 0.45, cx - rw * 0.75, cy - rh * 0.28, cx - rw * 0.8, cy - rh * 0.12);
+      ctx.lineTo(cx - rw * 0.96, cy - rh * 0.02); ctx.lineTo(cx - rw * 0.86, cy + rh * 0.05);
+      ctx.lineTo(cx - rw * 1.0, cy + rh * 0.12); ctx.lineTo(cx - rw * 0.88, cy + rh * 0.18);
+      ctx.lineTo(cx - rw * 0.98, cy + rh * 0.25); ctx.lineTo(cx - rw * 0.88, cy + rh * 0.3);
+      ctx.bezierCurveTo(cx - rw * 0.85, cy + rh * 0.7, cx - rw * 0.5, cy + rh, cx, cy + rh);
+      ctx.closePath();
+    }
+
+    function drawGoldenCrown(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#fde047'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(-24, 14); ctx.lineTo(-28, -14); ctx.lineTo(-12, -2); ctx.lineTo(0, -22);
+      ctx.lineTo(12, -2); ctx.lineTo(28, -14); ctx.lineTo(24, 14); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(0, 2, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 2.5; ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.arc(0, 24, 20, Math.PI * 0.2, Math.PI * 0.8); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawTunaCan(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#93c5fd'; ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 3.5;
+      roundRect(ctx, -28, -12, 56, 32, 8); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#fed7aa'; ctx.beginPath(); ctx.ellipse(0, -12, 26, 10, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#e2e8f0'; ctx.beginPath(); ctx.ellipse(12, -24, 18, 10, -0.4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#64748b'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-6, -10); ctx.lineTo(-24, -34); ctx.stroke();
+      ctx.fillStyle = '#cbd5e1'; ctx.beginPath(); ctx.ellipse(-26, -36, 6, 9, -0.6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawMomongaCharacter(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#93c5fd'; ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(-20, 25); ctx.bezierCurveTo(-55, 30, -85, 0, -80, -35); ctx.bezierCurveTo(-75, -70, -40, -85, -20, -70);
+      ctx.bezierCurveTo(-5, -55, -15, -30, -5, 5); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(-55, -40, 16, Math.PI * 0.8, Math.PI * 1.8);
+      ctx.arc(-35, -55, 14, Math.PI * 0.8, Math.PI * 1.8);
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.ellipse(0, 15, 34, 30, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, -22, 34, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(-26, -48, 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(26, -48, 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#bfdbfe';
+      ctx.beginPath(); ctx.arc(-26, -48, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(26, -48, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-32, -18); ctx.lineTo(-42, -18); ctx.moveTo(-30, -12); ctx.lineTo(-44, -10);
+      ctx.moveTo(32, -18); ctx.lineTo(42, -18); ctx.moveTo(30, -12); ctx.lineTo(44, -10);
+      ctx.stroke();
+      ctx.fillStyle = '#3b82f6';
+      ctx.beginPath(); ctx.arc(-12, -22, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(12, -22, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(-14, -24, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(10, -24, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fb7185';
+      ctx.beginPath(); ctx.ellipse(-18, -12, 6, 3.5, 0, 0, Math.PI * 2); ctx.ellipse(18, -12, 6, 3.5, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(0, -12, 4, 0.1, Math.PI * 0.9); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawFluffyFriend(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      const bumps = 8;
+      for (let i = 0; i < bumps; i++) {
+        const angle = (i / bumps) * Math.PI * 2;
+        const bx = Math.cos(angle) * 32, by = Math.sin(angle) * 32;
+        ctx.arc(bx, by, 14, 0, Math.PI * 2);
+      }
+      ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, 0, 32, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath();
+      for (let p = 0; p < 5; p++) {
+        const pa = (p / 5) * Math.PI * 2;
+        ctx.arc(22 + Math.cos(pa) * 8, -24 + Math.sin(pa) * 8, 5, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      ctx.fillStyle = '#fde047'; ctx.beginPath(); ctx.arc(22, -24, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#1e3a8a';
+      ctx.beginPath(); ctx.arc(-10, -4, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(10, -4, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(-11, -5, 1.8, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(9, -5, 1.8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fb7185';
+      ctx.beginPath(); ctx.ellipse(-15, 4, 5, 3, 0, 0, Math.PI * 2); ctx.ellipse(15, 4, 5, 3, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+
+    // Loopy Head Path
+    function createLoopyHeadPath(ctx, cx, cy, rw, rh) {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + rh);
+      ctx.bezierCurveTo(cx + rw * 0.55, cy + rh, cx + rw * 1.02, cy + rh * 0.68, cx + rw, cy + rh * 0.2);
+      ctx.bezierCurveTo(cx + rw * 0.98, cy - rh * 0.22, cx + rw * 0.75, cy - rh * 0.45, cx + rw * 0.55, cy - rh * 0.58);
+      ctx.bezierCurveTo(cx + rw * 0.72, cy - rh * 0.82, cx + rw * 0.55, cy - rh * 1.02, cx + rw * 0.35, cy - rh * 0.88);
+      ctx.bezierCurveTo(cx + rw * 0.26, cy - rh * 0.8, cx + rw * 0.22, cy - rh * 0.68, cx + rw * 0.2, cy - rh * 0.62);
+      ctx.bezierCurveTo(cx + rw * 0.1, cy - rh * 0.66, cx - rw * 0.1, cy - rh * 0.66, cx - rw * 0.2, cy - rh * 0.62);
+      ctx.bezierCurveTo(cx - rw * 0.22, cy - rh * 0.68, cx - rw * 0.26, cy - rh * 0.8, cx - rw * 0.35, cy - rh * 0.88);
+      ctx.bezierCurveTo(cx - rw * 0.55, cy - rh * 1.02, cx - rw * 0.72, cy - rh * 0.82, cx - rw * 0.55, cy - rh * 0.58);
+      ctx.bezierCurveTo(cx - rw * 0.75, cy - rh * 0.45, cx - rw * 0.98, cy - rh * 0.22, cx - rw, cy + rh * 0.2);
+      ctx.bezierCurveTo(cx - rw * 1.02, cy + rh * 0.68, cx - rw * 0.55, cy + rh, cx, cy + rh);
+      ctx.closePath();
+    }
+
+    function drawPinkBow(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#f472b6'; ctx.strokeStyle = '#db2777'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(-26, -20, -32, 10, 0, 4); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(26, -20, 32, 10, 0, 4); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#fb7185'; ctx.beginPath(); ctx.arc(0, 2, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(-4, 8); ctx.quadraticCurveTo(-14, 22, -20, 26);
+      ctx.moveTo(4, 8); ctx.quadraticCurveTo(14, 22, 20, 26); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawStrawberryDrink(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#fce7f3'; ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.moveTo(-22, -18); ctx.lineTo(-16, 28); ctx.quadraticCurveTo(0, 34, 16, 28); ctx.lineTo(22, -18); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath(); ctx.moveTo(-20, -6); ctx.lineTo(-16, 26); ctx.quadraticCurveTo(0, 32, 16, 26); ctx.lineTo(20, -6); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(0, -18, 22, Math.PI, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(14, -28, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#fb7185'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(-6, -16); ctx.lineTo(-12, -42); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawCakeLoopy(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#fbcfe8'; ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.ellipse(0, 22, 36, 32, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, -22, 34, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath(); ctx.arc(-22, -50, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(22, -50, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = 'rgba(244, 114, 182, 0.4)';
+      ctx.beginPath(); ctx.ellipse(-20, -14, 8, 5, 0, 0, Math.PI * 2); ctx.ellipse(20, -14, 8, 5, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#831843'; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(-14, -22, 6, Math.PI * 1.1, Math.PI * 1.9);
+      ctx.arc(14, -22, 6, Math.PI * 1.1, Math.PI * 1.9);
+      ctx.stroke();
+      ctx.fillStyle = '#831843'; ctx.beginPath(); ctx.arc(0, -12, 6, 0, Math.PI); ctx.fill();
+      ctx.fillStyle = '#ffffff'; roundRect(ctx, -4, -12, 4, 5, 1); ctx.fill(); roundRect(ctx, 0, -12, 4, 5, 1); ctx.fill();
+      ctx.translate(0, 28);
+      ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-22, 10); ctx.lineTo(22, 10); ctx.lineTo(0, -18); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(0, -20, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+
+    function drawMemeHeartLoopy(ctx, cx, cy, s = 1.0) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(s, s);
+      ctx.fillStyle = '#fbcfe8'; ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.ellipse(0, 22, 34, 30, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, -22, 34, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath(); ctx.arc(-22, -50, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(22, -50, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#831843'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-18, -22); ctx.lineTo(-8, -20); ctx.stroke();
+      ctx.fillStyle = '#831843'; ctx.beginPath(); ctx.arc(14, -22, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(12, -24, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#831843'; ctx.beginPath(); ctx.arc(2, -12, 7, 0, Math.PI); ctx.fill();
+      ctx.fillStyle = '#ffffff'; roundRect(ctx, 0, -12, 4, 5, 1); ctx.fill();
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath(); ctx.ellipse(-18, -12, 7, 4, 0, 0, Math.PI * 2); ctx.ellipse(20, -12, 7, 4, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.save();
+      ctx.translate(-24, 10); ctx.rotate(-0.2);
+      ctx.shadowColor = '#f472b6'; ctx.shadowBlur = 14;
+      ctx.fillStyle = '#f43f5e';
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(-14, -16, -26, 6, 0, 24); ctx.bezierCurveTo(26, 6, 14, -16, 0, 0); ctx.fill();
+      ctx.restore();
+      ctx.restore();
+    }
+
     function applyLocketSquircleClip(W, H) {
       ctx.save();
       // Outer border squircle
@@ -1184,6 +1621,9 @@
         case 'manga_oval_check': isSq ? renderSquareManga() : renderStripManga(); break;
         case 'cinema_film_strip': isSq ? renderSquareCinema() : renderStripCinema(); break;
         case 'pink_lily_dream': isSq ? renderSquareLily() : renderStripLily(); break;
+        case 'chiikawa_hachiware': isSq ? renderSquareHachiware() : renderStripHachiware(); break;
+        case 'chiikawa_momonga': isSq ? renderSquareMomonga() : renderStripMomonga(); break;
+        case 'loopy_pink_cutie': isSq ? renderSquareLoopy() : renderStripLoopy(); break;
         default: isSq ? renderSquareFloral() : renderStripFloral(); break;
       }
     }
@@ -1683,6 +2123,283 @@
       ctx.restore();
     }
 
+    // 11. CHUẨN VUÔNG LOCKET: CHIIKAWA HACHIWARE
+    function renderSquareHachiware() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      // 1. Nền kem viền bo squircle ngoài
+      ctx.fillStyle = '#fffdf5';
+      ctx.fillRect(0, 0, W, H);
+
+      // 2. Nền Caro Gingham xanh pastel
+      const ix = 50, iy = 50, iw = W - 100, ih = H - 100, ir = 36;
+      ctx.save();
+      roundRect(ctx, ix, iy, iw, ih, ir);
+      ctx.clip();
+      drawPastelGingham(ctx, W, H, '#f0f9ff', 'rgba(147, 197, 253, 0.42)', 40);
+      ctx.restore();
+
+      // Viền xanh trong
+      ctx.strokeStyle = '#93c5fd';
+      ctx.lineWidth = 7;
+      roundRect(ctx, ix, iy, iw, ih, ir);
+      ctx.stroke();
+
+      // 3. Khung ảnh đầu Hachiware die-cut ở giữa
+      const cx = 640, cy = 600, rw = 470, rh = 380;
+      ctx.save();
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      createHachiwareFacePath(ctx, cx, cy + 6, rw, rh);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      createHachiwareFacePath(ctx, cx, cy, rw, rh);
+      ctx.fill();
+
+      // Clip ảnh người dùng vào khuôn mặt Hachiware
+      ctx.save();
+      createHachiwareFacePath(ctx, cx, cy, rw, rh);
+      ctx.clip();
+      if (slots[0]) {
+        drawCoverImage(ctx, slots[0], cx - rw, cy - rh, rw * 2, rh * 2, 0.38);
+      } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - rw, cy - rh, rw * 2, rh * 2);
+        ctx.fillStyle = '#93c5fd';
+        ctx.font = "800 36px 'Baloo 2', sans-serif";
+        ctx.textAlign = 'center';
+        ctx.fillText("Ô Ảnh Hachiware #1", cx, cy + 20);
+        ctx.font = "600 22px 'Baloo 2', sans-serif";
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText("Bấm chụp hoặc chọn ảnh từ thư viện", cx, cy + 60);
+      }
+      ctx.restore();
+
+      // Chỏm tai xanh Hachiware (八字刘海)
+      ctx.save();
+      createHachiwareFacePath(ctx, cx, cy, rw, rh);
+      ctx.clip();
+      ctx.fillStyle = '#93c5fd';
+      ctx.beginPath();
+      ctx.moveTo(cx - rw, cy - rh * 0.1);
+      ctx.bezierCurveTo(cx - rw * 0.65, cy - rh * 0.05, cx - rw * 0.25, cy - rh * 0.35, cx, cy - rh * 0.1);
+      ctx.bezierCurveTo(cx + rw * 0.25, cy - rh * 0.35, cx + rw * 0.65, cy - rh * 0.05, cx + rw, cy - rh * 0.1);
+      ctx.lineTo(cx + rw, cy - rh);
+      ctx.lineTo(cx - rw, cy - rh);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = '#60a5fa';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(cx - rw, cy - rh * 0.1);
+      ctx.bezierCurveTo(cx - rw * 0.65, cy - rh * 0.05, cx - rw * 0.25, cy - rh * 0.35, cx, cy - rh * 0.1);
+      ctx.bezierCurveTo(cx + rw * 0.25, cy - rh * 0.35, cx + rw * 0.65, cy - rh * 0.05, cx + rw, cy - rh * 0.1);
+      ctx.stroke();
+      ctx.restore();
+
+      // Viền ngoài khuôn mặt
+      ctx.strokeStyle = '#93c5fd';
+      ctx.lineWidth = 8;
+      createHachiwareFacePath(ctx, cx, cy, rw, rh);
+      ctx.stroke();
+
+      // 4. Các sticker phụ kiện Chiikawa
+      drawSleepingHachiware(ctx, cx, cy - rh + 10, 1.25);
+      drawMiniPolaroidFrame(ctx, 160, 175, 170, 135, slots[1]);
+      drawVintageCamera(ctx, W - 165, 175, 1.15);
+
+      ctx.fillStyle = '#93c5fd';
+      ctx.font = "bold 38px sans-serif";
+      ctx.fillText("♪", 105, 480);
+      ctx.fillText("♫", W - 110, 440);
+
+      drawRamenHachiware(ctx, 155, H - 150, 1.25);
+      drawHeroHachiware(ctx, W - 155, H - 155, 1.25);
+
+      ctx.restore();
+    }
+
+    // 12. CHUẨN VUÔNG LOCKET: CHIIKAWA MOMONGA
+    function renderSquareMomonga() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      // 1. Nền kem viền bo squircle ngoài
+      ctx.fillStyle = '#fffdf5';
+      ctx.fillRect(0, 0, W, H);
+
+      // 2. Nền quả trám Argyle xanh pastel
+      const ix = 50, iy = 50, iw = W - 100, ih = H - 100, ir = 36;
+      ctx.save();
+      roundRect(ctx, ix, iy, iw, ih, ir);
+      ctx.clip();
+      drawDiamondPlaid(ctx, W, H, '#eff6ff', 'rgba(147, 197, 253, 0.48)', 50);
+      ctx.restore();
+
+      // Viền xanh trong
+      ctx.strokeStyle = '#93c5fd';
+      ctx.lineWidth = 7;
+      roundRect(ctx, ix, iy, iw, ih, ir);
+      ctx.stroke();
+
+      // 3. Khung ảnh đầu Momonga die-cut ở giữa
+      const cx = 640, cy = 620, rw = 480, rh = 390;
+      ctx.save();
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      createMomongaHeadPath(ctx, cx, cy + 6, rw, rh);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      createMomongaHeadPath(ctx, cx, cy, rw, rh);
+      ctx.fill();
+
+      // Clip ảnh người dùng vào khuôn mặt Momonga
+      ctx.save();
+      createMomongaHeadPath(ctx, cx, cy, rw, rh);
+      ctx.clip();
+      if (slots[0]) {
+        drawCoverImage(ctx, slots[0], cx - rw, cy - rh, rw * 2, rh * 2, 0.38);
+      } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - rw, cy - rh, rw * 2, rh * 2);
+        ctx.fillStyle = '#93c5fd';
+        ctx.font = "800 36px 'Baloo 2', sans-serif";
+        ctx.textAlign = 'center';
+        ctx.fillText("Ô Ảnh Momonga #1", cx, cy + 20);
+        ctx.font = "600 22px 'Baloo 2', sans-serif";
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText("Bấm chụp hoặc chọn ảnh từ thư viện", cx, cy + 60);
+      }
+      ctx.restore();
+
+      // Nếp gấp tai tròn xanh
+      ctx.strokeStyle = '#bfdbfe';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.arc(cx - rw * 0.42, cy - rh * 0.88, 30, Math.PI * 0.2, Math.PI * 0.85);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx - rw * 0.42, cy - rh * 0.88, 48, Math.PI * 0.15, Math.PI * 0.88);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx + rw * 0.42, cy - rh * 0.88, 30, Math.PI * 0.15, Math.PI * 0.8);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx + rw * 0.42, cy - rh * 0.88, 48, Math.PI * 0.12, Math.PI * 0.85);
+      ctx.stroke();
+
+      // Viền ngoài khuôn mặt
+      ctx.strokeStyle = '#93c5fd';
+      ctx.lineWidth = 8;
+      createMomongaHeadPath(ctx, cx, cy, rw, rh);
+      ctx.stroke();
+
+      // 4. Các sticker phụ kiện Momonga
+      drawGoldenCrown(ctx, cx, cy - rh - 8, 1.25);
+      drawTunaCan(ctx, W - 155, 170, 1.2);
+      drawCyberStar(ctx, 110, 420, 16, '#facc15');
+      drawCyberStar(ctx, W - 110, 720, 16, '#facc15');
+
+      drawMomongaCharacter(ctx, 165, H - 150, 1.25);
+      drawFluffyFriend(ctx, W - 150, H - 150, 1.25);
+
+      ctx.restore();
+    }
+
+    // 13. CHUẨN VUÔNG LOCKET: ZANMANG LOOPY HỒNG
+    function renderSquareLoopy() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      // 1. Nền kem viền bo squircle ngoài
+      ctx.fillStyle = '#fffdf5';
+      ctx.fillRect(0, 0, W, H);
+
+      // 2. Nền Caro Gingham hồng dâu tây
+      const ix = 50, iy = 50, iw = W - 100, ih = H - 100, ir = 36;
+      ctx.save();
+      roundRect(ctx, ix, iy, iw, ih, ir);
+      ctx.clip();
+      drawPinkGingham(ctx, W, H, '#fdf2f8', 'rgba(244, 114, 182, 0.38)', 40);
+      ctx.restore();
+
+      // Viền hồng trong
+      ctx.strokeStyle = '#f472b6';
+      ctx.lineWidth = 7;
+      roundRect(ctx, ix, iy, iw, ih, ir);
+      ctx.stroke();
+
+      // 3. Khung ảnh đầu Loopy die-cut ở giữa
+      const cx = 640, cy = 615, rw = 480, rh = 390;
+      ctx.save();
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      createLoopyHeadPath(ctx, cx, cy + 6, rw, rh);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      createLoopyHeadPath(ctx, cx, cy, rw, rh);
+      ctx.fill();
+
+      // Clip ảnh người dùng vào khuôn mặt Loopy
+      ctx.save();
+      createLoopyHeadPath(ctx, cx, cy, rw, rh);
+      ctx.clip();
+      if (slots[0]) {
+        drawCoverImage(ctx, slots[0], cx - rw, cy - rh, rw * 2, rh * 2, 0.38);
+      } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - rw, cy - rh, rw * 2, rh * 2);
+        ctx.fillStyle = '#f472b6';
+        ctx.font = "800 36px 'Baloo 2', sans-serif";
+        ctx.textAlign = 'center';
+        ctx.fillText("Ô Ảnh Zanmang Loopy #1", cx, cy + 20);
+        ctx.font = "600 22px 'Baloo 2', sans-serif";
+        ctx.fillStyle = '#fda4af';
+        ctx.fillText("Bấm chụp hoặc chọn ảnh từ thư viện", cx, cy + 60);
+      }
+      ctx.restore();
+
+      // Lòng tai hồng Loopy
+      ctx.save();
+      createLoopyHeadPath(ctx, cx, cy, rw, rh);
+      ctx.clip();
+      ctx.fillStyle = 'rgba(244, 114, 182, 0.45)';
+      ctx.beginPath();
+      ctx.arc(cx - rw * 0.45, cy - rh * 0.8, 22, 0, Math.PI * 2);
+      ctx.arc(cx + rw * 0.45, cy - rh * 0.8, 22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Viền ngoài khuôn mặt
+      ctx.strokeStyle = '#f472b6';
+      ctx.lineWidth = 8;
+      createLoopyHeadPath(ctx, cx, cy, rw, rh);
+      ctx.stroke();
+
+      // 4. Các sticker phụ kiện Loopy
+      drawPinkBow(ctx, cx, cy - rh - 8, 1.3);
+      drawMiniPolaroidFrame(ctx, 160, 175, 170, 135, slots[1]);
+      drawStrawberryDrink(ctx, W - 165, 175, 1.25);
+
+      ctx.fillStyle = '#f43f5e';
+      ctx.font = "bold 34px sans-serif";
+      ctx.fillText("♡", 105, 480);
+      ctx.fillText("🍓", W - 110, 440);
+
+      drawCakeLoopy(ctx, 155, H - 150, 1.25);
+      drawMemeHeartLoopy(ctx, W - 155, H - 155, 1.25);
+
+      ctx.restore();
+    }
+
     // ==========================================
     // CÁC HÀM PHỤ VẼ CHO DẢI DỌC (NẾU CHỌN DẢI DỌC)
     // ==========================================
@@ -1774,6 +2491,54 @@
         drawPhotoInWindow(slots[i], x, 80 + i * 440, fw, fh, i + 1);
       }
       drawLilyFlower(ctx, 100, H - 150, 1.2);
+    }
+
+    function renderStripHachiware() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#f0f9ff'; ctx.fillRect(0, 0, W, H);
+      drawPastelGingham(ctx, W, H, '#f0f9ff', 'rgba(147, 197, 253, 0.42)', 30);
+      const fw = 660, fh = 450, x = (W - fw) / 2;
+      for (let i = 0; i < 3; i++) {
+        const y = 90 + i * 530;
+        ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 6;
+        roundRect(ctx, x, y, fw, fh, 28); ctx.fill(); ctx.stroke();
+        drawPhotoInWindow(slots[i] || slots[0], x + 20, y + 20, fw - 40, fh - 40, i + 1, 18);
+      }
+      drawSleepingHachiware(ctx, W / 2, 60, 1.1);
+      drawRamenHachiware(ctx, 160, H - 150, 1.1);
+      drawHeroHachiware(ctx, W - 160, H - 150, 1.1);
+    }
+
+    function renderStripMomonga() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#eff6ff'; ctx.fillRect(0, 0, W, H);
+      drawDiamondPlaid(ctx, W, H, '#eff6ff', 'rgba(147, 197, 253, 0.48)', 40);
+      const fw = 660, fh = 450, x = (W - fw) / 2;
+      for (let i = 0; i < 3; i++) {
+        const y = 90 + i * 530;
+        ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 6;
+        roundRect(ctx, x, y, fw, fh, 28); ctx.fill(); ctx.stroke();
+        drawPhotoInWindow(slots[i] || slots[0], x + 20, y + 20, fw - 40, fh - 40, i + 1, 18);
+      }
+      drawGoldenCrown(ctx, W / 2, 60, 1.1);
+      drawMomongaCharacter(ctx, 160, H - 150, 1.1);
+      drawFluffyFriend(ctx, W - 160, H - 150, 1.1);
+    }
+
+    function renderStripLoopy() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#fdf2f8'; ctx.fillRect(0, 0, W, H);
+      drawPinkGingham(ctx, W, H, '#fdf2f8', 'rgba(244, 114, 182, 0.38)', 30);
+      const fw = 660, fh = 450, x = (W - fw) / 2;
+      for (let i = 0; i < 3; i++) {
+        const y = 90 + i * 530;
+        ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 6;
+        roundRect(ctx, x, y, fw, fh, 28); ctx.fill(); ctx.stroke();
+        drawPhotoInWindow(slots[i] || slots[0], x + 20, y + 20, fw - 40, fh - 40, i + 1, 18);
+      }
+      drawPinkBow(ctx, W / 2, 60, 1.1);
+      drawCakeLoopy(ctx, 160, H - 150, 1.1);
+      drawMemeHeartLoopy(ctx, W - 160, H - 150, 1.1);
     }
 
     function drawLilyFlower(ctx, cx, cy, scale = 1) {
