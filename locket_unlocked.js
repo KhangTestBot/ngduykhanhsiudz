@@ -269,7 +269,7 @@ if (true) {
     ];
 
     var frameCatalog = {
-        loopy_3d: "https://i.ibb.co/Tq8wqjyD/code-gen-ff0e345.png",
+        loopy_3d: "https://i.ibb.co/DDpNTWXV/Code-Generated-Image.png",
         shin_chan: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
         hello_kitty: "https://i.ibb.co/RTm5P1n9/kitty-1.png",
         khung_ins: "https://i.ibb.co/JjLZ3cvD/khung-ins.png",
@@ -280,7 +280,7 @@ if (true) {
     };
 
     var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "loopy_3d";
-    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://i.ibb.co/Tq8wqjyD/code-gen-ff0e345.png";
+    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://i.ibb.co/DDpNTWXV/Code-Generated-Image.png";
 
     Object.assign(obj.entries, {
         widget_frame_event_max_images: "5",
