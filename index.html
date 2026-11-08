@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Photobooth Pinterest Studio" />
-  <title>📸 Pinterest Aesthetic Photobooth Studio • NgDuyKhanh</title>
+  <meta name="apple-mobile-web-app-title" content="Locket Photobooth Studio" />
+  <title>📸 Locket Photobooth Studio • Chuẩn Vuông Locket 1:1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Caveat:wght@600;700&family=Gaegu:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0b0b10;
@@ -233,6 +233,38 @@
       border: 1px solid rgba(255,255,255,0.14);
     }
 
+    /* Tỉ Lệ: Vuông Locket vs Dải Dọc */
+    .ratio-toggle-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.04);
+      padding: 4px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-ratio {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 9px 8px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-ratio.active {
+      background: linear-gradient(135deg, #ff6b9d, #ec4899);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(236,72,153,0.3);
+    }
+
     /* Pinterest Template Cards Grid */
     .pinterest-grid {
       display: grid;
@@ -297,7 +329,7 @@
     /* Final Photobooth Canvas Preview */
     .preview-wrap {
       width: 100%;
-      border-radius: 24px;
+      border-radius: 26px;
       overflow: hidden;
       background: #09090d;
       border: 2px solid rgba(255,184,208,0.3);
@@ -311,10 +343,10 @@
     canvas#boothCanvas {
       width: 100%;
       height: auto;
-      max-height: 80vh;
+      max-height: 75vh;
       object-fit: contain;
       display: block;
-      border-radius: 14px;
+      border-radius: 20px;
     }
     .hint {
       font-size: 12px;
@@ -328,9 +360,9 @@
 <body>
   <div class="container">
     <header>
-      <div class="badge-top">📌 PINTEREST EXCLUSIVE PHOTOBOOTH</div>
-      <h1>Khung Ảnh Photobooth Riêng Biệt</h1>
-      <p class="subtitle">Mỗi mẫu mang 1 chất riêng biệt: Hoa nhí ren sò, Shin-chan, Vải nhung mận, Bò denim, Gấu Teddy & Y2K Webcam</p>
+      <div class="badge-top">📱 100% VỪA VẶN WIDGET LOCKET 1:1</div>
+      <h1>Locket Photobooth Studio</h1>
+      <p class="subtitle">Độc bản chuẩn Pinterest nhưng thiết kế <b>Vuông 1:1</b> vừa khít Widget Locket, không bao giờ bị cắt viền!</p>
     </header>
 
     <!-- CARD 1: CAMERA & ẢNH -->
@@ -373,7 +405,17 @@
     <!-- CARD 2: CHỌN MẪU KHUNG PINTEREST -->
     <div class="card">
       <div class="card-title">
-        <span>2. Chọn Mẫu Khung Chuẩn Pinterest (Độc Bản Riêng Biệt)</span>
+        <span>2. Chọn Tỉ Lệ & Mẫu Khung Pinterest</span>
+      </div>
+
+      <!-- Bộ chọn Tỉ Lệ: Vuông Locket vs Dải Dọc -->
+      <div class="ratio-toggle-row">
+        <button class="btn-ratio active" id="btnRatioSquare" onclick="setRatio('square')">
+          <span>🔲 Chuẩn Vuông Locket (1:1)</span>
+        </button>
+        <button class="btn-ratio" id="btnRatioStrip" onclick="setRatio('strip')">
+          <span>🎞️ Dải Dọc Dài (Photostrip)</span>
+        </button>
       </div>
 
       <!-- Danh sách Pinterest Pin Cards -->
@@ -471,7 +513,7 @@
 
       <!-- Preview Canvas -->
       <div class="preview-wrap">
-        <canvas id="boothCanvas" width="900" height="1500"></canvas>
+        <canvas id="boothCanvas" width="1280" height="1280"></canvas>
       </div>
 
       <button class="btn btn-gold" id="btnDirectPost" onclick="postDirectlyToLocket()" style="margin-bottom:8px;font-size:15px;">🚀 Bắn Thẳng Lên Widget Locket (1-Click)</button>
@@ -481,7 +523,7 @@
         <button class="btn btn-primary" onclick="shareOrSaveImage()">📲 Lưu Ảnh / Chia Sẻ</button>
         <button class="btn btn-secondary" onclick="downloadImage()">⬇️ Tải File PNG Nét</button>
       </div>
-      <p class="hint">💡 <b>Chuẩn Pinterest:</b> Mỗi khung trên đây được thiết kế với bố cục, viền ren đục lỗ, phụ kiện xé dán và hình vẽ độc bản riêng biệt!</p>
+      <p class="hint">💡 <b>Chuẩn Locket:</b> Chế độ <b>Chuẩn Vuông Locket (1:1)</b> căn chỉnh an toàn 100%, bảo đảm khi hiển thị trên Widget màn hình chính sẽ không bao giờ bị cắt viền hay mất họa tiết!</p>
     </div>
   </div>
 
@@ -494,6 +536,7 @@
     let isMirrored = true;
     let facingMode = 'user';
     let currentStyle = 'floral_scalloped';
+    let currentRatio = 'square'; // 'square' (1:1 chuẩn Locket) | 'strip' (dài)
     let streamRef = null;
 
     async function initCamera() {
@@ -632,6 +675,13 @@
       });
     }
 
+    function setRatio(ratio) {
+      currentRatio = ratio;
+      document.getElementById('btnRatioSquare').classList.toggle('active', ratio === 'square');
+      document.getElementById('btnRatioStrip').classList.toggle('active', ratio === 'strip');
+      renderCurrentPhotobooth();
+    }
+
     function selectStyle(styleName) {
       currentStyle = styleName;
       document.querySelectorAll('#pinGrid .pin-card').forEach(card => {
@@ -640,7 +690,7 @@
       renderCurrentPhotobooth();
     }
 
-    // DRAWING PRIMITIVES
+    // DRAWING UTILITIES
     function roundRect(ctx, x, y, w, h, r) {
       ctx.beginPath();
       ctx.moveTo(x + r, y);
@@ -655,8 +705,8 @@
       ctx.closePath();
     }
 
-    // Scalloped Lace Edge Generator (Viền ren đục lỗ uốn lượn)
-    function drawScallopedFrame(ctx, x, y, w, h, scallopR = 12, fillColor = '#FFFDF7', strokeColor = '#EAD8C7') {
+    // Scalloped Lace Edge Generator
+    function drawScallopedFrame(ctx, x, y, w, h, scallopR = 14, fillColor = '#FFFDF7', strokeColor = '#EAD8C7') {
       ctx.save();
       ctx.fillStyle = fillColor;
       ctx.strokeStyle = strokeColor;
@@ -689,7 +739,7 @@
       ctx.strokeStyle = strokeColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
-      roundRect(ctx, x + 10, y + 10, w - 20, h - 20, 8);
+      roundRect(ctx, x + 8, y + 8, w - 16, h - 16, 8);
       ctx.stroke();
       ctx.restore();
 
@@ -734,30 +784,24 @@
     }
 
     // Wax Seal Envelope
-    function drawWaxEnvelope(ctx, cx, cy, w = 80, h = 55) {
+    function drawWaxEnvelope(ctx, cx, cy, w = 90, h = 60) {
       ctx.save();
       ctx.fillStyle = '#fefae0';
       ctx.strokeStyle = '#d4a373';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.5;
       roundRect(ctx, cx - w/2, cy - h/2, w, h, 6);
       ctx.fill(); ctx.stroke();
 
-      // Fold lines
       ctx.beginPath();
       ctx.moveTo(cx - w/2, cy - h/2);
-      ctx.lineTo(cx, cy + 5);
+      ctx.lineTo(cx, cy + 6);
       ctx.lineTo(cx + w/2, cy - h/2);
       ctx.stroke();
 
-      // Red wax seal
       ctx.fillStyle = '#991b1b';
-      ctx.beginPath();
-      ctx.arc(cx, cy + 4, 12, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy + 6, 13, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#dc2626';
-      ctx.beginPath();
-      ctx.arc(cx, cy + 4, 9, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy + 6, 9, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
     }
 
@@ -767,47 +811,21 @@
       ctx.translate(cx, cy);
       ctx.scale(scale, scale);
       ctx.fillStyle = '#0f172a';
-      // Body
-      ctx.beginPath();
-      ctx.ellipse(0, 18, 22, 28, 0, 0, Math.PI * 2);
-      ctx.fill();
-      // Head
-      ctx.beginPath();
-      ctx.arc(0, -10, 16, 0, Math.PI * 2);
-      ctx.fill();
-      // Ears
-      ctx.beginPath();
-      ctx.moveTo(-14, -18);
-      ctx.lineTo(-6, -30);
-      ctx.lineTo(-2, -20);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(14, -18);
-      ctx.lineTo(6, -30);
-      ctx.lineTo(2, -20);
-      ctx.fill();
-      // Whiskers
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.ellipse(0, 18, 22, 28, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(0, -10, 16, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-14, -18); ctx.lineTo(-6, -30); ctx.lineTo(-2, -20); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(14, -18); ctx.lineTo(6, -30); ctx.lineTo(2, -20); ctx.fill();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.2;
       ctx.beginPath();
       ctx.moveTo(-24, -8); ctx.lineTo(-10, -8);
       ctx.moveTo(-24, -4); ctx.lineTo(-10, -6);
       ctx.moveTo(24, -8); ctx.lineTo(10, -8);
       ctx.moveTo(24, -4); ctx.lineTo(10, -6);
       ctx.stroke();
-      // Eyes
       ctx.fillStyle = '#fbbf24';
-      ctx.beginPath();
-      ctx.arc(-6, -11, 2.5, 0, Math.PI * 2);
-      ctx.arc(6, -11, 2.5, 0, Math.PI * 2);
-      ctx.fill();
-      // Tail
-      ctx.strokeStyle = '#0f172a';
-      ctx.lineWidth = 6;
-      ctx.beginPath();
-      ctx.moveTo(14, 30);
-      ctx.quadraticCurveTo(32, 28, 30, 8);
-      ctx.stroke();
+      ctx.beginPath(); ctx.arc(-6, -11, 2.5, 0, Math.PI * 2); ctx.arc(6, -11, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.moveTo(14, 30); ctx.quadraticCurveTo(32, 28, 30, 8); ctx.stroke();
       ctx.restore();
     }
 
@@ -817,19 +835,15 @@
       ctx.translate(cx, cy);
       ctx.scale(scale, scale);
       ctx.fillStyle = '#b08968';
-      // Ears
       ctx.beginPath(); ctx.arc(-22, -22, 11, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(22, -22, 11, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#e6ccb2';
       ctx.beginPath(); ctx.arc(-22, -22, 6, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(22, -22, 6, 0, Math.PI * 2); ctx.fill();
-      // Head
       ctx.fillStyle = '#b08968';
       ctx.beginPath(); ctx.arc(0, 0, 26, 0, Math.PI * 2); ctx.fill();
-      // Muzzle
       ctx.fillStyle = '#e6ccb2';
       ctx.beginPath(); ctx.ellipse(0, 7, 14, 10, 0, 0, Math.PI * 2); ctx.fill();
-      // Eyes & Nose
       ctx.fillStyle = '#2d1b0d';
       ctx.beginPath(); ctx.arc(-9, -4, 3, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(9, -4, 3, 0, Math.PI * 2); ctx.fill();
@@ -837,664 +851,29 @@
       ctx.restore();
     }
 
-    // Shin-chan & Shiro Doodle
+    // Shin-chan Illustration
     function drawShinChanArt(ctx, cx, cy) {
       ctx.save();
       ctx.translate(cx, cy);
-      // Shin face
       ctx.fillStyle = '#ffedd5';
-      ctx.beginPath();
-      ctx.arc(0, 0, 28, 0, Math.PI * 2);
-      ctx.fill();
-      // Cheeks protrusion
-      ctx.beginPath();
-      ctx.arc(18, 6, 14, 0, Math.PI * 2);
-      ctx.fill();
-      // Bold black eyebrows
+      ctx.beginPath(); ctx.arc(0, 0, 28, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(18, 6, 14, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#000000';
-      ctx.lineWidth = 6;
       ctx.beginPath();
       ctx.ellipse(-10, -12, 10, 4, -0.2, 0, Math.PI * 2);
       ctx.ellipse(12, -12, 10, 4, 0.2, 0, Math.PI * 2);
       ctx.fill();
-      // Big cartoon eyes
-      ctx.beginPath();
-      ctx.arc(-8, -2, 5, 0, Math.PI * 2);
-      ctx.arc(14, -2, 5, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(-8, -2, 5, 0, Math.PI * 2); ctx.arc(14, -2, 5, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.arc(-9, -4, 2, 0, Math.PI * 2);
-      ctx.arc(13, -4, 2, 0, Math.PI * 2);
-      ctx.fill();
-      // Smile
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.arc(6, 12, 8, 0.2, Math.PI * 0.85);
-      ctx.stroke();
+      ctx.beginPath(); ctx.arc(-9, -4, 2, 0, Math.PI * 2); ctx.arc(13, -4, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#000'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(6, 12, 8, 0.2, Math.PI * 0.85); ctx.stroke();
       ctx.restore();
     }
 
-    // RENDER SWITCHER FOR 10 DISTINCT PINTEREST STYLES
-    function renderCurrentPhotobooth() {
-      switch (currentStyle) {
-        case 'floral_scalloped': renderFloralScalloped(); break;
-        case 'shin_chan': renderShinChan(); break;
-        case 'corduroy_velvet': renderCorduroyVelvet(); break;
-        case 'gingham_denim_cat': renderGinghamDenimCat(); break;
-        case 'teddy_kraft': renderTeddyKraft(); break;
-        case 'y2k_webcam_blue': renderY2KWebcam(); break;
-        case 'starry_night_sky': renderStarryNight(); break;
-        case 'manga_oval_check': renderMangaOval(); break;
-        case 'cinema_film_strip': renderCinemaFilm(); break;
-        case 'pink_lily_dream': renderPinkLily(); break;
-        default: renderFloralScalloped(); break;
-      }
-    }
-
-    // 1. PIN 1: HOA NHÍ & REN VỎ SÒ (Cottagecore Scalloped)
-    function renderFloralScalloped() {
-      const W = 900, H = 1450;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Floral Chintz wallpaper
-      ctx.fillStyle = '#f7f1e9';
-      ctx.fillRect(0, 0, W, H);
-      for (let x = 40; x < W; x += 85) {
-        for (let y = 40; y < H; y += 85) {
-          const shift = ((y / 85) % 2 === 0) ? 0 : 42;
-          drawMiniRose(ctx, x + shift, y, 14, '#c2410c');
-        }
-      }
-
-      // 2 Large Scalloped Lace Photo Windows (Pin 1 exact layout)
-      const fw = 700, fh = 500;
-      const x = (W - fw) / 2;
-      const y1 = 110, y2 = 720;
-
-      // Slot 1
-      drawScallopedFrame(ctx, x, y1, fw, fh, 13, '#fffbf5', '#e6ccb2');
-      drawPhotoInWindow(slots[0], x + 35, y1 + 35, fw - 70, fh - 70, 1);
-
-      // Slot 2
-      drawScallopedFrame(ctx, x, y2, fw, fh, 13, '#fffbf5', '#e6ccb2');
-      drawPhotoInWindow(slots[1], x + 35, y2 + 35, fw - 70, fh - 70, 2);
-
-      // Props: Wax seal envelope, Burgundy dried flower, Red felt star
-      drawWaxEnvelope(ctx, x + 80, y1 + fh + 45, 90, 60);
-      drawMiniRose(ctx, x + fw - 50, y1 + 30, 26, '#991b1b');
-      drawMiniRose(ctx, x + fw - 20, y1 + 60, 22, '#be123c');
-
-      // Red star & Bow
+    function drawPhotoInWindow(img, x, y, w, h, idx, r = 10) {
       ctx.save();
-      ctx.fillStyle = '#991b1b';
-      ctx.font = "40px sans-serif";
-      ctx.fillText("★", x + 30, y2 + fh - 20);
-      ctx.restore();
-
-      // Washi tape
-      drawWashi(ctx, x + fw - 70, y2 + fh - 10, 110, 28, -25, 'rgba(230, 204, 178, 0.7)');
-    }
-
-    // 2. PIN 2: SHIN CẬU BÉ BÚT CHÌ (Shin-chan Asymmetric Layout)
-    function renderShinChan() {
-      const W = 1000, H = 1450;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Pastel yellow with soft polka dots
-      ctx.fillStyle = '#fef08a';
-      ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = '#fde047';
-      for (let x = 20; x < W; x += 40) {
-        for (let y = 20; y < H; y += 40) {
-          ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI * 2); ctx.fill();
-        }
-      }
-
-      // Title Banner: クレヨンしんちゃん (Crayon Shin-chan)
-      ctx.save();
-      ctx.font = "800 48px 'Baloo 2', sans-serif";
-      ctx.fillStyle = '#dc2626';
-      ctx.textAlign = 'center';
-      ctx.fillText("クレヨンしんちゃん • SHIN-CHAN", W / 2, 65);
-      ctx.restore();
-
-      // Pin 2 Asymmetric Layout: Left Col (3 small slots), Right Col (1 large + 1 small)
-      const colW1 = 430, colW2 = 470;
-      const leftX = 45, rightX = 495;
-
-      // Left 3 slots
-      const h3 = 345, gap = 20, startY = 105;
-      for (let i = 0; i < 3; i++) {
-        const sy = startY + i * (h3 + gap);
-        drawShinSlot(leftX, sy, colW1, h3, i === 0 ? slots[0] : (i === 1 ? slots[1] : slots[2]), i + 1, '#f43f5e');
-      }
-
-      // Right: 1 Large + 1 Small
-      const rBigH = 680;
-      drawShinSlot(rightX, startY, colW2, rBigH, slots[3] || slots[0], 4, '#3b82f6');
-      drawShinSlot(rightX, startY + rBigH + gap, colW2, 370, slots[1] || slots[2], 5, '#10b981');
-
-      // Illustrations: Shin-chan & Chocobi Crocodile
-      drawShinChanArt(ctx, leftX + 60, H - 90);
-      ctx.save();
-      ctx.font = "700 24px 'Baloo 2', sans-serif";
-      ctx.fillStyle = '#ef4444';
-      ctx.fillText("アクション仮面!", rightX + 20, H - 40);
-      ctx.restore();
-    }
-
-    function drawShinSlot(x, y, w, h, img, idx, borderColor) {
-      ctx.save();
-      ctx.fillStyle = '#ffffff';
-      roundRect(ctx, x, y, w, h, 18);
-      ctx.fill();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = borderColor;
-      roundRect(ctx, x, y, w, h, 18);
-      ctx.stroke();
-
-      // Photo
-      const px = x + 10, py = y + 10, pw = w - 20, ph = h - 20;
-      ctx.save();
-      roundRect(ctx, px, py, pw, ph, 12);
-      ctx.clip();
-      if (img) {
-        ctx.drawImage(img, 0, 0, img.width, img.height, px, py, pw, ph);
-      } else {
-        ctx.fillStyle = '#1e293b'; ctx.fillRect(px, py, pw, ph);
-        ctx.fillStyle = '#fff'; ctx.font = "700 28px 'Baloo 2', sans-serif"; ctx.textAlign = 'center';
-        ctx.fillText(`Shin #${idx}`, px + pw/2, py + ph/2 + 10);
-      }
-      ctx.restore();
-      ctx.restore();
-    }
-
-    // 3. PIN 3 & 4: VẢI NHUNG TĂM ĐỎ MẬN & HOA KHÔ (Corduroy Velvet & Scalloped Lace)
-    function renderCorduroyVelvet() {
-      const W = 900, H = 1450;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Vertical Corduroy Velvet Ribs (Đỏ mận đậm nhung tăm)
-      ctx.fillStyle = '#3f0c14';
-      ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = '#2e080e';
-      for (let x = 0; x < W; x += 14) {
-        ctx.fillRect(x, 0, 6, H);
-      }
-
-      // 2 Tilted / Scalloped Lace Windows (Pin 4 exact)
-      const fw = 700, fh = 510;
-      const x = (W - fw) / 2;
-
-      // Slot 1 (scalloped lace cream)
-      drawScallopedFrame(ctx, x, 120, fw, fh, 14, '#FFFDF8', '#D6B8A2');
-      drawPhotoInWindow(slots[0], x + 36, 120 + 36, fw - 72, fh - 72, 1);
-
-      // Slot 2
-      drawScallopedFrame(ctx, x, 730, fw, fh, 14, '#FFFDF8', '#D6B8A2');
-      drawPhotoInWindow(slots[1], x + 36, 730 + 36, fw - 72, fh - 72, 2);
-
-      // Dried Camellia / Wine Rose at corners
-      drawMiniRose(ctx, x + 30, 710, 32, '#881337');
-      drawMiniRose(ctx, x + 60, 740, 24, '#9f1239');
-      drawMiniRose(ctx, x + fw - 30, 110, 32, '#881337');
-
-      // Lace ribbon band in middle
-      ctx.save();
-      ctx.strokeStyle = '#D6B8A2';
-      ctx.lineWidth = 3;
-      ctx.setLineDash([8, 6]);
-      ctx.beginPath();
-      ctx.moveTo(x + 40, 675);
-      ctx.lineTo(x + fw - 40, 675);
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    // 4. PIN 5: CARO ĐỎ GINGHAM & BÒ DENIM KÈM MÈO ĐEN (Pin 5 Collage)
-    function renderGinghamDenimCat() {
-      const W = 900, H = 1500;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Left 40% Red Gingham, Right 60% Blue Denim
-      const splitX = 360;
-
-      // Red Gingham
-      drawGingham(ctx, splitX, H, '#fee2e2', 'rgba(239, 68, 68, 0.45)');
-
-      // Blue Denim Jeans
-      ctx.save();
-      ctx.fillStyle = '#1e3a8a';
-      ctx.fillRect(splitX, 0, W - splitX, H);
-      // Stitching line down the seam
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 3;
-      ctx.setLineDash([10, 8]);
-      ctx.beginPath();
-      ctx.moveTo(splitX + 15, 0); ctx.lineTo(splitX + 15, H);
-      ctx.stroke();
-      ctx.restore();
-
-      // 3 Scalloped Photo Slots down the middle-right
-      const fw = 660, fh = 380;
-      const fx = (W - fw) / 2 + 30;
-      const startY = 80, gap = 45;
-
-      for (let i = 0; i < 3; i++) {
-        const sy = startY + i * (fh + gap);
-        drawScallopedFrame(ctx, fx, sy, fw, fh, 11, '#ffffff', '#e2e8f0');
-        drawPhotoInWindow(slots[i], fx + 26, sy + 26, fw - 52, fh - 52, i + 1);
-      }
-
-      // Pin 5 Props: Shiny red apple, Black Cat silhouette
-      drawRedApple(ctx, fx - 40, startY + 40);
-      drawBlackCat(ctx, 110, H - 120, 1.2);
-
-      // Gingham bow at top
-      ctx.save();
-      ctx.font = "700 28px 'Caveat', cursive";
-      ctx.fillStyle = '#ef4444';
-      ctx.fillText("sweet memory with you ♡", fx + 40, H - 35);
-      ctx.restore();
-    }
-
-    function drawRedApple(ctx, cx, cy) {
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.fillStyle = '#dc2626';
-      ctx.beginPath();
-      ctx.arc(-8, 0, 16, 0, Math.PI * 2);
-      ctx.arc(8, 0, 16, 0, Math.PI * 2);
-      ctx.fill();
-      // Stem
-      ctx.strokeStyle = '#78350f';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(0, -12); ctx.quadraticCurveTo(4, -24, 10, -22);
-      ctx.stroke();
-      // Leaf
-      ctx.fillStyle = '#16a34a';
-      ctx.beginPath();
-      ctx.ellipse(6, -20, 8, 4, Math.PI / 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-
-    // 5. PIN 9: GẤU TEDDY & GIẤY KRAFT VINTAGE (Scrapbook Teddy)
-    function renderTeddyKraft() {
-      const W = 900, H = 1500;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Kraft warm paper with vertical faint lines
-      ctx.fillStyle = '#f5ebe0';
-      ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = 'rgba(213, 189, 175, 0.25)';
-      for (let x = 0; x < W; x += 18) {
-        ctx.fillRect(x, 0, 2, H);
-      }
-
-      // 3 Polaroid frames tilted slightly
-      const pw = 680, ph = 380;
-      const px = (W - pw) / 2;
-      const startY = 100, gap = 55;
-
-      for (let i = 0; i < 3; i++) {
-        const sy = startY + i * (ph + gap);
-        ctx.save();
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = 'rgba(0,0,0,0.14)';
-        ctx.shadowBlur = 10;
-        ctx.shadowOffsetY = 5;
-        roundRect(ctx, px, sy, pw, ph, 12);
-        ctx.fill();
-        ctx.restore();
-
-        drawPhotoInWindow(slots[i], px + 18, sy + 18, pw - 36, ph - 36, i + 1);
-
-        // Washi tape holding corners
-        const wAngle = (i % 2 === 0) ? -15 : 15;
-        drawWashi(ctx, px + 50, sy + 10, 110, 26, wAngle, 'rgba(176, 137, 104, 0.65)');
-        drawWashi(ctx, px + pw - 50, sy + ph - 10, 110, 26, wAngle, 'rgba(221, 184, 146, 0.65)');
-      }
-
-      // Teddy Bear at top left
-      drawTeddyBear(ctx, 100, 75, 1.1);
-
-      // Newspaper cutout letter "T" & Quotes
-      ctx.save();
-      ctx.fillStyle = '#4a3525';
-      ctx.font = "700 24px 'Playfair Display', serif";
-      ctx.fillText("T H E   L O V E   S T O R Y", W / 2, H - 40);
-      ctx.restore();
-    }
-
-    // 6. PIN 8: WEBCAM Y2K XANH & CỬA SỔ MÁY TÍNH (Y2K CRT Window)
-    function renderY2KWebcam() {
-      const W = 950, H = 1450;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Sky blue & clouds collage
-      const grad = ctx.createLinearGradient(0, 0, W, H);
-      grad.addColorStop(0, '#bfdbfe');
-      grad.addColorStop(1, '#93c5fd');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, W, H);
-
-      // Main Window 1 (Vintage CRT Webcam window with header bar)
-      const winW = 820, winH = 580;
-      const wx = (W - winW) / 2;
-
-      drawWebcamWindow(wx, 110, winW, winH, slots[0], "📹 Live_Webcam_01.exe", 1);
-      drawWebcamWindow(wx, 740, winW, winH, slots[1] || slots[2], "💾 Snapshot_Archive.bmp", 2);
-
-      // Headphone 🎧 & Butterfly 🦋 Stickers
-      ctx.save();
-      ctx.font = "50px sans-serif";
-      ctx.fillText("🎧", 60, 95);
-      ctx.fillText("🦋", W - 110, 720);
-      ctx.fillText("✦", W - 80, 110);
-      ctx.restore();
-    }
-
-    function drawWebcamWindow(x, y, w, h, img, title, idx) {
-      ctx.save();
-      // Outer window frame
-      ctx.fillStyle = '#e2e8f0';
-      ctx.shadowColor = 'rgba(0,0,0,0.2)';
-      ctx.shadowBlur = 14;
-      roundRect(ctx, x, y, w, h, 14);
-      ctx.fill();
-
-      // Title bar
-      ctx.fillStyle = '#2563eb';
-      roundRect(ctx, x + 6, y + 6, w - 12, 40, 10);
-      ctx.fill();
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = "700 18px 'Be Vietnam Pro', sans-serif";
-      ctx.fillText(title, x + 20, y + 32);
-
-      // Buttons [ _ □ X ]
-      ctx.fillText("— □ ✕", x + w - 85, y + 32);
-
-      // Photo Screen area
-      const sx = x + 12, sy = y + 54, sw = w - 24, sh = h - 66;
-      ctx.save();
-      roundRect(ctx, sx, sy, sw, sh, 8);
-      ctx.clip();
-      if (img) {
-        ctx.drawImage(img, 0, 0, img.width, img.height, sx, sy, sw, sh);
-      } else {
-        ctx.fillStyle = '#0f172a'; ctx.fillRect(sx, sy, sw, sh);
-        ctx.fillStyle = '#38bdf8'; ctx.font = "700 36px 'Baloo 2', sans-serif"; ctx.textAlign = 'center';
-        ctx.fillText(`Cam Feed #${idx}`, sx + sw/2, sy + sh/2);
-      }
-      ctx.restore();
-      ctx.restore();
-    }
-
-    // 7. PIN 6: BẦU TRỜ ĐÊM & NGÀN SAO (Starry Night Sky)
-    function renderStarryNight() {
-      const W = 900, H = 1450;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Deep Space Black
-      ctx.fillStyle = '#09090b';
-      ctx.fillRect(0, 0, W, H);
-
-      // Starfield (Trời sao lấp lánh quanh viền)
-      ctx.fillStyle = '#ffffff';
-      for (let i = 0; i < 180; i++) {
-        const sx = Math.random() * W;
-        const sy = Math.random() * H;
-        const sr = Math.random() * 2 + 0.8;
-        ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
-      }
-
-      // 4-point glowing stars
-      const starCoords = [[80, 80], [W - 80, 80], [90, 700], [W - 90, 700], [80, H - 80], [W - 80, H - 80]];
-      starCoords.forEach(([cx, cy]) => {
-        drawCyberStar(ctx, cx, cy, 18, '#ffffff');
-      });
-
-      // 2 Large Pure White Polaroid cutouts (Pin 6 layout)
-      const pw = 700, ph = 530;
-      const px = (W - pw) / 2;
-
-      // Slot 1
-      drawPolaroidWithShadow(px, 110, pw, ph, slots[0], 1);
-      // Slot 2
-      drawPolaroidWithShadow(px, 740, pw, ph, slots[1] || slots[2], 2);
-
-      // Caption on bottom polaroid
-      ctx.save();
-      ctx.font = "700 24px 'Caveat', cursive";
-      ctx.fillStyle = '#334155';
-      ctx.textAlign = 'center';
-      ctx.fillText("Under the same stars with you ✨", W / 2, H - 85);
-      ctx.restore();
-    }
-
-    function drawPolaroidWithShadow(x, y, w, h, img, idx) {
-      ctx.save();
-      ctx.fillStyle = '#ffffff';
-      ctx.shadowColor = 'rgba(255,255,255,0.15)';
-      ctx.shadowBlur = 16;
-      roundRect(ctx, x, y, w, h, 14);
-      ctx.fill();
-
-      // Photo
-      const px = x + 18, py = y + 18, pw = w - 36, ph = h - 60;
-      ctx.save();
-      roundRect(ctx, px, py, pw, ph, 8);
-      ctx.clip();
-      if (img) {
-        ctx.drawImage(img, 0, 0, img.width, img.height, px, py, pw, ph);
-      } else {
-        ctx.fillStyle = '#1e293b'; ctx.fillRect(px, py, pw, ph);
-        ctx.fillStyle = '#94a3b8'; ctx.font = "700 36px 'Baloo 2', sans-serif"; ctx.textAlign = 'center';
-        ctx.fillText(`Moment #${idx}`, px + pw/2, py + ph/2);
-      }
-      ctx.restore();
-      ctx.restore();
-    }
-
-    // 8. PIN 10: MANGA K-POP Ô BẦU DỤC & CỜ VUA (Oval & Checkerboard)
-    function renderMangaOval() {
-      const W = 800, H = 2200;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Midnight Noir
-      ctx.fillStyle = '#0f172a';
-      ctx.fillRect(0, 0, W, H);
-
-      // Outer lace border
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = '#ffffff';
-      roundRect(ctx, 20, 20, W - 40, H - 40, 24);
-      ctx.stroke();
-
-      const padX = 75, slotW = W - padX * 2;
-
-      // Slot 1: Square with corner stars
-      drawPhotoInWindow(slots[0], padX, 100, slotW, 460, 1);
-      ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
-      roundRect(ctx, padX, 100, slotW, 460, 18); ctx.stroke();
-
-      // Slot 2: ELEGANT OVAL / CIRCULAR WINDOW (Pin 10 exact signature!)
-      const ovalY = 620, ovalH = 500;
-      ctx.save();
-      ctx.beginPath();
-      ctx.ellipse(W / 2, ovalY + ovalH / 2, slotW / 2, ovalH / 2, 0, 0, Math.PI * 2);
-      ctx.clip();
-      if (slots[1]) {
-        ctx.drawImage(slots[1], 0, 0, slots[1].width, slots[1].height, padX, ovalY, slotW, ovalH);
-      } else {
-        ctx.fillStyle = '#1e293b'; ctx.fillRect(padX, ovalY, slotW, ovalH);
-        ctx.fillStyle = '#fff'; ctx.font = "700 36px 'Baloo 2', sans-serif"; ctx.textAlign = 'center';
-        ctx.fillText("Ô Tròn #2", W / 2, ovalY + ovalH / 2);
-      }
-      ctx.restore();
-
-      // Oval lace ring
-      ctx.lineWidth = 8; ctx.strokeStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.ellipse(W / 2, ovalY + ovalH / 2, slotW / 2, ovalH / 2, 0, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Slot 3: Rectangular Slot with white lace
-      drawPhotoInWindow(slots[2] || slots[0], padX, 1200, slotW, 460, 3);
-      roundRect(ctx, padX, 1200, slotW, 460, 18); ctx.stroke();
-
-      // Bottom Checkerboard Flag (Bàn cờ vua đen trắng Pin 10)
-      const chY = H - 320, chH = 120;
-      const sq = 30;
-      for (let x = padX; x < padX + slotW; x += sq) {
-        for (let y = chY; y < chY + chH; y += sq) {
-          const isWhite = (((x - padX) / sq + (y - chY) / sq) % 2 === 0);
-          ctx.fillStyle = isWhite ? '#ffffff' : '#000000';
-          ctx.fillRect(x, y, sq, sq);
-        }
-      }
-
-      ctx.save();
-      ctx.font = "800 36px 'Be Vietnam Pro', sans-serif";
-      ctx.fillStyle = '#ffffff';
-      ctx.textAlign = 'center';
-      ctx.fillText("PHOTOISM • K-POP IDOL", W / 2, H - 90);
-      ctx.restore();
-    }
-
-    // 9. PIN 13: CUỘN PHIM 35MM ĐIỆN ẢNH (True 35mm Cinema Strip)
-    function renderCinemaFilm() {
-      const W = 800, H = 2200;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      ctx.fillStyle = '#09090b';
-      ctx.fillRect(0, 0, W, H);
-
-      // Sprocket holes on left and right
-      const count = 30, step = H / count;
-      ctx.fillStyle = '#ffffff';
-      ctx.strokeStyle = '#f59e0b';
-      ctx.lineWidth = 1.5;
-      for (let i = 0; i < count; i++) {
-        const sy = i * step + step * 0.2;
-        roundRect(ctx, 12, sy, 22, 34, 4); ctx.fill(); ctx.stroke();
-        roundRect(ctx, W - 34, sy, 22, 34, 4); ctx.fill(); ctx.stroke();
-      }
-
-      // 4 Cinema frames
-      const padX = 64, cellW = W - padX * 2, cellH = 430, startY = 110, gap = 55;
-      for (let i = 0; i < 4; i++) {
-        const sy = startY + i * (cellH + gap);
-        drawPhotoInWindow(slots[i], padX, sy, cellW, cellH, i + 1);
-        ctx.lineWidth = 4; ctx.strokeStyle = '#f59e0b';
-        roundRect(ctx, padX, sy, cellW, cellH, 6); ctx.stroke();
-
-        // Edge frame numbers
-        ctx.save();
-        ctx.fillStyle = '#f59e0b';
-        ctx.font = "700 20px monospace";
-        ctx.fillText(`▶ 35MM PORTRA ${i+1}A`, padX, sy - 10);
-        ctx.restore();
-      }
-
-      ctx.save();
-      ctx.fillStyle = '#f59e0b';
-      ctx.font = "800 32px 'Baloo 2', sans-serif";
-      ctx.textAlign = 'center';
-      ctx.fillText("KODAK 400 • VINTAGE CINEMA", W / 2, H - 45);
-      ctx.restore();
-    }
-
-    // 10. PIN 3: VƯỜN HOA LILY HỒNG (Pink Lily Botanical Dream)
-    function renderPinkLily() {
-      const W = 900, H = 1450;
-      boothCanvas.width = W; boothCanvas.height = H;
-      ctx.clearRect(0, 0, W, H);
-
-      // Soft blush pink gradient
-      const grad = ctx.createLinearGradient(0, 0, W, H);
-      grad.addColorStop(0, '#fdf2f8');
-      grad.addColorStop(1, '#fce7f3');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, W, H);
-
-      // Pink striped watermark on left
-      ctx.fillStyle = 'rgba(244, 114, 182, 0.12)';
-      for (let x = 0; x < 280; x += 22) {
-        ctx.fillRect(x, 0, 10, H);
-      }
-
-      // 3 Offset Photo Slots
-      const fw = 580, fh = 370;
-      const fx = 260; // shift right like Pin 3
-      const startY = 110, gap = 50;
-
-      for (let i = 0; i < 3; i++) {
-        const sy = startY + i * (fh + gap);
-        ctx.save();
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = 'rgba(244, 114, 182, 0.2)';
-        ctx.shadowBlur = 12;
-        roundRect(ctx, fx, sy, fw, fh, 14);
-        ctx.fill();
-        ctx.restore();
-
-        drawPhotoInWindow(slots[i], fx + 12, sy + 12, fw - 24, fh - 24, i + 1);
-      }
-
-      // Lily Flower bouquet drawn on bottom left
-      drawLilyFlower(ctx, 140, H - 180, 1.3);
-      drawLilyFlower(ctx, 100, 160, 0.9);
-
-      ctx.save();
-      ctx.font = "600 24px 'Playfair Display', serif";
-      ctx.fillStyle = '#be185d';
-      ctx.fillText("Lily Blossom • Memory", fx + 30, H - 40);
-      ctx.restore();
-    }
-
-    function drawLilyFlower(ctx, cx, cy, scale = 1) {
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.scale(scale, scale);
-      ctx.fillStyle = '#fbcfe8';
-      ctx.strokeStyle = '#f472b6';
-      ctx.lineWidth = 2;
-      // 6 petals
-      for (let i = 0; i < 6; i++) {
-        const angle = (i * Math.PI) / 3;
-        ctx.beginPath();
-        ctx.ellipse(Math.cos(angle) * 35, Math.sin(angle) * 35, 38, 16, angle, 0, Math.PI * 2);
-        ctx.fill(); ctx.stroke();
-      }
-      // Pistil
-      ctx.fillStyle = '#f59e0b';
-      for (let i = 0; i < 5; i++) {
-        const a = (i * Math.PI * 2) / 5;
-        ctx.beginPath();
-        ctx.arc(Math.cos(a) * 15, Math.sin(a) * 15, 3.5, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.restore();
-    }
-
-    function drawPhotoInWindow(img, x, y, w, h, idx) {
-      ctx.save();
-      roundRect(ctx, x, y, w, h, 10);
+      roundRect(ctx, x, y, w, h, r);
       ctx.clip();
       if (img) {
         ctx.drawImage(img, 0, 0, img.width, img.height, x, y, w, h);
@@ -1506,11 +885,18 @@
       ctx.restore();
     }
 
+    function drawGingham(ctx, w, h, base, stripe, sz = 32) {
+      ctx.save();
+      ctx.fillStyle = base; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = stripe;
+      for (let x = 0; x < w; x += sz * 2) ctx.fillRect(x, 0, sz, h);
+      for (let y = 0; y < h; y += sz * 2) ctx.fillRect(0, y, w, sz);
+      ctx.restore();
+    }
+
     function drawCyberStar(ctx, cx, cy, size, color) {
       ctx.save();
       ctx.fillStyle = color;
-      ctx.shadowColor = color;
-      ctx.shadowBlur = 8;
       ctx.beginPath();
       ctx.moveTo(cx, cy - size);
       ctx.quadraticCurveTo(cx, cy, cx + size * 0.35, cy);
@@ -1529,9 +915,595 @@
       ctx.restore();
     }
 
+    function applyLocketSquircleClip(W, H) {
+      ctx.save();
+      // Outer border squircle
+      roundRect(ctx, 0, 0, W, H, 140);
+      ctx.clip();
+    }
+
+    // DISPATCHER
+    function renderCurrentPhotobooth() {
+      const isSq = (currentRatio === 'square');
+      switch (currentStyle) {
+        case 'floral_scalloped': isSq ? renderSquareFloral() : renderStripFloral(); break;
+        case 'shin_chan': isSq ? renderSquareShinChan() : renderStripShinChan(); break;
+        case 'corduroy_velvet': isSq ? renderSquareVelvet() : renderStripVelvet(); break;
+        case 'gingham_denim_cat': isSq ? renderSquareDenimCat() : renderStripDenimCat(); break;
+        case 'teddy_kraft': isSq ? renderSquareTeddy() : renderStripTeddy(); break;
+        case 'y2k_webcam_blue': isSq ? renderSquareY2K() : renderStripY2K(); break;
+        case 'starry_night_sky': isSq ? renderSquareStarry() : renderStripStarry(); break;
+        case 'manga_oval_check': isSq ? renderSquareManga() : renderStripManga(); break;
+        case 'cinema_film_strip': isSq ? renderSquareCinema() : renderStripCinema(); break;
+        case 'pink_lily_dream': isSq ? renderSquareLily() : renderStripLily(); break;
+        default: isSq ? renderSquareFloral() : renderStripFloral(); break;
+      }
+    }
+
+    // ==========================================
+    // 10 MẪU CHUẨN VUÔNG LOCKET (1280 x 1280)
+    // ==========================================
+
+    // 1. CHUẨN VUÔNG LOCKET: HOA NHÍ & REN VỎ SÒ
+    function renderSquareFloral() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      // Nền hoa nhí
+      ctx.fillStyle = '#f7f1e9';
+      ctx.fillRect(0, 0, W, H);
+      for (let x = 40; x < W; x += 85) {
+        for (let y = 40; y < H; y += 85) {
+          const shift = ((y / 85) % 2 === 0) ? 0 : 42;
+          drawMiniRose(ctx, x + shift, y, 14, '#c2410c');
+        }
+      }
+
+      // 2 Khung ren sò lớn xếp trên dưới cực vừa vặn
+      const fw = 1060, fh = 470;
+      const x = (W - fw) / 2;
+      const y1 = 120, y2 = 660;
+
+      drawScallopedFrame(ctx, x, y1, fw, fh, 14, '#fffbf5', '#e6ccb2');
+      drawPhotoInWindow(slots[0], x + 30, y1 + 30, fw - 60, fh - 60, 1);
+
+      drawScallopedFrame(ctx, x, y2, fw, fh, 14, '#fffbf5', '#e6ccb2');
+      drawPhotoInWindow(slots[1] || slots[0], x + 30, y2 + 30, fw - 60, fh - 60, 2);
+
+      // Phụ kiện Pinterest: Phong thư sáp đỏ, hoa khô, ngôi sao nỉ
+      drawWaxEnvelope(ctx, x + 70, y1 + fh + 35, 95, 62);
+      drawMiniRose(ctx, x + fw - 45, y1 + 30, 28, '#991b1b');
+      drawMiniRose(ctx, x + fw - 15, y1 + 60, 24, '#be123c');
+
+      ctx.save();
+      ctx.fillStyle = '#991b1b';
+      ctx.font = "42px sans-serif";
+      ctx.fillText("★", x + 35, y2 + fh - 25);
+      ctx.restore();
+
+      drawWashi(ctx, x + fw - 70, y2 + fh - 10, 110, 28, -25, 'rgba(230, 204, 178, 0.7)');
+
+      ctx.restore();
+    }
+
+    // 2. CHUẨN VUÔNG LOCKET: SHIN CẬU BÉ BÚT CHÌ
+    function renderSquareShinChan() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      // Nền vàng pastel chấm bi
+      ctx.fillStyle = '#fef08a';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#fde047';
+      for (let x = 20; x < W; x += 36) {
+        for (let y = 20; y < H; y += 36) {
+          ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+
+      // Title
+      ctx.save();
+      ctx.font = "800 46px 'Baloo 2', sans-serif";
+      ctx.fillStyle = '#dc2626';
+      ctx.textAlign = 'center';
+      ctx.fillText("クレヨンしんちゃん • SHIN-CHAN LOCKET", W / 2, 75);
+      ctx.restore();
+
+      // Bố cục truyện tranh 3 ô: Cột trái 2 ô vuông, Cột phải 1 ô lớn + Shin-chan
+      const cW = 540, gap = 24, startY = 120;
+      const leftX = 70, rightX = 670;
+
+      // Trái: 2 ô
+      const h2 = 480;
+      drawShinSlot(leftX, startY, cW, h2, slots[0], 1, '#f43f5e');
+      drawShinSlot(leftX, startY + h2 + gap, cW, h2, slots[1] || slots[2], 2, '#3b82f6');
+
+      // Phải: 1 ô lớn + Panel hình vẽ Shin-chan & Shiro
+      drawShinSlot(rightX, startY, cW, 680, slots[2] || slots[3] || slots[0], 3, '#10b981');
+
+      // Khu vực vẽ Shin-chan & Chocobi
+      drawShinChanArt(ctx, rightX + 160, startY + 700 + 130);
+      ctx.save();
+      ctx.font = "700 32px 'Baloo 2', sans-serif";
+      ctx.fillStyle = '#ef4444';
+      ctx.fillText("チョコビ! 🐊", rightX + 270, startY + 700 + 140);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 3. CHUẨN VUÔNG LOCKET: NHUNG TĂM ĐỎ MẬN
+    function renderSquareVelvet() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      // Nhung tăm kẻ sọc dọc
+      ctx.fillStyle = '#3f0c14';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#2e080e';
+      for (let x = 0; x < W; x += 14) ctx.fillRect(x, 0, 6, H);
+
+      // 2 Khung ren sò kem lớn
+      const fw = 1080, fh = 480;
+      const x = (W - fw) / 2;
+      drawScallopedFrame(ctx, x, 110, fw, fh, 14, '#FFFDF8', '#D6B8A2');
+      drawPhotoInWindow(slots[0], x + 30, 110 + 30, fw - 60, fh - 60, 1);
+
+      drawScallopedFrame(ctx, x, 660, fw, fh, 14, '#FFFDF8', '#D6B8A2');
+      drawPhotoInWindow(slots[1] || slots[0], x + 30, 660 + 30, fw - 60, fh - 60, 2);
+
+      // Hoa trà đỏ khô & dải ruy băng ren giữa
+      drawMiniRose(ctx, x + 35, 645, 34, '#881337');
+      drawMiniRose(ctx, x + 65, 675, 26, '#9f1239');
+      drawMiniRose(ctx, x + fw - 35, 100, 34, '#881337');
+
+      ctx.save();
+      ctx.strokeStyle = '#D6B8A2';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([8, 6]);
+      ctx.beginPath();
+      ctx.moveTo(x + 40, 625); ctx.lineTo(x + fw - 40, 625);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 4. CHUẨN VUÔNG LOCKET: CARO ĐỎ & BÒ DENIM MÈO ĐEN
+    function renderSquareDenimCat() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      const splitX = 520;
+      drawGingham(ctx, splitX, H, '#fee2e2', 'rgba(239, 68, 68, 0.45)');
+
+      ctx.save();
+      ctx.fillStyle = '#1e3a8a';
+      ctx.fillRect(splitX, 0, W - splitX, H);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 3.5;
+      ctx.setLineDash([12, 10]);
+      ctx.beginPath();
+      ctx.moveTo(splitX + 16, 0); ctx.lineTo(splitX + 16, H);
+      ctx.stroke();
+      ctx.restore();
+
+      // 2 Khung ren ngang
+      const fw = 1060, fh = 480;
+      const x = (W - fw) / 2 + 15;
+      drawScallopedFrame(ctx, x, 110, fw, fh, 12, '#ffffff', '#e2e8f0');
+      drawPhotoInWindow(slots[0], x + 25, 110 + 25, fw - 50, fh - 50, 1);
+
+      drawScallopedFrame(ctx, x, 660, fw, fh, 12, '#ffffff', '#e2e8f0');
+      drawPhotoInWindow(slots[1] || slots[0], x + 25, 660 + 25, fw - 50, fh - 50, 2);
+
+      // Táo đỏ & Mèo đen
+      drawRedApple(ctx, x + 35, 110 + 35);
+      drawBlackCat(ctx, 160, H - 140, 1.3);
+
+      ctx.save();
+      ctx.font = "700 32px 'Caveat', cursive";
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillText("sweet memory with you ♡", W / 2 + 80, H - 45);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 5. CHUẨN VUÔNG LOCKET: GẤU TEDDY & GIẤY KRAFT
+    function renderSquareTeddy() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      ctx.fillStyle = '#f5ebe0';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(213, 189, 175, 0.25)';
+      for (let x = 0; x < W; x += 20) ctx.fillRect(x, 0, 2, H);
+
+      // Bố cục 3 ảnh: 1 ảnh ngang trên, 2 ảnh vuông dưới
+      const topW = 1060, topH = 460, x = (W - topW) / 2;
+      drawPolaroidWithShadow(x, 120, topW, topH, slots[0], 1);
+      drawWashi(ctx, x + 80, 120 + 10, 120, 28, -15, 'rgba(176, 137, 104, 0.7)');
+
+      const botW = 515, botH = 480, gap = 30;
+      drawPolaroidWithShadow(x, 640, botW, botH, slots[1] || slots[0], 2);
+      drawPolaroidWithShadow(x + botW + gap, 640, botW, botH, slots[2] || slots[0], 3);
+
+      drawTeddyBear(ctx, 110, 100, 1.2);
+
+      ctx.save();
+      ctx.fillStyle = '#4a3525';
+      ctx.font = "700 28px 'Playfair Display', serif";
+      ctx.textAlign = 'center';
+      ctx.fillText("T H E   L O V E   S T O R Y", W / 2, H - 55);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 6. CHUẨN VUÔNG LOCKET: WEBCAM Y2K MÀN HÌNH CỔ
+    function renderSquareY2K() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, '#bfdbfe');
+      grad.addColorStop(1, '#93c5fd');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // 1 Cửa sổ chính lớn trên + 2 cửa sổ nhỏ dưới
+      const topW = 1100, topH = 550, x = (W - topW) / 2;
+      drawWebcamWindow(x, 100, topW, topH, slots[0], "📹 Live_Webcam_01.exe", 1);
+
+      const botW = 535, botH = 480, gap = 30;
+      drawWebcamWindow(x, 690, botW, botH, slots[1] || slots[0], "💾 Cam_A.bmp", 2);
+      drawWebcamWindow(x + botW + gap, 690, botW, botH, slots[2] || slots[0], "💾 Cam_B.bmp", 3);
+
+      // Phụ kiện Headphone & Bướm
+      ctx.save();
+      ctx.font = "55px sans-serif";
+      ctx.fillText("🎧", 65, 80);
+      ctx.fillText("🦋", W - 110, 670);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 7. CHUẨN VUÔNG LOCKET: BẦU TRỜ ĐÊM & NGÀN SAO
+    function renderSquareStarry() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      ctx.fillStyle = '#09090b';
+      ctx.fillRect(0, 0, W, H);
+
+      // Sao li ti
+      ctx.fillStyle = '#ffffff';
+      for (let i = 0; i < 220; i++) {
+        const sx = Math.random() * W, sy = Math.random() * H;
+        ctx.beginPath(); ctx.arc(sx, sy, Math.random() * 2.2 + 0.8, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Sao 4 cánh lớn
+      [[80, 80], [W - 80, 80], [90, H / 2], [W - 90, H / 2], [80, H - 80], [W - 80, H - 80]].forEach(([cx, cy]) => {
+        drawCyberStar(ctx, cx, cy, 22, '#ffffff');
+      });
+
+      // 2 Khung polaroid vuông lớn
+      const pw = 520, ph = 580, gap = 40, x = (W - pw * 2 - gap) / 2;
+      drawPolaroidWithShadow(x, 350, pw, ph, slots[0], 1);
+      drawPolaroidWithShadow(x + pw + gap, 350, pw, ph, slots[1] || slots[0], 2);
+
+      ctx.save();
+      ctx.font = "700 36px 'Caveat', cursive";
+      ctx.fillStyle = '#f8fafc';
+      ctx.textAlign = 'center';
+      ctx.fillText("Under the same stars with you ✨", W / 2, 220);
+      ctx.fillText("Seoul Night Memories • 2026", W / 2, H - 120);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 8. CHUẨN VUÔNG LOCKET: MANGA Ô BẦU DỤC & CỜ VUA
+    function renderSquareManga() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, W, H);
+
+      // Viền ren trắng
+      ctx.lineWidth = 12; ctx.strokeStyle = '#ffffff';
+      roundRect(ctx, 24, 24, W - 48, H - 48, 120); ctx.stroke();
+
+      // Hàng trên: 1 Ô Vuông (trái) + 1 Ô BẦU DỤC OVAL (phải)
+      const topY = 110, rowH = 480, colW = 520, gap = 30, startX = (W - colW * 2 - gap) / 2;
+
+      // Slot 1: Vuông
+      drawPhotoInWindow(slots[0], startX, topY, colW, rowH, 1, 16);
+      ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
+      roundRect(ctx, startX, topY, colW, rowH, 16); ctx.stroke();
+
+      // Slot 2: OVAL BẦU DỤC (Chất riêng Pin 10)
+      const ox = startX + colW + gap, ovalCX = ox + colW / 2, ovalCY = topY + rowH / 2;
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(ovalCX, ovalCY, colW / 2, rowH / 2, 0, 0, Math.PI * 2);
+      ctx.clip();
+      if (slots[1]) {
+        ctx.drawImage(slots[1], 0, 0, slots[1].width, slots[1].height, ox, topY, colW, rowH);
+      } else {
+        ctx.fillStyle = '#1e293b'; ctx.fillRect(ox, topY, colW, rowH);
+        ctx.fillStyle = '#fff'; ctx.font = "700 36px 'Baloo 2', sans-serif"; ctx.textAlign = 'center';
+        ctx.fillText("Ô Bầu Dục #2", ovalCX, ovalCY);
+      }
+      ctx.restore();
+
+      ctx.lineWidth = 8; ctx.strokeStyle = '#ffffff';
+      ctx.beginPath(); ctx.ellipse(ovalCX, ovalCY, colW / 2, rowH / 2, 0, 0, Math.PI * 2); ctx.stroke();
+
+      // Hàng dưới: 1 Ô chữ nhật dài
+      const botW = colW * 2 + gap, botY = 630, botH = 430;
+      drawPhotoInWindow(slots[2] || slots[0], startX, botY, botW, botH, 3, 16);
+      roundRect(ctx, startX, botY, botW, botH, 16); ctx.stroke();
+
+      // Dải bàn cờ vua đen trắng ở chân
+      const chY = 1100, chH = 70, sq = 35;
+      for (let x = startX; x < startX + botW; x += sq) {
+        for (let y = chY; y < chY + chH; y += sq) {
+          const isWhite = (((x - startX) / sq + (y - chY) / sq) % 2 === 0);
+          ctx.fillStyle = isWhite ? '#ffffff' : '#000000';
+          ctx.fillRect(x, y, sq, sq);
+        }
+      }
+
+      ctx.restore();
+    }
+
+    // 9. CHUẨN VUÔNG LOCKET: CUỘN PHIM 35MM ĐIỆN ẢNH
+    function renderSquareCinema() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      ctx.fillStyle = '#09090b';
+      ctx.fillRect(0, 0, W, H);
+
+      // Lỗ răng cưa mép trái và phải
+      const count = 18, step = H / count;
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 2;
+      for (let i = 0; i < count; i++) {
+        const sy = i * step + step * 0.2;
+        roundRect(ctx, 20, sy, 26, 36, 4); ctx.fill(); ctx.stroke();
+        roundRect(ctx, W - 46, sy, 26, 36, 4); ctx.fill(); ctx.stroke();
+      }
+
+      // 2 Khung phim điện ảnh Widescreen
+      const fw = 1060, fh = 470, x = (W - fw) / 2;
+      drawPhotoInWindow(slots[0], x, 120, fw, fh, 1, 8);
+      ctx.lineWidth = 4; ctx.strokeStyle = '#f59e0b';
+      roundRect(ctx, x, 120, fw, fh, 8); ctx.stroke();
+
+      drawPhotoInWindow(slots[1] || slots[0], x, 660, fw, fh, 2, 8);
+      roundRect(ctx, x, 660, fw, fh, 8); ctx.stroke();
+
+      ctx.save();
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = "800 28px monospace";
+      ctx.fillText("▶ KODAK PORTRA 400 • 35MM CINEMA 1A", x + 10, 100);
+      ctx.fillText("▶ KODAK PORTRA 400 • 35MM CINEMA 2A", x + 10, 640);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 10. CHUẨN VUÔNG LOCKET: VƯỜN HOA LILY HỒNG
+    function renderSquareLily() {
+      const W = 1280, H = 1280;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+      applyLocketSquircleClip(W, H);
+
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, '#fdf2f8');
+      grad.addColorStop(1, '#fce7f3');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Thước sọc nước mờ bên trái
+      ctx.fillStyle = 'rgba(244, 114, 182, 0.12)';
+      for (let x = 0; x < 320; x += 22) ctx.fillRect(x, 0, 10, H);
+
+      // 2 Ô lệch nghệ thuật
+      const fw = 820, fh = 460, fx = 350;
+      drawPhotoInWindow(slots[0], fx, 120, fw, fh, 1, 14);
+      ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
+      roundRect(ctx, fx, 120, fw, fh, 14); ctx.stroke();
+
+      drawPhotoInWindow(slots[1] || slots[0], fx, 660, fw, fh, 2, 14);
+      roundRect(ctx, fx, 660, fw, fh, 14); ctx.stroke();
+
+      drawLilyFlower(ctx, 160, H - 220, 1.5);
+      drawLilyFlower(ctx, 140, 220, 1.1);
+
+      ctx.save();
+      ctx.font = "600 32px 'Playfair Display', serif";
+      ctx.fillStyle = '#be185d';
+      ctx.fillText("Lily Blossom • Memory with You", fx + 30, H - 55);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // ==========================================
+    // CÁC HÀM PHỤ VẼ CHO DẢI DỌC (NẾU CHỌN DẢI DỌC)
+    // ==========================================
+    function renderStripFloral() {
+      const W = 800, H = 2000;
+      boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#f7f1e9'; ctx.fillRect(0, 0, W, H);
+      const fw = 660, fh = 380, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        const y = 80 + i * 440;
+        drawScallopedFrame(ctx, x, y, fw, fh, 12, '#fffbf5', '#e6ccb2');
+        drawPhotoInWindow(slots[i], x + 25, y + 25, fw - 50, fh - 50, i + 1);
+      }
+    }
+    function renderStripShinChan() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#fef08a'; ctx.fillRect(0, 0, W, H);
+      const fw = 680, fh = 390, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        drawShinSlot(x, 80 + i * 440, fw, fh, slots[i], i + 1, '#ef4444');
+      }
+      drawShinChanArt(ctx, W / 2, H - 100);
+    }
+    function renderStripVelvet() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#3f0c14'; ctx.fillRect(0, 0, W, H);
+      const fw = 660, fh = 380, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        drawScallopedFrame(ctx, x, 80 + i * 440, fw, fh, 12, '#FFFDF8', '#D6B8A2');
+        drawPhotoInWindow(slots[i], x + 25, 80 + i * 440 + 25, fw - 50, fh - 50, i + 1);
+      }
+    }
+    function renderStripDenimCat() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#1e3a8a'; ctx.fillRect(0, 0, W, H);
+      const fw = 660, fh = 380, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        drawScallopedFrame(ctx, x, 80 + i * 440, fw, fh, 12, '#ffffff', '#e2e8f0');
+        drawPhotoInWindow(slots[i], x + 25, 80 + i * 440 + 25, fw - 50, fh - 50, i + 1);
+      }
+      drawBlackCat(ctx, 100, H - 100, 1.2);
+    }
+    function renderStripTeddy() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#f5ebe0'; ctx.fillRect(0, 0, W, H);
+      const fw = 660, fh = 380, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        drawPolaroidWithShadow(x, 80 + i * 440, fw, fh, slots[i], i + 1);
+      }
+      drawTeddyBear(ctx, 100, 70, 1.1);
+    }
+    function renderStripY2K() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#bfdbfe'; ctx.fillRect(0, 0, W, H);
+      const fw = 680, fh = 400, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        drawWebcamWindow(x, 80 + i * 450, fw, fh, slots[i], `📹 Live_Cam_0${i+1}.exe`, i + 1);
+      }
+    }
+    function renderStripStarry() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#09090b'; ctx.fillRect(0, 0, W, H);
+      const fw = 660, fh = 380, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        drawPolaroidWithShadow(x, 80 + i * 440, fw, fh, slots[i], i + 1);
+      }
+    }
+    function renderStripManga() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, W, H);
+      const fw = 660, fh = 400, x = (W - fw) / 2;
+      drawPhotoInWindow(slots[0], x, 80, fw, fh, 1);
+      drawPhotoInWindow(slots[1], x, 540, fw, fh, 2);
+      drawPhotoInWindow(slots[2], x, 1000, fw, fh, 3);
+    }
+    function renderStripCinema() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#09090b'; ctx.fillRect(0, 0, W, H);
+      const fw = 680, fh = 390, x = (W - fw) / 2;
+      for (let i = 0; i < 4; i++) {
+        drawPhotoInWindow(slots[i], x, 80 + i * 440, fw, fh, i + 1);
+      }
+    }
+    function renderStripLily() {
+      const W = 800, H = 2000; boothCanvas.width = W; boothCanvas.height = H;
+      ctx.fillStyle = '#fce7f3'; ctx.fillRect(0, 0, W, H);
+      const fw = 560, fh = 380, x = 180;
+      for (let i = 0; i < 4; i++) {
+        drawPhotoInWindow(slots[i], x, 80 + i * 440, fw, fh, i + 1);
+      }
+      drawLilyFlower(ctx, 100, H - 150, 1.2);
+    }
+
+    function drawLilyFlower(ctx, cx, cy, scale = 1) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(scale, scale);
+      ctx.fillStyle = '#fbcfe8'; ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 2;
+      for (let i = 0; i < 6; i++) {
+        const a = (i * Math.PI) / 3;
+        ctx.beginPath();
+        ctx.ellipse(Math.cos(a) * 35, Math.sin(a) * 35, 38, 16, a, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawRedApple(ctx, cx, cy) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.fillStyle = '#dc2626';
+      ctx.beginPath();
+      ctx.arc(-8, 0, 16, 0, Math.PI * 2);
+      ctx.arc(8, 0, 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#78350f'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(0, -12); ctx.quadraticCurveTo(4, -24, 10, -22); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawWebcamWindow(x, y, w, h, img, title, idx) {
+      ctx.save();
+      ctx.fillStyle = '#e2e8f0';
+      roundRect(ctx, x, y, w, h, 14); ctx.fill();
+      ctx.fillStyle = '#2563eb';
+      roundRect(ctx, x + 6, y + 6, w - 12, 40, 10); ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "700 18px 'Be Vietnam Pro', sans-serif";
+      ctx.fillText(title, x + 20, y + 32);
+      ctx.fillText("— □ ✕", x + w - 85, y + 32);
+
+      const sx = x + 12, sy = y + 54, sw = w - 24, sh = h - 66;
+      drawPhotoInWindow(img, sx, sy, sw, sh, idx, 8);
+      ctx.restore();
+    }
+
+    function drawPolaroidWithShadow(x, y, w, h, img, idx) {
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = 'rgba(0,0,0,0.16)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
+      roundRect(ctx, x, y, w, h, 14); ctx.fill();
+      drawPhotoInWindow(img, x + 16, y + 16, w - 32, h - 54, idx, 8);
+      ctx.restore();
+    }
+
     function downloadImage() {
       const link = document.createElement('a');
-      link.download = `Pinterest_Photobooth_${currentStyle}_${Date.now()}.png`;
+      link.download = `Locket_Pinterest_${currentStyle}_${Date.now()}.png`;
       link.href = boothCanvas.toDataURL('image/png');
       link.click();
     }
@@ -1563,7 +1535,7 @@
 
         if (!idToken || !uid) {
           statusEl.style.color = '#fca5a5';
-          statusEl.innerHTML = '⚠️ Chưa bắt được phiên Locket. Hãy bật <b>Shadowrocket</b> (đã cập nhật v24), mở app <b>Locket</b> 1 lần rồi quay lại bấm nút này — hoặc bấm <b>📲 Lưu Ảnh / Chia Sẻ</b> để đăng nhé!';
+          statusEl.innerHTML = '⚠️ Chưa bắt được phiên Locket. Hãy bật <b>Shadowrocket</b> (v24), mở app <b>Locket</b> 1 lần rồi quay lại bấm nút này — hoặc bấm <b>📲 Lưu Ảnh / Chia Sẻ</b> để đăng nhé!';
           btn.disabled = false;
           return;
         }
@@ -1620,7 +1592,7 @@
         const postPayload = {
           data: {
             thumbnail_url: finalImgUrl,
-            caption: '📸 Photobooth Aesthetic',
+            caption: '📸 Pinterest Photobooth',
             sent_to_all: true
           }
         };
@@ -1648,13 +1620,13 @@
     async function shareOrSaveImage() {
       boothCanvas.toBlob(async (blob) => {
         if (!blob) return downloadImage();
-        const file = new File([blob], `Photobooth_${currentStyle}_${Date.now()}.png`, { type: 'image/png' });
+        const file = new File([blob], `Locket_${currentStyle}_${Date.now()}.png`, { type: 'image/png' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
               files: [file],
               title: 'Locket Photobooth',
-              text: 'Ảnh ghép Photobooth phong cách Pinterest'
+              text: 'Ảnh ghép Photobooth chuẩn Locket'
             });
             return;
           } catch (err) {
