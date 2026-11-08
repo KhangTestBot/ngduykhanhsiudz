@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Locket Photobooth" />
-  <title>📸 Locket Photobooth Studio • NgDuyKhanh</title>
+  <meta name="apple-mobile-web-app-title" content="Locket Photobooth Studio" />
+  <title>📸 Pinterest Aesthetic Photobooth Studio • NgDuyKhanh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0c0c12;
-      --card: #161622;
-      --card-border: rgba(255, 180, 205, 0.2);
+      --bg: #0b0b10;
+      --card: #151520;
+      --card-border: rgba(255, 180, 205, 0.22);
       --pink: #ff6b9d;
       --pink-light: #ffb8d0;
       --gold: #fbbf24;
@@ -23,13 +23,13 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
-      background: radial-gradient(circle at top, #231222 0%, var(--bg) 60%);
+      background: radial-gradient(circle at top, #261225 0%, var(--bg) 60%);
       color: var(--text);
       font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
-      padding: env(safe-area-inset-top, 16px) 14px 50px;
+      padding: env(safe-area-inset-top, 16px) 14px 60px;
     }
-    .container { max-width: 540px; margin: 0 auto; }
+    .container { max-width: 580px; margin: 0 auto; }
     header {
       text-align: center;
       padding: 14px 0 10px;
@@ -38,18 +38,19 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: linear-gradient(90deg, rgba(255,107,157,0.22), rgba(251,191,36,0.22));
-      border: 1px solid rgba(255,184,208,0.4);
+      background: linear-gradient(90deg, rgba(255,107,157,0.25), rgba(251,191,36,0.25));
+      border: 1px solid rgba(255,184,208,0.45);
       color: var(--pink-light);
       font-size: 12px;
       font-weight: 700;
-      padding: 5px 15px;
+      padding: 5px 16px;
       border-radius: 999px;
       margin-bottom: 8px;
+      letter-spacing: 0.5px;
     }
     h1 {
       font-family: 'Baloo 2', cursive;
-      font-size: 27px;
+      font-size: 28px;
       line-height: 1.2;
       background: linear-gradient(90deg, #fff, #ffb8d0, #fbbf24);
       -webkit-background-clip: text;
@@ -94,12 +95,12 @@
       border-radius: 22px;
       padding: 16px;
       margin-bottom: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
     }
     .card-title {
       font-size: 15px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -263,11 +264,11 @@
       border: 1px solid rgba(255,255,255,0.14);
     }
 
-    /* Layout Toggle */
+    /* Layout Toggle 3 Chế Độ Chuẩn Pinterest */
     .layout-toggle-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
       margin-bottom: 12px;
       background: rgba(255,255,255,0.04);
       padding: 4px;
@@ -278,16 +279,18 @@
       background: transparent;
       border: none;
       color: #94a3b8;
-      padding: 8px 10px;
+      padding: 8px 6px;
       border-radius: 10px;
-      font-size: 13px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 3px;
+      text-align: center;
     }
     .btn-layout.active {
       background: linear-gradient(135deg, #ff6b9d, #ec4899);
@@ -295,7 +298,7 @@
       box-shadow: 0 4px 12px rgba(236,72,153,0.3);
     }
 
-    /* Filter Chips */
+    /* Category Filter Pills */
     .category-pills {
       display: flex;
       gap: 6px;
@@ -322,32 +325,92 @@
       color: var(--pink-light);
     }
 
-    .chips-scroll {
-      display: flex;
-      gap: 7px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 10px;
+    /* Theme Chips Grid */
+    .chips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding: 4px 2px 10px;
+      margin-bottom: 12px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,107,157,0.3) transparent;
     }
-    .chip {
+    .theme-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #e2e8f0;
+      padding: 8px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .theme-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,184,208,0.4);
+    }
+    .theme-card.active {
+      background: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(236,72,153,0.25));
+      border: 1.5px solid var(--pink);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(236,72,153,0.35);
+    }
+    .theme-color-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      flex-shrink: 0;
+    }
+
+    /* DIY Sticker Deco Toolbar */
+    .deco-toolbar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+    .deco-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--pink-light);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .deco-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .deco-chips::-webkit-scrollbar { display: none; }
+    .deco-btn {
       flex: 0 0 auto;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.12);
-      color: #e2e8f0;
-      padding: 8px 14px;
+      color: #cbd5e1;
+      padding: 5px 11px;
       border-radius: 999px;
-      font-size: 13px;
+      font-size: 11.5px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .chip.active {
-      background: linear-gradient(135deg, #ff6b9d, #ec4899);
+    .deco-btn.active {
+      background: #ff6b9d;
       border-color: #ff6b9d;
       color: #fff;
-      box-shadow: 0 4px 12px rgba(236,72,153,0.3);
+      box-shadow: 0 2px 10px rgba(255,107,157,0.4);
     }
 
     .input-text {
@@ -368,13 +431,14 @@
       width: 100%;
       border-radius: 24px;
       overflow: hidden;
-      background: #111;
+      background: #0b0b10;
       border: 2px solid rgba(255,184,208,0.3);
       margin-bottom: 12px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.55);
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 8px;
     }
     canvas#boothCanvas {
       width: 100%;
@@ -382,6 +446,7 @@
       max-height: 75vh;
       object-fit: contain;
       display: block;
+      border-radius: 16px;
     }
     .hint {
       font-size: 12px;
@@ -395,31 +460,22 @@
 <body>
   <div class="container">
     <header>
-      <div class="badge-top">👑 NGDUYKHANH • LOCKET PHOTOBOOTH STUDIO</div>
-      <h1>Photobooth 4 Ảnh Locket</h1>
-      <p class="subtitle">Chụp 4 ảnh hoặc chọn từ máy ➔ Ghép 16+ nền Hàn Quốc, Y2K & Coquette siêu nét</p>
+      <div class="badge-top">✨ PINTEREST AESTHETIC PHOTOBOOTH STUDIO</div>
+      <h1>Khung Ảnh Photobooth Hàn Quốc</h1>
+      <p class="subtitle">16+ Mẫu khung Vintage, Y2K, Caro Gingham, Washi Tape & Nơ Satin chuẩn Pinterest</p>
     </header>
 
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('booth')">📸 Chụp Photobooth 4 Ô</button>
-      <button class="tab-btn" onclick="switchTab('install')">⚡ Cài Module Locket Gold</button>
+      <button class="tab-btn active" onclick="switchTab('booth')">📸 Chụp & Thiết Kế Khung</button>
+      <button class="tab-btn" onclick="switchTab('install')">⚡ Cài Cấu Hình Locket Gold</button>
     </div>
 
-    <!-- TAB 1: PHOTOBOOTH -->
+    <!-- TAB 1: PHOTOBOOTH STUDIO -->
     <div id="tab-booth" class="tab-panel active">
       <div class="card">
         <div class="card-title">
-          <span>1. Chụp hoặc Chọn 4 Ảnh</span>
+          <span>1. Chụp Camera Hoặc Tải 4 Ảnh Lên</span>
           <span id="shotProgress" style="font-size:12px;color:var(--pink-light)">Đã có 0/4 ảnh</span>
-        </div>
-
-        <!-- Bộ lọc màu Camera -->
-        <div class="chips-scroll" id="filterChips">
-          <button class="chip active" data-filter="none">✨ Tự nhiên</button>
-          <button class="chip" data-filter="pinky">🌸 Hồng Hàn Quốc</button>
-          <button class="chip" data-filter="bright">💡 Trắng sáng</button>
-          <button class="chip" data-filter="vintage">🎞️ Film Retro</button>
-          <button class="chip" data-filter="bw">🖤 Đen trắng</button>
         </div>
 
         <div class="camera-stage">
@@ -452,66 +508,144 @@
         <input type="file" id="filePicker" accept="image/*" multiple style="display:none" onchange="handleFilesSelected(event)" />
       </div>
 
-      <!-- Tùy chỉnh Khung Viền Photobooth -->
+      <!-- Tùy chỉnh Khung Viền Photobooth Aesthetic -->
       <div class="card">
         <div class="card-title">
-          <span>2. Chọn Bố Cục & 16 Nền Photobooth Hot Trend</span>
+          <span>2. Chọn Bố Cục Chuẩn Máy In Hàn Quốc</span>
         </div>
 
-        <!-- Bố cục: 2x2 vs Dải dọc -->
+        <!-- 3 Bố Cục Hot Nhất Pinterest -->
         <div class="layout-toggle-row">
           <button class="btn-layout active" id="btnLayoutGrid" onclick="setLayout('grid')">
-            🔲 Lưới 2x2 (Chuẩn Locket)
+            <span>🔲 Lưới 2x2</span>
+            <small style="opacity:0.75">Vuông Locket 1:1</small>
           </button>
           <button class="btn-layout" id="btnLayoutStrip" onclick="setLayout('strip')">
-            🎞️ Dải Dọc 4 Ô (인생네컷 Life4Cuts)
+            <span>🎞️ Dải Dọc 4 Ô</span>
+            <small style="opacity:0.75">인생네컷 Strip</small>
+          </button>
+          <button class="btn-layout" id="btnLayoutDual" onclick="setLayout('dual_strip')">
+            <span>👯 Dải Đôi 2x4</span>
+            <small style="opacity:0.75">Đường cắt kéo ✂️</small>
           </button>
         </div>
 
-        <!-- Phân loại Nền -->
+        <!-- Thanh Sticker & Phụ Kiện Trang Trí (DIY Deco) -->
+        <div class="deco-toolbar">
+          <div class="deco-title">✨ Sticker Trang Trí Aesthetic (Bấm để bật/tắt):</div>
+          <div class="deco-chips">
+            <button class="deco-btn active" id="decoBows" onclick="toggleDeco('bows')">🎀 Nơ Satin Hồng</button>
+            <button class="deco-btn active" id="decoWashi" onclick="toggleDeco('washi')">🩹 Băng Dính Washi</button>
+            <button class="deco-btn active" id="decoCherries" onclick="toggleDeco('cherries')">🍒 Quả Cherry</button>
+            <button class="deco-btn active" id="decoStamp" onclick="toggleDeco('stamp')">🎫 Tem Bưu Điện & Mã Vạch</button>
+            <button class="deco-btn active" id="decoStars" onclick="toggleDeco('stars')">✦ Sao Y2K / Lấp Lánh</button>
+            <button class="deco-btn" id="decoPaws" onclick="toggleDeco('paws')">🐾 Dấu Chân Mèo</button>
+          </div>
+        </div>
+
+        <div class="card-title" style="margin-top:14px;">
+          <span>3. Chọn Mẫu Khung Photobooth Aesthetic Pinterest (16 Nền)</span>
+        </div>
+
+        <!-- Category Pills -->
         <div class="category-pills">
-          <button class="cat-pill active" onclick="filterThemes('all')">🌟 Tất Cả (16 Nền)</button>
-          <button class="cat-pill" onclick="filterThemes('korean')">🇰🇷 Chuẩn Hàn Quốc</button>
-          <button class="cat-pill" onclick="filterThemes('cute')">🎀 Coquette & Cute</button>
+          <button class="cat-pill active" onclick="filterThemes('all')">🌟 Tất Cả (16)</button>
+          <button class="cat-pill" onclick="filterThemes('coquette')">🎀 Coquette & Gingham</button>
+          <button class="cat-pill" onclick="filterThemes('korean')">🇰🇷 Hàn Quốc Life4Cuts</button>
           <button class="cat-pill" onclick="filterThemes('vintage')">🎞️ Vintage & Film</button>
           <button class="cat-pill" onclick="filterThemes('y2k')">✦ Y2K & Cyber</button>
         </div>
 
-        <!-- 16 Nền Photobooth -->
-        <div class="chips-scroll" id="themeChips">
-          <button class="chip active" data-theme="life4cuts_black" data-cat="korean">🖤 Life4Cuts Đen</button>
-          <button class="chip" data-theme="life4cuts_white" data-cat="korean">🤍 Studio Trắng Tinh</button>
-          <button class="chip" data-theme="coquette_ribbon" data-cat="cute">🎀 Coquette Nơ & Cherry</button>
-          <button class="chip" data-theme="kodak_35mm_film" data-cat="vintage">🎞️ Kodak 35mm Vintage</button>
-          <button class="chip" data-theme="y2k_silver_chrome" data-cat="y2k">✦ Y2K Tráng Bạc</button>
-          <button class="chip" data-theme="capybara_chill" data-cat="cute">🍊 Capybara Chill</button>
-          <button class="chip" data-theme="matcha_daisy" data-cat="cute">🌼 Matcha & Daisy</button>
-          <button class="chip" data-theme="sunset_peach" data-cat="korean">🌅 Sunset Hoàng Hôn</button>
-          <button class="chip" data-theme="cyber_neon" data-cat="y2k">⚡ Cyber Neon</button>
-          <button class="chip" data-theme="heart_pink_love" data-cat="cute">💖 Sweet Valentine</button>
-          <button class="chip" data-theme="denim_ripped" data-cat="vintage">👖 Denim Bò Sữa</button>
-          <button class="chip" data-theme="scrapbook_paper" data-cat="vintage">📜 Vintage Scrapbook</button>
-          <button class="chip" data-theme="retro_arcade" data-cat="y2k">🎮 Retro 90s Gameboy</button>
-          <button class="chip" data-theme="loopy" data-cat="cute">🐰 Loopy 3D Hồng</button>
-          <button class="chip" data-theme="gold" data-cat="korean">👑 Luxury Gold</button>
-          <button class="chip" data-theme="pastel" data-cat="korean">🌸 Life4Cut Pastel</button>
+        <!-- 16 Mẫu Theme Aesthetic -->
+        <div class="chips-grid" id="themeGrid">
+          <!-- Coquette & Gingham -->
+          <div class="theme-card active" data-theme="coquette_gingham" data-cat="coquette" onclick="selectTheme('coquette_gingham')">
+            <div class="theme-color-badge" style="background:#ffb8d0;"></div>
+            <span>🎀 Caro Nơ Gingham</span>
+          </div>
+          <div class="theme-card" data-theme="coquette_ribbon" data-cat="coquette" onclick="selectTheme('coquette_ribbon')">
+            <div class="theme-color-badge" style="background:#ffe4e6;"></div>
+            <span>🍒 Satin Cherry Kiss</span>
+          </div>
+          <div class="theme-card" data-theme="sweet_valentine" data-cat="coquette" onclick="selectTheme('sweet_valentine')">
+            <div class="theme-color-badge" style="background:#fb7185;"></div>
+            <span>💖 Sweet Love Letter</span>
+          </div>
+          <div class="theme-card" data-theme="sanrio_cotton" data-cat="coquette" onclick="selectTheme('sanrio_cotton')">
+            <div class="theme-color-badge" style="background:#fbcfe8;"></div>
+            <span>🌸 Mây Hồng Pastel</span>
+          </div>
+
+          <!-- Korean Life4Cuts -->
+          <div class="theme-card" data-theme="life4cuts_black" data-cat="korean" onclick="selectTheme('life4cuts_black')">
+            <div class="theme-color-badge" style="background:#111114;"></div>
+            <span>🖤 인생네컷 Đen Tuyền</span>
+          </div>
+          <div class="theme-card" data-theme="life4cuts_white" data-cat="korean" onclick="selectTheme('life4cuts_white')">
+            <div class="theme-color-badge" style="background:#f8fafc;"></div>
+            <span>🤍 Studio Trắng Tinh</span>
+          </div>
+          <div class="theme-card" data-theme="photoism_cream" data-cat="korean" onclick="selectTheme('photoism_cream')">
+            <div class="theme-color-badge" style="background:#fef3c7;"></div>
+            <span>☕ Photoism Be Kem</span>
+          </div>
+          <div class="theme-card" data-theme="matcha_daisy" data-cat="korean" onclick="selectTheme('matcha_daisy')">
+            <div class="theme-color-badge" style="background:#d1fae5;"></div>
+            <span>🌼 Matcha & Cúc Daisy</span>
+          </div>
+
+          <!-- Vintage & Film -->
+          <div class="theme-card" data-theme="kodak_35mm_film" data-cat="vintage" onclick="selectTheme('kodak_35mm_film')">
+            <div class="theme-color-badge" style="background:#f59e0b;"></div>
+            <span>🎞️ Kodak Gold 35mm</span>
+          </div>
+          <div class="theme-card" data-theme="vintage_newspaper" data-cat="vintage" onclick="selectTheme('vintage_newspaper')">
+            <div class="theme-color-badge" style="background:#f5ebe0;"></div>
+            <span>📜 Báo Cũ Gazette</span>
+          </div>
+          <div class="theme-card" data-theme="scrapbook_craft" data-cat="vintage" onclick="selectTheme('scrapbook_craft')">
+            <div class="theme-color-badge" style="background:#e6ccb2;"></div>
+            <span>🏷️ Giấy Kraft Vintage</span>
+          </div>
+          <div class="theme-card" data-theme="denim_ripped" data-cat="vintage" onclick="selectTheme('denim_ripped')">
+            <div class="theme-color-badge" style="background:#1d4ed8;"></div>
+            <span>👖 Bò Denim Chỉ May</span>
+          </div>
+
+          <!-- Y2K & Cyber -->
+          <div class="theme-card" data-theme="y2k_silver_chrome" data-cat="y2k" onclick="selectTheme('y2k_silver_chrome')">
+            <div class="theme-color-badge" style="background:#cbd5e1;"></div>
+            <span>✦ Y2K Tráng Bạc 2000s</span>
+          </div>
+          <div class="theme-card" data-theme="cyber_neon" data-cat="y2k" onclick="selectTheme('cyber_neon')">
+            <div class="theme-color-badge" style="background:#06b6d4;"></div>
+            <span>⚡ Cyber Neon Glow</span>
+          </div>
+          <div class="theme-card" data-theme="kpop_toploader" data-cat="y2k" onclick="selectTheme('kpop_toploader')">
+            <div class="theme-color-badge" style="background:#c084fc;"></div>
+            <span>💜 Toploader K-Pop</span>
+          </div>
+          <div class="theme-card" data-theme="capybara_chill" data-cat="korean" onclick="selectTheme('capybara_chill')">
+            <div class="theme-color-badge" style="background:#fbbf24;"></div>
+            <span>🍊 Capybara Onsen</span>
+          </div>
         </div>
 
-        <input type="text" id="customTitle" class="input-text" placeholder="Nhập dòng chữ trên đỉnh khung (VD: Thứ 2 rồi bạn iu ơi)" oninput="renderPhotobooth()" />
+        <input type="text" id="customTitle" class="input-text" placeholder="Dòng chữ tiêu đề (VD: BESTIES • MEMORY WITH YOU)" oninput="renderPhotobooth()" />
         <input type="text" id="locketCaption" class="input-text" placeholder="💬 Nhập Caption hiển thị trên Locket (tuỳ chọn)..." />
 
         <div class="preview-wrap">
           <canvas id="boothCanvas" width="1280" height="1280"></canvas>
         </div>
 
-        <button class="btn btn-gold" id="btnDirectPost" onclick="postDirectlyToLocket()" style="margin-bottom:8px;font-size:15px;">🚀 Bắn Thẳng 4 Ảnh Lên Locket (1-Click)</button>
+        <button class="btn btn-gold" id="btnDirectPost" onclick="postDirectlyToLocket()" style="margin-bottom:8px;font-size:15px;">🚀 Bắn Thẳng Lên Widget Locket (1-Click)</button>
         <div id="postStatusMsg" style="display:none;font-size:12.5px;text-align:center;padding:8px 10px;border-radius:10px;margin-bottom:8px;background:rgba(255,255,255,0.08);color:#fde68a;"></div>
 
         <div class="btn-row">
           <button class="btn btn-primary" onclick="shareOrSaveImage()">📲 Lưu Ảnh / Chia Sẻ</button>
           <button class="btn btn-secondary" onclick="downloadImage()">⬇️ Tải File PNG Nét</button>
         </div>
-        <p class="hint">💡 <b>Cách Dùng:</b> Bạn có thể chọn tải ảnh từ thư viện hoặc chụp trực tiếp tại đây, đổi kiểu <b>Lưới 2x2</b> hoặc <b>Dải Dọc Hàn Quốc</b> rồi bấm <b>Bắn Thẳng Lên Locket</b> hoặc <b>Lưu Ảnh</b> về máy nhé!</p>
+        <p class="hint">💡 <b>Gợi Ý:</b> Khung ảnh dạng <b>Dải Đôi 2x4</b> là phong cách chụp ảnh lấy liền kinh điển nhất tại Hàn Quốc, chia sẻ cực chất với bạn bè!</p>
       </div>
     </div>
 
@@ -527,11 +661,11 @@
             2️⃣ Thêm Module (.sgmodule) Vào Shadowrocket
           </a>
           <a class="btn btn-secondary" href="https://khangtestbot.github.io/ngduykhanhsiudz/BoKhanh_LocketGold.mobileconfig">
-            3️⃣ Tải Hồ Sơ DNS Giữ Locket Gold Vĩnh Viễn (Mở bằng Safari)
+            3️⃣ Tải Hồ Sơ DNS Giữ Locket Gold Vĩnh Viễn (Safari)
           </a>
         </div>
         <p class="hint" style="margin-top:12px;">
-          Sau khi bật VPN Shadowrocket và lên Locket Gold, Widget ngoài màn hình chính sẽ tự động đổi khung Loopy 3D theo từng thứ trong tuần (Thứ 2 ➔ Chủ Nhật) và mở khóa đăng ảnh Photobooth từ Thư viện!
+          Sau khi bật VPN Shadowrocket, Widget ngoài màn hình chính sẽ tự động đổi khung Loopy 3D theo từng thứ trong tuần và mở khóa full tính năng Locket Gold!
         </p>
       </div>
     </div>
@@ -545,21 +679,19 @@
     let currentSlot = 0;
     let isMirrored = true;
     let facingMode = 'user';
-    let currentFilter = 'none';
-    let currentTheme = 'life4cuts_black';
-    let currentLayout = 'grid'; // 'grid' | 'strip'
+    let currentTheme = 'coquette_gingham';
+    let currentLayout = 'grid'; // 'grid' | 'strip' | 'dual_strip'
     let streamRef = null;
 
-    // Load optional 3D mascot assets
-    const mascotLeft = new Image();
-    mascotLeft.crossOrigin = "anonymous";
-    mascotLeft.src = "frames/mascot_left.png";
-    mascotLeft.onload = () => renderPhotobooth();
-
-    const mascotRight = new Image();
-    mascotRight.crossOrigin = "anonymous";
-    mascotRight.src = "frames/mascot_right.png";
-    mascotRight.onload = () => renderPhotobooth();
+    // DIY Stickers state
+    const decoState = {
+      bows: true,
+      washi: true,
+      cherries: true,
+      stamp: true,
+      stars: true,
+      paws: false
+    };
 
     function switchTab(tab) {
       document.querySelectorAll('.tab-btn').forEach((b, i) => {
@@ -573,6 +705,14 @@
       currentLayout = layout;
       document.getElementById('btnLayoutGrid').classList.toggle('active', layout === 'grid');
       document.getElementById('btnLayoutStrip').classList.toggle('active', layout === 'strip');
+      document.getElementById('btnLayoutDual').classList.toggle('active', layout === 'dual_strip');
+      renderPhotobooth();
+    }
+
+    function toggleDeco(type) {
+      decoState[type] = !decoState[type];
+      const btn = document.getElementById('deco' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (btn) btn.classList.toggle('active', decoState[type]);
       renderPhotobooth();
     }
 
@@ -580,13 +720,21 @@
       document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
       event.target.classList.add('active');
 
-      document.querySelectorAll('#themeChips .chip').forEach(chip => {
-        if (cat === 'all' || chip.dataset.cat === cat) {
-          chip.style.display = 'inline-block';
+      document.querySelectorAll('#themeGrid .theme-card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.style.display = 'flex';
         } else {
-          chip.style.display = 'none';
+          card.style.display = 'none';
         }
       });
+    }
+
+    function selectTheme(themeId) {
+      currentTheme = themeId;
+      document.querySelectorAll('#themeGrid .theme-card').forEach(c => {
+        c.classList.toggle('active', c.dataset.theme === themeId);
+      });
+      renderPhotobooth();
     }
 
     async function initCamera() {
@@ -619,36 +767,6 @@
       initCamera();
     }
 
-    // Camera Color Filters
-    document.querySelectorAll('#filterChips .chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#filterChips .chip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.filter;
-        applyVideoFilter();
-      });
-    });
-
-    function applyVideoFilter() {
-      switch (currentFilter) {
-        case 'pinky': video.style.filter = 'brightness(1.08) saturate(1.22) hue-rotate(-8deg)'; break;
-        case 'bright': video.style.filter = 'brightness(1.18) contrast(1.04) saturate(1.08)'; break;
-        case 'vintage': video.style.filter = 'sepia(0.35) contrast(1.15) brightness(0.95)'; break;
-        case 'bw': video.style.filter = 'grayscale(1) contrast(1.25)'; break;
-        default: video.style.filter = 'none'; break;
-      }
-    }
-
-    // Theme Chips Selection
-    document.querySelectorAll('#themeChips .chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#themeChips .chip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentTheme = btn.dataset.theme;
-        renderPhotobooth();
-      });
-    });
-
     function selectSlot(idx) {
       currentSlot = idx;
       document.querySelectorAll('.slot-item').forEach((el, i) => {
@@ -673,7 +791,6 @@
       const c = document.createElement('canvas');
       c.width = 720; c.height = 720;
       const g = c.getContext('2d');
-      g.filter = video.style.filter || 'none';
 
       const vw = video.videoWidth || 720;
       const vh = video.videoHeight || 720;
@@ -757,6 +874,7 @@
       });
     }
 
+    // DRAWING PRIMITIVES & PINTEREST GRAPHICS
     function roundRectPath(ctx, x, y, w, h, r) {
       ctx.beginPath();
       ctx.moveTo(x + r, y);
@@ -771,50 +889,166 @@
       ctx.closePath();
     }
 
-    function drawBow(ctx, cx, cy, w, h, mainColor, darkColor) {
+    // 1. Caro Gingham Pattern
+    function drawGingham(ctx, w, h, base, stripe) {
+      ctx.save();
+      ctx.fillStyle = base;
+      ctx.fillRect(0, 0, w, h);
+      const sz = 32;
+      ctx.fillStyle = stripe;
+      for (let x = 0; x < w; x += sz * 2) ctx.fillRect(x, 0, sz, h);
+      for (let y = 0; y < h; y += sz * 2) ctx.fillRect(0, y, w, sz);
+      ctx.restore();
+    }
+
+    // 2. Polka Dots Pattern
+    function drawPolka(ctx, w, h, base, dotColor, spacing = 36, r = 2.5) {
+      ctx.save();
+      ctx.fillStyle = base;
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = dotColor;
+      for (let x = spacing / 2; x < w; x += spacing) {
+        for (let y = spacing / 2; y < h; y += spacing) {
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+
+    // 3. Washi Tape
+    function drawWashiTape(ctx, x, y, w, h, angle, color) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate((angle * Math.PI) / 180);
+      ctx.fillStyle = color;
+      ctx.shadowColor = 'rgba(0,0,0,0.15)';
+      ctx.shadowBlur = 6;
+      ctx.beginPath();
+      ctx.moveTo(-w / 2, -h / 2);
+      ctx.lineTo(w / 2, -h / 2);
+      ctx.lineTo(w / 2 + 6, 0);
+      ctx.lineTo(w / 2, h / 2);
+      ctx.lineTo(-w / 2, h / 2);
+      ctx.lineTo(-w / 2 - 6, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 4. Coquette Satin Ribbon Bow
+    function drawCoquetteBow(ctx, cx, cy, w, h, mainColor, darkColor) {
       ctx.save();
       ctx.fillStyle = mainColor;
       ctx.strokeStyle = darkColor;
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2.5;
 
-      // Left loop
+      // Tails
       ctx.beginPath();
-      ctx.moveTo(cx - 10, cy);
-      ctx.bezierCurveTo(cx - w/2, cy - h/2, cx - w/2, cy + h/2, cx - 10, cy);
+      ctx.moveTo(cx - 6, cy + 4);
+      ctx.quadraticCurveTo(cx - w/3, cy + h, cx - w/2.2, cy + h + 15);
+      ctx.lineTo(cx - w/3, cy + h + 8);
+      ctx.quadraticCurveTo(cx - 2, cy + h/2, cx, cy + 8);
       ctx.fill(); ctx.stroke();
 
-      // Right loop
       ctx.beginPath();
-      ctx.moveTo(cx + 10, cy);
-      ctx.bezierCurveTo(cx + w/2, cy - h/2, cx + w/2, cy + h/2, cx + 10, cy);
+      ctx.moveTo(cx + 6, cy + 4);
+      ctx.quadraticCurveTo(cx + w/3, cy + h, cx + w/2.2, cy + h + 15);
+      ctx.lineTo(cx + w/3, cy + h + 8);
+      ctx.quadraticCurveTo(cx + 2, cy + h/2, cx, cy + 8);
       ctx.fill(); ctx.stroke();
 
-      // Center knot
+      // Left Loop
       ctx.beginPath();
-      ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+      ctx.moveTo(cx - 8, cy);
+      ctx.bezierCurveTo(cx - w/1.8, cy - h/1.5, cx - w/1.8, cy + h/1.8, cx - 6, cy + 4);
+      ctx.fill(); ctx.stroke();
+
+      // Right Loop
+      ctx.beginPath();
+      ctx.moveTo(cx + 8, cy);
+      ctx.bezierCurveTo(cx + w/1.8, cy - h/1.5, cx + w/1.8, cy + h/1.8, cx + 6, cy + 4);
+      ctx.fill(); ctx.stroke();
+
+      // Center Knot
+      ctx.beginPath();
+      ctx.arc(cx, cy + 2, 9, 0, Math.PI * 2);
       ctx.fill(); ctx.stroke();
       ctx.restore();
     }
 
-    function drawBarcode(ctx, x, y, w, h, color) {
+    // 5. Cherry Sticker
+    function drawCherries(ctx, cx, cy, scale = 1) {
       ctx.save();
-      ctx.fillStyle = color;
-      const bars = [2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 2, 1, 3, 1, 2, 3, 1, 2, 4, 1, 3];
-      let curX = x;
-      const total = bars.reduce((a, b) => a + b, 0);
-      const scale = w / total;
-      bars.forEach((b, idx) => {
-        if (idx % 2 === 0) {
-          ctx.fillRect(curX, y, b * scale, h);
-        }
-        curX += b * scale;
-      });
+      ctx.translate(cx, cy);
+      ctx.scale(scale, scale);
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(0, -28);
+      ctx.quadraticCurveTo(-14, -8, -16, 6);
+      ctx.moveTo(0, -28);
+      ctx.quadraticCurveTo(14, -8, 16, 6);
+      ctx.stroke();
+
+      ctx.fillStyle = '#65a30d';
+      ctx.beginPath();
+      ctx.ellipse(3, -24, 12, 6, Math.PI / 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Left Cherry
+      ctx.fillStyle = '#e11d48';
+      ctx.beginPath();
+      ctx.arc(-16, 14, 15, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(-20, 10, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Right Cherry
+      ctx.fillStyle = '#be123c';
+      ctx.beginPath();
+      ctx.arc(16, 14, 15, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(12, 10, 4, 0, Math.PI * 2);
+      ctx.fill();
       ctx.restore();
     }
 
+    // 6. Postmark Circular Stamp
+    function drawPostmark(ctx, cx, cy, radius, city, label, color) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(-0.15);
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius - 7, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.font = "800 12px 'Be Vietnam Pro', sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(city, 0, -8);
+      ctx.font = "700 10px 'Be Vietnam Pro', sans-serif";
+      ctx.fillText(label, 0, 8);
+      ctx.restore();
+    }
+
+    // 7. Y2K Cyber Star
     function drawCyberStar(ctx, cx, cy, size, color) {
       ctx.save();
       ctx.fillStyle = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 10;
       ctx.beginPath();
       ctx.moveTo(cx, cy - size);
       ctx.quadraticCurveTo(cx, cy, cx + size * 0.35, cy);
@@ -833,324 +1067,409 @@
       ctx.restore();
     }
 
-    function drawDaisy(ctx, cx, cy, radius) {
+    // 8. Cat Paw
+    function drawCatPaw(ctx, cx, cy, size, color) {
       ctx.save();
-      ctx.fillStyle = '#ffffff';
-      for (let i = 0; i < 8; i++) {
-        const angle = (i * Math.PI) / 4;
-        const px = cx + Math.cos(angle) * radius * 0.65;
-        const py = cy + Math.sin(angle) * radius * 0.65;
-        ctx.beginPath();
-        ctx.arc(px, py, radius * 0.45, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.fillStyle = '#FBBF24';
+      ctx.fillStyle = color;
       ctx.beginPath();
-      ctx.arc(cx, cy, radius * 0.42, 0, Math.PI * 2);
+      ctx.ellipse(cx, cy + size * 0.25, size * 0.45, size * 0.35, 0, 0, Math.PI * 2);
       ctx.fill();
+      const toeOffsets = [[-0.45, -0.2], [-0.18, -0.45], [0.18, -0.45], [0.45, -0.2]];
+      toeOffsets.forEach(([ox, oy]) => {
+        ctx.beginPath();
+        ctx.arc(cx + size * ox, cy + size * oy, size * 0.16, 0, Math.PI * 2);
+        ctx.fill();
+      });
       ctx.restore();
     }
 
+    // 9. Barcode
+    function drawBarcode(ctx, x, y, w, h, color) {
+      ctx.save();
+      ctx.fillStyle = color;
+      const bars = [2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 2, 1, 3, 1, 2, 3, 1, 2, 4, 1, 3];
+      let curX = x;
+      const total = bars.reduce((a, b) => a + b, 0);
+      const scale = w / total;
+      bars.forEach((b, idx) => {
+        if (idx % 2 === 0) ctx.fillRect(curX, y, b * scale, h);
+        curX += b * scale;
+      });
+      ctx.restore();
+    }
+
+    // 10. Film Sprockets
     function drawSprockets(ctx, w, h) {
       ctx.save();
       ctx.fillStyle = '#050505';
       ctx.strokeStyle = '#F59E0B';
-      ctx.lineWidth = 2;
-      const count = (currentLayout === 'strip') ? 28 : 16;
+      ctx.lineWidth = 1.8;
+      const count = 22;
       const step = h / count;
       for (let i = 0; i < count; i++) {
         const y = i * step + step * 0.18;
-        roundRectPath(ctx, 8, y, 20, 28, 5);
+        roundRectPath(ctx, 8, y, 18, 26, 4);
         ctx.fill(); ctx.stroke();
-        roundRectPath(ctx, w - 28, y, 20, 28, 5);
+        roundRectPath(ctx, w - 26, y, 18, 26, 4);
         ctx.fill(); ctx.stroke();
       }
       ctx.restore();
     }
 
-    // THEME PALETTES & SETTINGS
+    // THEME CATALOG (16 AESTHETIC PINTEREST THEMES)
     const THEMES = {
-      life4cuts_black: {
-        name: "인생네컷 Black",
-        bg1: "#121214", bg2: "#19191d", border: "#27272a", text: "#f4f4f5", sub: "#a1a1aa",
-        stickerColor: "#ffffff", brand: "인 생 네 컷 • LIFE FOUR CUTS", barcode: true
-      },
-      life4cuts_white: {
-        name: "Life4Cuts Studio White",
-        bg1: "#fdfdfd", bg2: "#f3f4f6", border: "#e5e7eb", text: "#111827", sub: "#4b5563",
-        stickerColor: "#111827", brand: "인 생 네 컷 • STUDIO WHITE", barcode: true
+      coquette_gingham: {
+        pattern: 'gingham', base: '#fff0f3', stripe: 'rgba(255, 182, 193, 0.45)',
+        border: '#ff8fab', text: '#e11d48', sub: '#fb7185', brand: 'COQUETTE AESTHETIC • SWEET GINGHAM',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       },
       coquette_ribbon: {
-        name: "Coquette Ribbon & Cherry",
-        bg1: "#ffe4e6", bg2: "#fff1f2", border: "#f43f5e", text: "#e11d48", sub: "#fb7185",
-        bows: true, brand: "COQUETTE STUDIO • CHERRY KISS"
+        pattern: 'polka', base: '#fff1f2', stripe: '#fecdd3',
+        border: '#f43f5e', text: '#be123c', sub: '#fb7185', brand: 'CHERRIES & BOWS • BALLETCORE',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       },
-      kodak_35mm_film: {
-        name: "Kodak 35mm Vintage Film",
-        bg1: "#18181b", bg2: "#09090b", border: "#f59e0b", text: "#fbbf24", sub: "#f59e0b",
-        sprockets: true, brand: "KODAK PORTRA 400 • 35MM FILM • EXP 24"
+      sweet_valentine: {
+        pattern: 'gradient', bg1: '#ffe4e6', bg2: '#fecdd3',
+        border: '#fb7185', text: '#e11d48', sub: '#f43f5e', brand: 'SWEET VALENTINE • LOVE LETTER',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       },
-      y2k_silver_chrome: {
-        name: "Y2K Silver Chrome",
-        bg1: "#cbd5e1", bg2: "#94a3b8", border: "#f8fafc", text: "#0f172a", sub: "#334155",
-        cyberStars: true, brand: "✦ Y2K ARCHIVE • CYBER 2000s ✦"
+      sanrio_cotton: {
+        pattern: 'gradient', bg1: '#fbcfe8', bg2: '#e0e7ff',
+        border: '#f472b6', text: '#db2777', sub: '#6366f1', brand: 'COTTON CLOUD • PASTEL PURIKURA',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       },
-      capybara_chill: {
-        name: "Capybara Chill Vibes",
-        bg1: "#fef3c7", bg2: "#fde68a", border: "#f59e0b", text: "#b45309", sub: "#d97706",
-        capybara: true, brand: "🍊 CAPYBARA CHILL • DON'T WORRY BE HAPPY"
+      life4cuts_black: {
+        pattern: 'gradient', bg1: '#121215', bg2: '#18181d',
+        border: '#27272a', text: '#f4f4f5', sub: '#a1a1aa', brand: '인 생 네 컷 • LIFE FOUR CUTS',
+        photoBorder: '#ffffff', photoBorderWidth: 6, barcode: true
+      },
+      life4cuts_white: {
+        pattern: 'gradient', bg1: '#ffffff', bg2: '#f8fafc',
+        border: '#e2e8f0', text: '#0f172a', sub: '#475569', brand: '인 생 네 컷 • HARU FILM STUDIO',
+        photoBorder: '#0f172a', photoBorderWidth: 5, barcode: true
+      },
+      photoism_cream: {
+        pattern: 'gradient', bg1: '#fef3c7', bg2: '#fde68a',
+        border: '#f59e0b', text: '#78350f', sub: '#92400e', brand: 'PHOTOISM • BEIGE ARCHIVE',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       },
       matcha_daisy: {
-        name: "Matcha & Daisy Blossom",
-        bg1: "#ecfdf5", bg2: "#d1fae5", border: "#10b981", text: "#047857", sub: "#059669",
-        daisies: true, brand: "🌼 MATCHA & DAISY • KOREAN CAFE DIARY"
+        pattern: 'polka', base: '#ecfdf5', stripe: '#a7f3d0',
+        border: '#10b981', text: '#047857', sub: '#059669', brand: 'MATCHA CAFE • DAISY BLOSSOM',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       },
-      sunset_peach: {
-        name: "Sunset Peach Gradient",
-        bg1: "#fed7aa", bg2: "#f472b6", border: "#fb923c", text: "#be185d", sub: "#c2410c",
-        brand: "🌅 SUNSET PEACH • GOLDEN HOUR MEMORIES"
+      kodak_35mm_film: {
+        pattern: 'gradient', bg1: '#18181b', bg2: '#09090b',
+        border: '#f59e0b', text: '#fbbf24', sub: '#f59e0b', brand: 'KODAK PORTRA 400 • 35MM FILM',
+        photoBorder: '#ffffff', photoBorderWidth: 6, sprockets: true
       },
-      cyber_neon: {
-        name: "Cyber Neon Glow",
-        bg1: "#090d16", bg2: "#0f172a", border: "#06b6d4", text: "#22d3ee", sub: "#e879f9",
-        neon: true, brand: "⚡ CYBER NEON 2077 • NIGHT CITY ⚡"
+      vintage_newspaper: {
+        pattern: 'gradient', bg1: '#f5ebe0', bg2: '#e3d5ca',
+        border: '#d5bdaf', text: '#3d312a', sub: '#6b5e54', brand: 'PARIS GAZETTE • SPECIAL EDITION',
+        photoBorder: '#ffffff', photoBorderWidth: 8, fontSerif: true
       },
-      heart_pink_love: {
-        name: "Sweet Valentine",
-        bg1: "#ffe4e6", bg2: "#fecdd3", border: "#fb7185", text: "#e11d48", sub: "#f43f5e",
-        hearts: true, brand: "💖 SWEET VALENTINE • FOREVER WITH YOU"
+      scrapbook_craft: {
+        pattern: 'gradient', bg1: '#e6ccb2', bg2: '#ddb892',
+        border: '#b08968', text: '#4a3525', sub: '#7f5539', brand: 'SCRAPBOOK DIARY • MEMORIES',
+        photoBorder: '#fffbf5', photoBorderWidth: 8
       },
       denim_ripped: {
-        name: "Denim Ripped Bò Sữa",
-        bg1: "#1e3a8a", bg2: "#1d4ed8", border: "#93c5fd", text: "#ffffff", sub: "#bfdbfe",
-        stitching: true, brand: "👖 DENIM RIPPED • 1990 STREETWEAR"
+        pattern: 'gradient', bg1: '#1e3a8a', bg2: '#1d4ed8',
+        border: '#93c5fd', text: '#ffffff', sub: '#bfdbfe', brand: 'DENIM RIPPED • 1990S STREETWEAR',
+        photoBorder: '#ffffff', photoBorderWidth: 7, stitching: true
       },
-      scrapbook_paper: {
-        name: "Vintage Scrapbook Giấy Xé",
-        bg1: "#fef9c3", bg2: "#fef08a", border: "#ca8a04", text: "#713f12", sub: "#854d0e",
-        washi: true, brand: "📜 VINTAGE SCRAPBOOK • MEMORIES DIARY"
+      y2k_silver_chrome: {
+        pattern: 'gradient', bg1: '#cbd5e1', bg2: '#94a3b8',
+        border: '#f8fafc', text: '#0f172a', sub: '#334155', brand: '✦ Y2K ARCHIVE • CYBER 2000s ✦',
+        photoBorder: '#ffffff', photoBorderWidth: 8, cyberGlow: true
       },
-      retro_arcade: {
-        name: "Retro 90s Pixel Arcade",
-        bg1: "#312e81", bg2: "#4338ca", border: "#34d399", text: "#a7f3d0", sub: "#f472b6",
-        brand: "🎮 LEVEL UP • 90S PIXEL ARCADE 🎮"
+      cyber_neon: {
+        pattern: 'gradient', bg1: '#090d16', bg2: '#0f172a',
+        border: '#06b6d4', text: '#22d3ee', sub: '#e879f9', brand: '⚡ CYBER NEON 2077 • NIGHT CITY ⚡',
+        photoBorder: '#22d3ee', photoBorderWidth: 6, neon: true
       },
-      loopy: {
-        name: "Loopy 3D Hồng",
-        bg1: "#ffbfd4", bg2: "#ff9ebb", border: "#e880a2", text: "#ec5f8a", sub: "#9d3658",
-        loopyMascot: true, brand: "🐰 LOOPY 3D • PHOTOBOOTH KOREA"
+      kpop_toploader: {
+        pattern: 'gradient', bg1: '#f3e8ff', bg2: '#e9d5ff',
+        border: '#c084fc', text: '#7e22ce', sub: '#a855f7', brand: 'K-POP TOPLOADER • IDOL DECO',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       },
-      gold: {
-        name: "Luxury Obsidian Gold",
-        bg1: "#18181b", bg2: "#27272a", border: "#f59e0b", text: "#fde047", sub: "#f59e0b",
-        brand: "👑 LUXURY OBSIDIAN GOLD • VIP EDITION"
-      },
-      pastel: {
-        name: "Life4Cut Pastel",
-        bg1: "#fbcfe8", bg2: "#c7d2fe", border: "#f472b6", text: "#db2777", sub: "#6366f1",
-        loopyMascot: true, brand: "🌸 LIFE4CUT PASTEL • SWEET COTTON"
+      capybara_chill: {
+        pattern: 'polka', base: '#fef3c7', stripe: '#fde68a',
+        border: '#f59e0b', text: '#b45309', sub: '#d97706', brand: '🍊 CAPYBARA CHILL • RELAX & SMILE 🍊',
+        photoBorder: '#ffffff', photoBorderWidth: 8
       }
     };
 
+    // MAIN RENDER ENGINE
     function renderPhotobooth() {
+      const isGrid = (currentLayout === 'grid');
       const isStrip = (currentLayout === 'strip');
-      const W = isStrip ? 900 : 1280;
-      const H = isStrip ? 2400 : 1280;
+      const isDual = (currentLayout === 'dual_strip');
+
+      let W, H;
+      if (isGrid) { W = 1280; H = 1280; }
+      else if (isStrip) { W = 800; H = 2200; }
+      else { W = 1400; H = 2200; } // Dual strip
 
       boothCanvas.width = W;
       boothCanvas.height = H;
       ctx.clearRect(0, 0, W, H);
 
-      const t = THEMES[currentTheme] || THEMES.life4cuts_black;
+      const t = THEMES[currentTheme] || THEMES.coquette_gingham;
 
-      // 1. Background Gradient
-      const grad = ctx.createLinearGradient(0, 0, W, H);
-      grad.addColorStop(0, t.bg1);
-      grad.addColorStop(1, t.bg2);
-      ctx.fillStyle = grad;
-      roundRectPath(ctx, 0, 0, W, H, isStrip ? 60 : 160);
-      ctx.fill();
+      // 1. Background Render
+      if (t.pattern === 'gingham') {
+        drawGingham(ctx, W, H, t.base, t.stripe);
+      } else if (t.pattern === 'polka') {
+        drawPolka(ctx, W, H, t.base, t.stripe);
+      } else {
+        const grad = ctx.createLinearGradient(0, 0, W, H);
+        grad.addColorStop(0, t.bg1);
+        grad.addColorStop(1, t.bg2);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+      }
 
-      // Outer border
-      ctx.lineWidth = isStrip ? 14 : 18;
+      // Outer Border
+      ctx.lineWidth = isDual ? 18 : 14;
       ctx.strokeStyle = t.border;
-      roundRectPath(ctx, 8, 8, W - 16, H - 16, isStrip ? 54 : 152);
+      roundRectPath(ctx, 10, 10, W - 20, H - 20, isGrid ? 100 : 40);
       ctx.stroke();
 
-      // Theme-specific background patterns
+      // Film sprockets
       if (t.sprockets) {
         drawSprockets(ctx, W, H);
       }
+      // Denim stitching
       if (t.stitching) {
         ctx.save();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 4;
         ctx.setLineDash([12, 10]);
-        roundRectPath(ctx, 24, 24, W - 48, H - 48, isStrip ? 42 : 138);
-        ctx.stroke();
-        ctx.restore();
-      }
-      if (t.neon) {
-        ctx.save();
-        ctx.shadowColor = '#06b6d4';
-        ctx.shadowBlur = 24;
-        ctx.lineWidth = 6;
-        ctx.strokeStyle = '#22d3ee';
-        roundRectPath(ctx, 22, 22, W - 44, H - 44, isStrip ? 42 : 138);
+        roundRectPath(ctx, 24, 24, W - 48, H - 48, isGrid ? 80 : 32);
         ctx.stroke();
         ctx.restore();
       }
 
-      // 2. Draw 4 Photo Windows
-      const coords = [];
-      let cellW, cellH, cellRadius;
+      // 2. Photo Windows Calculation
+      const photoWindows = [];
 
-      if (isStrip) {
-        // Vertical Strip: 4 slots stacked
-        const padX = 70;
+      if (isGrid) {
+        // 2x2 Grid (Vuông 1:1)
+        const mx = 64;
+        const topY = 105;
+        const botM = 120;
+        const gap = 28;
+        const cellW = (W - mx * 2 - gap) / 2;
+        const cellH = (H - topY - botM - gap) / 2;
+
+        photoWindows.push(
+          { x: mx, y: topY, w: cellW, h: cellH, slotIdx: 0 },
+          { x: mx + cellW + gap, y: topY, w: cellW, h: cellH, slotIdx: 1 },
+          { x: mx, y: topY + cellH + gap, w: cellW, h: cellH, slotIdx: 2 },
+          { x: mx + cellW + gap, y: topY + cellH + gap, w: cellW, h: cellH, slotIdx: 3 }
+        );
+      } else if (isStrip) {
+        // Single Strip (Dải Dọc 4 Ô)
+        const padX = 64;
         const topY = 120;
-        const gap = 34;
-        cellW = W - padX * 2;
-        cellH = 460;
-        cellRadius = 24;
+        const gap = 30;
+        const cellW = W - padX * 2;
+        const cellH = 410;
 
         for (let i = 0; i < 4; i++) {
-          coords.push([padX, topY + i * (cellH + gap)]);
+          photoWindows.push({ x: padX, y: topY + i * (cellH + gap), w: cellW, h: cellH, slotIdx: i });
         }
       } else {
-        // 2x2 Grid (1:1 Square)
-        const marginX = 52;
-        const topY = 92;
-        const bottomMargin = 108;
-        const gap = 26;
-        cellW = (W - marginX * 2 - gap) / 2;
-        cellH = (H - topY - bottomMargin - gap) / 2;
-        cellRadius = 64;
+        // Dual Strip (Dải Đôi 2x4)
+        const colW = (W - 80) / 2; // ~660px
+        const padX1 = 54;
+        const padX2 = W / 2 + 34;
+        const topY = 120;
+        const gap = 30;
+        const cellW = colW - 74;
+        const cellH = 410;
 
-        coords.push(
-          [marginX, topY],
-          [marginX + cellW + gap, topY],
-          [marginX, topY + cellH + gap],
-          [marginX + cellW + gap, topY + cellH + gap]
-        );
-      }
-
-      coords.forEach(([x, y], idx) => {
-        ctx.save();
-        roundRectPath(ctx, x, y, cellW, cellH, cellRadius);
-        ctx.fillStyle = '#0f172a';
-        ctx.fill();
-        ctx.clip();
-
-        if (slots[idx]) {
-          const src = slots[idx];
-          ctx.drawImage(src, 0, 0, src.width, src.height, x, y, cellW, cellH);
-        } else {
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
-          ctx.fillRect(x, y, cellW, cellH);
-          ctx.fillStyle = 'rgba(255,255,255,0.45)';
-          ctx.font = isStrip ? "700 48px 'Baloo 2', sans-serif" : "700 42px 'Baloo 2', sans-serif";
-          ctx.textAlign = 'center';
-          ctx.fillText(`Ảnh #${idx + 1}`, x + cellW / 2, y + cellH / 2 + 14);
+        // Strip 1 (Trái)
+        for (let i = 0; i < 4; i++) {
+          photoWindows.push({ x: padX1, y: topY + i * (cellH + gap), w: cellW, h: cellH, slotIdx: i });
         }
-        ctx.restore();
+        // Strip 2 (Phải - duplicate exact copies like real Korean booth)
+        for (let i = 0; i < 4; i++) {
+          photoWindows.push({ x: padX2, y: topY + i * (cellH + gap), w: cellW, h: cellH, slotIdx: i });
+        }
 
-        // White border around photo window
-        ctx.lineWidth = isStrip ? 6 : 7;
-        ctx.strokeStyle = (currentTheme === 'life4cuts_white') ? '#0f172a' : '#ffffff';
-        roundRectPath(ctx, x, y, cellW, cellH, cellRadius);
+        // Center Cutting Line with Scissors
+        ctx.save();
+        ctx.strokeStyle = t.text;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([14, 12]);
+        ctx.beginPath();
+        ctx.moveTo(W / 2, 70);
+        ctx.lineTo(W / 2, H - 70);
         ctx.stroke();
 
-        // Photo index marker
+        ctx.font = "28px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("✂️", W / 2, 60);
+        ctx.fillText("✂️", W / 2, H / 2);
+        ctx.fillText("✂️", W / 2, H - 45);
+        ctx.restore();
+      }
+
+      // 3. Render Photo Slots
+      photoWindows.forEach(win => {
+        const { x, y, w, h, slotIdx } = win;
+        const r = isGrid ? 36 : 18;
+
+        // Shadow under photo window
         ctx.save();
-        ctx.font = "800 24px 'Baloo 2', sans-serif";
-        ctx.fillStyle = t.text;
-        if (isStrip) {
-          ctx.fillText(`0${idx + 1}`, x + 16, y - 8);
+        ctx.shadowColor = 'rgba(0,0,0,0.18)';
+        ctx.shadowBlur = 12;
+        ctx.shadowOffsetY = 6;
+        roundRectPath(ctx, x, y, w, h, r);
+        ctx.fillStyle = '#0f172a';
+        ctx.fill();
+        ctx.restore();
+
+        // Photo draw
+        ctx.save();
+        roundRectPath(ctx, x, y, w, h, r);
+        ctx.clip();
+
+        if (slots[slotIdx]) {
+          const src = slots[slotIdx];
+          ctx.drawImage(src, 0, 0, src.width, src.height, x, y, w, h);
+        } else {
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.72)';
+          ctx.fillRect(x, y, w, h);
+          ctx.fillStyle = 'rgba(255,255,255,0.45)';
+          ctx.font = "700 42px 'Baloo 2', sans-serif";
+          ctx.textAlign = 'center';
+          ctx.fillText(`Ảnh #${slotIdx + 1}`, x + w / 2, y + h / 2 + 14);
         }
         ctx.restore();
+
+        // Photo border
+        ctx.lineWidth = t.photoBorderWidth || 7;
+        ctx.strokeStyle = t.photoBorder || '#ffffff';
+        roundRectPath(ctx, x, y, w, h, r);
+        ctx.stroke();
+
+        // DIY Washi Tape on Photo Corners
+        if (decoState.washi) {
+          const washiCol = (slotIdx % 2 === 0) ? 'rgba(255, 182, 193, 0.7)' : 'rgba(254, 240, 138, 0.7)';
+          drawWashiTape(ctx, x + 35, y + 10, 80, 22, -18, washiCol);
+          drawWashiTape(ctx, x + w - 35, y + h - 10, 80, 22, -18, washiCol);
+        }
       });
 
-      // 3. Header Title
-      const titleText = (document.getElementById('customTitle').value || t.brand || 'PHOTOBOOTH 4 CUT').trim();
+      // 4. Header Typography
+      const title = (document.getElementById('customTitle').value || t.brand).trim();
       ctx.save();
-      ctx.font = isStrip ? "800 52px 'Baloo 2', sans-serif" : "800 56px 'Baloo 2', sans-serif";
+      ctx.font = t.fontSerif ? "700 52px 'Playfair Display', serif" : "800 52px 'Baloo 2', sans-serif";
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.lineJoin = 'round';
-      ctx.lineWidth = 14;
-      ctx.strokeStyle = t.border;
-      const headerY = isStrip ? 62 : 48;
-      ctx.strokeText(titleText, W / 2, headerY);
       ctx.fillStyle = t.text;
-      ctx.fillText(titleText, W / 2, headerY);
+
+      if (isDual) {
+        ctx.fillText(title, W / 4, 60);
+        ctx.fillText(title, (W * 3) / 4, 60);
+      } else {
+        const hy = isGrid ? 52 : 60;
+        ctx.fillText(title, W / 2, hy);
+      }
       ctx.restore();
 
-      // 4. Decorations per theme
-      if (t.bows) {
-        if (!isStrip) {
-          drawBow(ctx, W / 2, 92 + cellH + 13, 110, 72, '#ff8fab', '#db2777');
+      // 5. DIY Stickers
+      if (decoState.bows) {
+        if (isGrid) {
+          drawCoquetteBow(ctx, W / 2, 105 + 520 + 14, 110, 68, '#ff8fab', '#be123c');
+          drawCoquetteBow(ctx, 70, H - 65, 85, 52, '#ff8fab', '#be123c');
+          drawCoquetteBow(ctx, W - 70, H - 65, 85, 52, '#ff8fab', '#be123c');
+        } else if (isStrip) {
+          drawCoquetteBow(ctx, W / 2, 115, 95, 58, '#ff8fab', '#be123c');
+          drawCoquetteBow(ctx, W / 2, H - 150, 105, 62, '#ff8fab', '#be123c');
+        } else {
+          drawCoquetteBow(ctx, W / 4, H - 150, 95, 58, '#ff8fab', '#be123c');
+          drawCoquetteBow(ctx, (W * 3) / 4, H - 150, 95, 58, '#ff8fab', '#be123c');
         }
-        drawBow(ctx, 90, H - 70, 80, 50, '#ff8fab', '#db2777');
-        drawBow(ctx, W - 90, H - 70, 80, 50, '#ff8fab', '#db2777');
       }
 
-      if (t.cyberStars) {
-        drawCyberStar(ctx, 60, headerY, 26, '#ffffff');
-        drawCyberStar(ctx, W - 60, headerY, 26, '#ffffff');
-        drawCyberStar(ctx, W / 2, H - 110, 32, '#ffffff');
+      if (decoState.cherries) {
+        if (isGrid) {
+          drawCherries(ctx, 80, 85, 0.85);
+          drawCherries(ctx, W - 80, 85, 0.85);
+        } else if (isStrip) {
+          drawCherries(ctx, 75, 75, 0.8);
+          drawCherries(ctx, W - 75, 75, 0.8);
+        }
       }
 
-      if (t.daisies) {
-        drawDaisy(ctx, 70, headerY, 24);
-        drawDaisy(ctx, W - 70, headerY, 24);
-        drawDaisy(ctx, 110, H - 65, 26);
-        drawDaisy(ctx, W - 110, H - 65, 26);
+      if (decoState.stars) {
+        drawCyberStar(ctx, 75, 55, 24, '#ffffff');
+        drawCyberStar(ctx, W - 75, 55, 24, '#ffffff');
+        drawCyberStar(ctx, W / 2, H - 65, 28, '#ffffff');
       }
 
-      // 5. Footer: Date & Brand & Barcode
+      if (decoState.paws) {
+        drawCatPaw(ctx, 100, H - 75, 34, t.sub);
+        drawCatPaw(ctx, W - 100, H - 75, 34, t.sub);
+      }
+
+      // 6. Footer (Date, Barcode & Stamp)
       const now = new Date();
       const pad = n => (n < 10 ? '0' + n : n);
-      const dateStr = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()} • ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      const dateStr = `${now.getFullYear()}.${pad(now.getMonth()+1)}.${pad(now.getDate())} • ${pad(now.getHours())}:${pad(now.getMinutes())}`;
 
       ctx.save();
-      ctx.font = isStrip ? "700 32px 'Be Vietnam Pro', sans-serif" : "700 28px 'Be Vietnam Pro', sans-serif";
       ctx.textAlign = 'center';
       ctx.fillStyle = t.sub;
 
-      if (isStrip) {
-        ctx.fillText(`인 생 네 컷 • LIFE FOUR CUTS`, W / 2, H - 145);
-        ctx.font = "600 24px 'Be Vietnam Pro', sans-serif";
-        ctx.fillText(`DATE: ${dateStr} • STUDIO BOOTH #01`, W / 2, H - 105);
-        drawBarcode(ctx, W / 2 - 130, H - 75, 260, 42, t.text);
-      } else {
-        const fullFooter = `📸 PHOTOBOOTH 4 CUT • ${dateStr} • NGDUYKHANH`;
-        ctx.fillText(fullFooter, W / 2, H - 52);
+      if (isDual) {
+        // Strip 1 Footer
+        ctx.font = "700 24px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(`인 생 네 컷 • LIFE FOUR CUTS`, W / 4, H - 100);
+        ctx.font = "600 20px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(dateStr, W / 4, H - 72);
+        if (decoState.stamp) {
+          drawBarcode(ctx, W / 4 - 80, H - 54, 160, 28, t.text);
+          drawPostmark(ctx, W / 4 + 160, H - 85, 34, "SEOUL", "PHOTO", t.text);
+        }
 
-        if (t.barcode) {
-          drawBarcode(ctx, W / 2 - 100, H - 98, 200, 30, t.text);
+        // Strip 2 Footer
+        ctx.font = "700 24px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(`인 생 네 컷 • LIFE FOUR CUTS`, (W * 3) / 4, H - 100);
+        ctx.font = "600 20px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(dateStr, (W * 3) / 4, H - 72);
+        if (decoState.stamp) {
+          drawBarcode(ctx, (W * 3) / 4 - 80, H - 54, 160, 28, t.text);
+          drawPostmark(ctx, (W * 3) / 4 + 160, H - 85, 34, "SEOUL", "PHOTO", t.text);
+        }
+      } else if (isStrip) {
+        ctx.font = "700 28px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(`인 생 네 컷 • LIFE FOUR CUTS`, W / 2, H - 105);
+        ctx.font = "600 22px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(`DATE: ${dateStr} • BOOTH #01`, W / 2, H - 74);
+        if (decoState.stamp) {
+          drawBarcode(ctx, W / 2 - 95, H - 56, 190, 32, t.text);
+          drawPostmark(ctx, W / 2 + 180, H - 90, 36, "SEOUL", "HARU", t.text);
+        }
+      } else {
+        // Grid 2x2
+        ctx.font = "700 26px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(`📸 PHOTOBOOTH • ${dateStr} • MEMORIES`, W / 2, H - 42);
+        if (decoState.stamp) {
+          drawBarcode(ctx, W / 2 - 90, H - 88, 180, 28, t.text);
+          drawPostmark(ctx, W - 100, H - 65, 36, "SEOUL", "PHOTO", t.text);
         }
       }
       ctx.restore();
-
-      // Loopy mascots on compatible themes
-      if (t.loopyMascot && !isStrip) {
-        if (mascotLeft.complete && mascotLeft.naturalWidth > 0) {
-          const lw = 285;
-          const lh = mascotLeft.naturalHeight * (lw / mascotLeft.naturalWidth);
-          ctx.drawImage(mascotLeft, 16, H - lh - 10, lw, lh);
-        }
-        if (mascotRight.complete && mascotRight.naturalWidth > 0) {
-          const rw = 340;
-          const rh = mascotRight.naturalHeight * (rw / mascotRight.naturalWidth);
-          ctx.drawImage(mascotRight, W - rw - 10, H - rh - 12, rw, rh);
-        }
-      }
     }
 
     function downloadImage() {
       const link = document.createElement('a');
-      link.download = `Locket_Photobooth_${currentTheme}_${Date.now()}.png`;
+      link.download = `Photobooth_${currentTheme}_${Date.now()}.png`;
       link.href = boothCanvas.toDataURL('image/png');
       link.click();
     }
@@ -1160,14 +1479,13 @@
       const btn = document.getElementById('btnDirectPost');
       statusEl.style.display = 'block';
       statusEl.style.color = '#fde68a';
-      statusEl.textContent = '⏳ Đang kết nối cầu nối Shadowrocket Locket...';
+      statusEl.textContent = '⏳ Đang kết nối cầu nối Locket...';
       btn.disabled = true;
 
       try {
         let idToken = localStorage.getItem('bk_locket_token') || '';
         let uid = localStorage.getItem('bk_locket_uid') || '';
 
-        // 1. Thử lấy tự động từ cầu nối Shadowrocket
         try {
           const bridgeRes = await fetch('https://api.locketcamera.com/bokhanh-photobooth-bridge', { cache: 'no-store' });
           if (bridgeRes.ok) {
@@ -1183,12 +1501,12 @@
 
         if (!idToken || !uid) {
           statusEl.style.color = '#fca5a5';
-          statusEl.innerHTML = '⚠️ Chưa bắt được phiên Locket tự động. Hãy bật <b>Shadowrocket</b> (đã cập nhật v24), mở app <b>Locket</b> 1 lần rồi quay lại bấm nút này — hoặc bấm <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới để đăng nhé!';
+          statusEl.innerHTML = '⚠️ Chưa bắt được phiên Locket. Hãy bật <b>Shadowrocket</b> (đã cập nhật v24), mở app <b>Locket</b> 1 lần rồi quay lại bấm nút này — hoặc bấm <b>📲 Lưu Ảnh / Chia Sẻ</b> để đăng nhé!';
           btn.disabled = false;
           return;
         }
 
-        statusEl.textContent = '☁️ Đang tải ảnh Photobooth 4 ô lên máy chủ Locket...';
+        statusEl.textContent = '☁️ Đang tải ảnh Photobooth lên máy chủ Locket...';
         const blob = await new Promise(resolve => boothCanvas.toBlob(resolve, 'image/webp', 0.92));
         const imgName = `photobooth_${Date.now()}.webp`;
         const storagePath = `users/${uid}/moments/thumbnails/${imgName}`;
@@ -1216,7 +1534,7 @@
         });
 
         const uploadUrl = startRes.headers.get('X-Goog-Upload-URL') || startRes.headers.get('x-goog-upload-url');
-        if (!uploadUrl) throw new Error('Không lấy được Upload URL (hãy mở lại Locket để làm mới Token)');
+        if (!uploadUrl) throw new Error('Không lấy được Upload URL');
 
         await fetch(uploadUrl, {
           method: 'PUT',
@@ -1245,20 +1563,6 @@
             sent_to_all: true
           }
         };
-        if (captionText) {
-          postPayload.data.overlays = [{
-            data: {
-              text: captionText,
-              text_color: '#FFFFFFE6',
-              type: 'standard',
-              max_lines: 4,
-              background: { colors: ['#FF6B9D', '#C44569'], material_blur: 'ultra_thin' }
-            },
-            alt_text: captionText,
-            overlay_id: 'caption:standard',
-            overlay_type: 'caption'
-          }];
-        }
 
         const postRes = await fetch('https://api.locketcamera.com/postMomentV2', {
           method: 'POST',
@@ -1271,10 +1575,10 @@
 
         if (!postRes.ok) throw new Error('Lỗi khi gọi postMomentV2');
         statusEl.style.color = '#86efac';
-        statusEl.innerHTML = '🎉 <b>Đã đăng thẳng ảnh Photobooth 4 ô lên Locket thành công!</b> Mở Locket kiểm tra ngay nhé!';
+        statusEl.innerHTML = '🎉 <b>Đã đăng thẳng ảnh Photobooth lên Locket thành công!</b> Mở Locket kiểm tra ngay nhé!';
       } catch (err) {
         statusEl.style.color = '#fca5a5';
-        statusEl.innerHTML = '⚠️ ' + (err.message || 'Không thể đăng trực tiếp') + ' — Hãy bấm nút <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới để lưu về máy nhé!';
+        statusEl.innerHTML = '⚠️ ' + (err.message || 'Không thể đăng trực tiếp') + ' — Hãy bấm nút <b>📲 Lưu Ảnh / Chia Sẻ</b> để lưu về máy nhé!';
       } finally {
         btn.disabled = false;
       }
@@ -1283,13 +1587,13 @@
     async function shareOrSaveImage() {
       boothCanvas.toBlob(async (blob) => {
         if (!blob) return downloadImage();
-        const file = new File([blob], `Locket_Photobooth_${currentTheme}_${Date.now()}.png`, { type: 'image/png' });
+        const file = new File([blob], `Photobooth_${currentTheme}_${Date.now()}.png`, { type: 'image/png' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
               files: [file],
-              title: 'Locket Photobooth 4 Cut',
-              text: 'Ảnh ghép Photobooth 4 ô chuẩn Locket'
+              title: 'Locket Photobooth',
+              text: 'Ảnh ghép Photobooth phong cách Pinterest'
             });
             return;
           } catch (err) {
