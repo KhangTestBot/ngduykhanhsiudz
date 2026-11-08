@@ -50,15 +50,20 @@ obj.subscriber = obj.subscriber || {};
 obj.subscriber.subscriptions = obj.subscriber.subscriptions || {};
 obj.subscriber.entitlements = obj.subscriber.entitlements || {};
 
-const match = Object.keys(mapping).find(e => ua.includes(e));
-if (match) {
-  let [e, s] = mapping[match];
-  s ? (locketGold.product_identifier = s, obj.subscriber.subscriptions[s] = ngduykhanhSub) : obj.subscriber.subscriptions["locket_1600_1y"] = ngduykhanhSub, obj.subscriber.entitlements[e] = locketGold;
-} else {
-  obj.subscriber.subscriptions["locket_1600_1y"] = ngduykhanhSub;
-  obj.subscriber.entitlements["Gold"] = locketGold;
-  obj.subscriber.entitlements.pro = locketGold;
+// Cấp trọn bộ sản phẩm và mọi loại quyền Gold cho Locket, AI Filters & Holiday Effects
+obj.subscriber.subscriptions["locket_1600_1y"] = ngduykhanhSub;
+obj.subscriber.subscriptions["locket_gold"] = ngduykhanhSub;
+obj.subscriber.subscriptions["gold"] = ngduykhanhSub;
+
+const allEntitlements = [
+  "Gold", "gold", "locket_gold", "pro", "premium",
+  "holiday_effects", "holiday_filters", "holiday_filter",
+  "ai_filters", "ai_filter", "camera_filters"
+];
+for (let ent of allEntitlements) {
+  obj.subscriber.entitlements[ent] = locketGold;
 }
+
 $done({
   body: JSON.stringify(obj)
 });

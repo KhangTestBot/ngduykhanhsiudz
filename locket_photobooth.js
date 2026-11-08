@@ -44,9 +44,28 @@
         // Xóa hoàn toàn các trường lỗi gây ra thông báo "Không thể áp dụng bộ lọc"
         delete resObj.error;
         delete resObj.errors;
+        resObj.requires_gold = false;
+        resObj.is_gold = true;
+        resObj.unlocked = true;
+        resObj.is_blurred = false;
+        resObj.show_upsell = false;
+        resObj.show_paywall = false;
+
         if (resObj.result) {
             delete resObj.result.error;
             delete resObj.result.errors;
+            resObj.result.requires_gold = false;
+            resObj.result.is_gold = true;
+            resObj.result.unlocked = true;
+            resObj.result.is_blurred = false;
+            resObj.result.show_upsell = false;
+            resObj.result.show_paywall = false;
+            if (resObj.result.data && typeof resObj.result.data === "object") {
+                resObj.result.data.requires_gold = false;
+                resObj.result.data.is_gold = true;
+                resObj.result.data.unlocked = true;
+                resObj.result.data.is_blurred = false;
+            }
         }
 
         // Nếu status không phải 200 hoặc không có result, tạo fallback 200 OK
@@ -55,7 +74,10 @@
             resObj = {
                 result: {
                     status: 200,
-                    data: (resObj && (resObj.data || resObj.result)) || {}
+                    data: (resObj && (resObj.data || resObj.result)) || {},
+                    unlocked: true,
+                    requires_gold: false,
+                    is_blurred: false
                 }
             };
         }

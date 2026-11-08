@@ -63,7 +63,42 @@ else if (reqUrl.indexOf("/bokhanh-photobooth-bridge") !== -1) {
         }
     });
 }
-// 3. TUYỆT ĐỐI KHÔNG CAN THIỆP BẤT KỲ REQUEST NÀO KHÁC (BẢO TOÀN 100% BẠN BÈ & MOMENTS)
+// 3. Unblur ảnh chụp hiệu ứng AI & Holiday Effects (Tuyệt đối bảo toàn 100% danh sách bạn bè)
+else if (typeof $response !== "undefined" && $response.body && (reqUrl.indexOf("/moment") !== -1 || reqUrl.indexOf("/getFilteredImage") !== -1)) {
+    try {
+        let mObj = JSON.parse($response.body);
+        function safeUnblur(n) {
+            if (!n || typeof n !== "object") return;
+            if ("is_blurred" in n) n.is_blurred = false;
+            if ("blurred" in n) n.blurred = false;
+            if ("requires_gold" in n) n.requires_gold = false;
+            if ("needs_gold" in n) n.needs_gold = false;
+            if ("locked" in n) n.locked = false;
+            if ("is_locked" in n) n.is_locked = false;
+            if ("show_paywall" in n) n.show_paywall = false;
+            if ("show_upsell" in n) n.show_upsell = false;
+            if ("can_view" in n) n.can_view = true;
+            if ("unlocked" in n) n.unlocked = true;
+            if ("is_unlocked" in n) n.is_unlocked = true;
+            if ("is_free" in n) n.is_free = true;
+            if (n.blurred_url && n.download_url) n.blurred_url = n.download_url;
+            if (n.blurred_image_url && n.image_url) n.blurred_image_url = n.image_url;
+            if (n.preview_url && n.download_url) n.preview_url = n.download_url;
+            for (let k of Object.keys(n)) {
+                if (k === "data" || k === "result" || k === "moment" || k === "moments" || Array.isArray(n[k])) {
+                    safeUnblur(n[k]);
+                }
+            }
+        }
+        safeUnblur(mObj);
+        $done({
+            body: JSON.stringify(mObj)
+        });
+    } catch (e) {
+        $done({});
+    }
+}
+// 4. TUYỆT ĐỐI KHÔNG CAN THIỆP BẤT KỲ REQUEST NÀO KHÁC (BẢO TOÀN 100% BẠN BÈ & STREAK)
 else {
     $done({});
 }
