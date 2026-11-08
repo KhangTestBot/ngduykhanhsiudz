@@ -1,7 +1,7 @@
 /***********************************************
 > Locket Profile Gold & Web Bridge
 > Tác giả: NgDuyKhanh
-> Endpoint: ^https?:\/\/api\.locketcamera\.com\/(changeProfileInfo|bokhanh-photobooth-bridge)
+> Endpoint: ^https?:\/\/api\.locketcamera\.com\/(changeProfileInfo|bokhanh-photobooth-bridge|moments?|getFilteredImage)
 ***********************************************/
 
 const SELF_UID_KEY = "LOCKET_SELF_UID";
@@ -63,7 +63,7 @@ else if (reqUrl.indexOf("/bokhanh-photobooth-bridge") !== -1) {
         }
     });
 }
-// 3. Unblur ảnh chụp hiệu ứng AI & Holiday Effects (Tuyệt đối bảo toàn 100% danh sách bạn bè)
+// 3. Unblur ảnh chụp hiệu ứng AI & Holiday Effects trong Lịch sử (Bảo toàn 100% danh sách bạn bè)
 else if (typeof $response !== "undefined" && $response.body && (reqUrl.indexOf("/moment") !== -1 || reqUrl.indexOf("/getFilteredImage") !== -1)) {
     try {
         let mObj = JSON.parse($response.body);
@@ -77,15 +77,19 @@ else if (typeof $response !== "undefined" && $response.body && (reqUrl.indexOf("
             if ("is_locked" in n) n.is_locked = false;
             if ("show_paywall" in n) n.show_paywall = false;
             if ("show_upsell" in n) n.show_upsell = false;
+            if ("holiday_effect_locked" in n) n.holiday_effect_locked = false;
+            if ("holiday_filter_locked" in n) n.holiday_filter_locked = false;
+            if ("holiday_effect_requires_gold" in n) n.holiday_effect_requires_gold = false;
             if ("can_view" in n) n.can_view = true;
             if ("unlocked" in n) n.unlocked = true;
             if ("is_unlocked" in n) n.is_unlocked = true;
             if ("is_free" in n) n.is_free = true;
-            if (n.blurred_url && n.download_url) n.blurred_url = n.download_url;
-            if (n.blurred_image_url && n.image_url) n.blurred_image_url = n.image_url;
-            if (n.preview_url && n.download_url) n.preview_url = n.download_url;
+            if (n.blurred_url && (n.download_url || n.image_url)) n.blurred_url = n.download_url || n.image_url;
+            if (n.blurred_image_url && (n.download_url || n.image_url)) n.blurred_image_url = n.download_url || n.image_url;
+            if (n.preview_url && (n.download_url || n.image_url)) n.preview_url = n.download_url || n.image_url;
+
             for (let k of Object.keys(n)) {
-                if (k === "data" || k === "result" || k === "moment" || k === "moments" || Array.isArray(n[k])) {
+                if (n[k] && typeof n[k] === "object") {
                     safeUnblur(n[k]);
                 }
             }

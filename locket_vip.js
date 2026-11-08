@@ -20,7 +20,7 @@ obj.Attention = "Chúc mừng bạn! Cấu hình Locket Gold bởi NgDuyKhanh!";
 var ngduykhanhSub = {
   auto_resume_date: null,
   display_name: "locket_1600_1y",
-  is_sandbox: true,
+  is_sandbox: false,
   ownership_type: "PURCHASED",
   billing_issues_detected_at: null,
   management_url: "https://apps.apple.com/account/subscriptions",
@@ -50,7 +50,7 @@ obj.subscriber = obj.subscriber || {};
 obj.subscriber.subscriptions = obj.subscriber.subscriptions || {};
 obj.subscriber.entitlements = obj.subscriber.entitlements || {};
 
-// Cấp trọn bộ sản phẩm và mọi loại quyền Gold cho Locket, AI Filters & Holiday Effects
+// Cấp trọn bộ sản phẩm và mọi loại quyền Gold cho Locket, AI Filters, Holiday Effects & History
 obj.subscriber.subscriptions["locket_1600_1y"] = ngduykhanhSub;
 obj.subscriber.subscriptions["locket_gold"] = ngduykhanhSub;
 obj.subscriber.subscriptions["gold"] = ngduykhanhSub;
@@ -58,7 +58,8 @@ obj.subscriber.subscriptions["gold"] = ngduykhanhSub;
 const allEntitlements = [
   "Gold", "gold", "locket_gold", "pro", "premium",
   "holiday_effects", "holiday_filters", "holiday_filter",
-  "ai_filters", "ai_filter", "camera_filters"
+  "ai_filters", "ai_filter", "camera_filters",
+  "camera_roll", "locket_views", "custom_widget_frames", "longer_video"
 ];
 for (let ent of allEntitlements) {
   obj.subscriber.entitlements[ent] = locketGold;

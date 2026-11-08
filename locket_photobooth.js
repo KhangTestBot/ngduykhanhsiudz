@@ -3,34 +3,50 @@
 > Tác giả: NgDuyKhanh
 > Endpoint: ^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage
 > Tính năng:
->  - Hỗ trợ chụp liên hoàn 4 ảnh Photobooth (Tấm 1 -> Tấm 2 -> Tấm 3 -> Tấm 4 tự ghép)
->  - Kết nối Worker bảo mật xử lý hình ảnh tốc độ cao chuẩn module Locket_YouTube
+>  - Bảo toàn 100% tất cả bộ lọc AI & hiệu ứng ngày lễ gốc của Locket
 >  - Chống triệt để 100% lỗi "Không thể áp dụng bộ lọc" trên Locket
+>  - Tự động gỡ bỏ hoàn toàn Paywall Gold và làm rõ ảnh bị mờ
 ***********************************************/
 
 (function () {
-    const WORKER_TARGET = "https://locket-vip.mhiep20077.workers.dev/generateFilteredImage?module=Locket_YouTube";
-
-    // 1. CHIỀU REQUEST: Điều hướng qua Worker xử lý Photobooth & AI
+    // 1. CHIỀU REQUEST:
     if (typeof $response === "undefined") {
         try {
             if (!$request) return $done({});
 
-            let headers = Object.assign({}, ($request && $request.headers) || {});
-            headers["Host"] = "locket-vip.mhiep20077.workers.dev";
-            headers["host"] = "locket-vip.mhiep20077.workers.dev";
-            headers["X-Module-Origin"] = "Locket_YouTube";
+            let reqBody = $request.body || "";
+            let isPhotobooth = false;
 
-            return $done({
-                url: WORKER_TARGET,
-                headers: headers
-            });
+            if (reqBody) {
+                try {
+                    let parsed = JSON.parse(reqBody);
+                    let data = (parsed && (parsed.data || parsed)) || {};
+                    let filterId = String(data.filter_id || data.filterId || data.prompt || "");
+                    if (filterId.startsWith("pb_") || filterId.indexOf("photobooth") !== -1) {
+                        isPhotobooth = true;
+                    }
+                } catch (e) {
+                    if (reqBody.indexOf("pb_") !== -1 || reqBody.indexOf("photobooth") !== -1) {
+                        isPhotobooth = true;
+                    }
+                }
+            }
+
+            // Nếu KHÔNG PHẢI Photobooth (tức là bộ lọc AI/Lễ hội chính thức của Locket):
+            // Cho phép gửi trực tiếp đến server chính chủ của Locket, KHÔNG điều hướng sang worker lạ
+            if (!isPhotobooth) {
+                return $done({});
+            }
+
+            // Nếu là filter Photobooth đặc thù (pb_...):
+            // Nếu có server riêng hoặc vercel, có thể trỏ về; nếu chưa thì để server xử lý
+            return $done({});
         } catch (e) {
             return $done({});
         }
     }
 
-    // 2. CHIỀU RESPONSE: Xóa mã lỗi, đảm bảo luôn trả về 200 OK thành công
+    // 2. CHIỀU RESPONSE: Xóa mã lỗi, gỡ Paywall Gold, đảm bảo luôn trả về ảnh hợp lệ
     try {
         let status = (typeof $response !== "undefined" && ($response.status || $response.statusCode)) || 200;
         let body = (typeof $response !== "undefined" && $response.body) || "{}";
@@ -38,7 +54,7 @@
         try {
             resObj = JSON.parse(body);
         } catch (e) {
-            resObj = {};
+            return $done({});
         }
 
         // Xóa hoàn toàn các trường lỗi gây ra thông báo "Không thể áp dụng bộ lọc"
@@ -51,36 +67,35 @@
         resObj.show_upsell = false;
         resObj.show_paywall = false;
 
-        if (resObj.result) {
-            delete resObj.result.error;
-            delete resObj.result.errors;
-            resObj.result.requires_gold = false;
-            resObj.result.is_gold = true;
-            resObj.result.unlocked = true;
-            resObj.result.is_blurred = false;
-            resObj.result.show_upsell = false;
-            resObj.result.show_paywall = false;
-            if (resObj.result.data && typeof resObj.result.data === "object") {
-                resObj.result.data.requires_gold = false;
-                resObj.result.data.is_gold = true;
-                resObj.result.data.unlocked = true;
-                resObj.result.data.is_blurred = false;
+        function cleanNode(node) {
+            if (!node || typeof node !== "object") return;
+            delete node.error;
+            delete node.errors;
+            node.requires_gold = false;
+            node.is_gold = true;
+            node.unlocked = true;
+            node.is_blurred = false;
+            node.show_upsell = false;
+            node.show_paywall = false;
+            node.is_locked = false;
+            node.locked = false;
+            node.can_view = true;
+            node.is_free = true;
+
+            // Nếu có ảnh đã unblur, thay thế cho ảnh mờ
+            if (node.download_url && node.blurred_url) node.blurred_url = node.download_url;
+            if (node.image_url && node.blurred_image_url) node.blurred_image_url = node.image_url;
+            if (node.output_url && node.blurred_url) node.blurred_url = node.output_url;
+            if (node.url && node.blurred_url) node.blurred_url = node.url;
+
+            for (let k of Object.keys(node)) {
+                if (node[k] && typeof node[k] === "object") {
+                    cleanNode(node[k]);
+                }
             }
         }
 
-        // Nếu status không phải 200 hoặc không có result, tạo fallback 200 OK
-        if (status !== 200 || !resObj.result) {
-            status = 200;
-            resObj = {
-                result: {
-                    status: 200,
-                    data: (resObj && (resObj.data || resObj.result)) || {},
-                    unlocked: true,
-                    requires_gold: false,
-                    is_blurred: false
-                }
-            };
-        }
+        cleanNode(resObj);
 
         let respHeaders = Object.assign({}, ($response && $response.headers) || {});
         delete respHeaders["Content-Encoding"];
@@ -97,7 +112,7 @@
             headers: respHeaders,
             body: JSON.stringify(resObj)
         });
-    } catch (e) {}
-
-    return $done({});
+    } catch (e) {
+        return $done({});
+    }
 })();
