@@ -1,7 +1,7 @@
 #!name=👑 Locket Gold 45s + Khung Loopy 3D & Photobooth 4 Ô (NgDuyKhanh)
 #!desc=Thương hiệu: NgDuyKhanh | Mở khóa Locket Gold Vĩnh Viễn, Quay & Up Video 45s, Khung Widget Loopy 3D & Động cơ Chụp Photobooth 4 Ô Liên Hoàn 💛
 #!author=NgDuyKhanh
-#!homepage=https://github.com/KhangTestBot/ngduykhanhsiudz
+#!homepage=https://ngduykhanhsiudz-klph.vercel.app/
 #!moduleUrl=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/BoKhanh_Locket_30s.sgmodule
 #!icon=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png
 #!system=ios
@@ -11,6 +11,7 @@
 AND,((DOMAIN,firebaseremoteconfig.googleapis.com),(PROTOCOL,UDP)),REJECT
 AND,((DOMAIN,api.revenuecat.com),(PROTOCOL,UDP)),REJECT
 AND,((DOMAIN,api.locketcamera.com),(PROTOCOL,UDP)),REJECT
+AND,((DOMAIN-SUFFIX,locketcamera.com),(PROTOCOL,UDP)),REJECT
 
 # Chặn Sentry
 DOMAIN-SUFFIX,sentry.io,REJECT
@@ -34,18 +35,18 @@ DOMAIN-SUFFIX,ingest.sentry.io,REJECT
 
 [Script]
 # LocketGold - NgDuyKhanh
-revenuecat = type=http-response, pattern=^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_vip.js?v=ngduykhanh_v24, requires-body=true, max-size=-1, timeout=60
-locket_rc = type=http-response, pattern=^https?:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_unlocked.js?v=ngduykhanh_v24, requires-body=true, max-size=-1, timeout=60
+revenuecat = type=http-response, pattern=^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_vip.js?v=ngduykhanh_v26, requires-body=true, max-size=-1, timeout=60
+locket_rc = type=http-response, pattern=^https?:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_unlocked.js?v=ngduykhanh_v26, requires-body=true, max-size=-1, timeout=60
 
 # Động cơ Photobooth & AI Filter Modifier
-locket_pb_req = type=http-request, pattern=^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_photobooth.js?v=ngduykhanh_v24, requires-body=true, max-size=-1, timeout=60
-locket_pb_resp = type=http-response, pattern=^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_photobooth.js?v=ngduykhanh_v24, requires-body=true, max-size=-1, timeout=60
+locket_pb_req = type=http-request, pattern=^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_photobooth.js?v=ngduykhanh_v26, requires-body=true, max-size=-1, timeout=60
+locket_pb_resp = type=http-response, pattern=^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_photobooth.js?v=ngduykhanh_v26, requires-body=true, max-size=-1, timeout=60
 
 # Mở Khóa Profile Gold, Cầu Nối Web & Unblur Moment AI trong Lịch sử
-locket_filter = type=http-response, pattern=^https?:\/\/api\.locketcamera\.com\/(changeProfileInfo|bokhanh-photobooth-bridge|moments?|getFilteredImage), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_filter.js?v=ngduykhanh_v24, requires-body=true, max-size=-1, timeout=60
+locket_filter = type=http-response, pattern=^https?:\/\/api\.locketcamera\.com\/(changeProfileInfo|bokhanh-photobooth-bridge|moments?|getFilteredImage), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_filter.js?v=ngduykhanh_v26, requires-body=true, max-size=-1, timeout=60
 
 [Host]
 firebaseremoteconfigrealtime.googleapis.com = 0.0.0.0
 
 [MITM]
-hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, us-central1-locket-4252a.cloudfunctions.net, api.rc-backup.com
+hostname = %APPEND% api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, *.locketcamera.com, us-central1-locket-4252a.cloudfunctions.net, api.rc-backup.com
