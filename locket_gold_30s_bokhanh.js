@@ -114,11 +114,11 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
                 {
                     title: "Hẹ Hẹ Hẹ ✨",
                     body: "NGDUYKHANH NÈ MẤY EM 💛",
-                    imageURL: "https://i.ibb.co/hFq8Th2W/user-with-loopy-frame.png"
+                    imageURL: "https://i.ibb.co/mVpgTQxf/user-with-old-loopy-frame.png"
                 }
             ],
-            primary_button_title: "Xong rồi nhé!",
-            campaign: "locket_gold_welcome_v5",
+            primary_button_title: "Xong",
+            campaign: "locket_gold_welcome_v6",
             start_at: "2020-01-01T00:00:00",
             end_at: "2099-12-31T23:59:59",
             use_local_time_zone: true
@@ -342,7 +342,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     ];
 
     var frameCatalog = {
-        loopy_3d: "https://i.ibb.co/DDpNTWXV/Code-Generated-Image.png",
+        loopy_3d: "https://i.ibb.co/Tq8wqjyD/code-gen-ff0e345.png",
         shin_chan: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
         hello_kitty: "https://i.ibb.co/RTm5P1n9/kitty-1.png",
         khung_ins: "https://i.ibb.co/JjLZ3cvD/khung-ins.png",
@@ -353,7 +353,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     };
 
     var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "loopy_3d";
-    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://i.ibb.co/DDpNTWXV/Code-Generated-Image.png";
+    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://i.ibb.co/Tq8wqjyD/code-gen-ff0e345.png";
 
     Object.assign(obj.entries, {
         widget_frame_event_max_images: "5",
@@ -364,7 +364,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
         widget_last_sent_indicator: "false",
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
-            uid: "midautumn_2026",
+            uid: "loopy_classic_2026",
             url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
