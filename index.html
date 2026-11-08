@@ -590,20 +590,17 @@
     }
 
     function grabVideoFrame() {
-      const c = document.createElement('canvas');
-      c.width = 720; c.height = 720;
-      const g = c.getContext('2d');
       const vw = video.videoWidth || 720;
       const vh = video.videoHeight || 720;
-      const side = Math.min(vw, vh);
-      const sx = (vw - side) / 2;
-      const sy = (vh - side) / 2;
+      const c = document.createElement('canvas');
+      c.width = vw; c.height = vh;
+      const g = c.getContext('2d');
 
       if (isMirrored) {
-        g.translate(720, 0);
+        g.translate(vw, 0);
         g.scale(-1, 1);
       }
-      g.drawImage(video, sx, sy, side, side, 0, 0, 720, 720);
+      g.drawImage(video, 0, 0, vw, vh);
       return c;
     }
 
@@ -661,11 +658,16 @@
         reader.onload = (ev) => {
           const im = new Image();
           im.onload = () => {
+            const maxDim = 1280;
+            let w = im.width, h = im.height;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+              else { w = Math.round((w * maxDim) / h); h = maxDim; }
+            }
             const c = document.createElement('canvas');
-            c.width = 720; c.height = 720;
+            c.width = w; c.height = h;
             const g = c.getContext('2d');
-            const side = Math.min(im.width, im.height);
-            g.drawImage(im, (im.width - side)/2, (im.height - side)/2, side, side, 0, 0, 720, 720);
+            g.drawImage(im, 0, 0, w, h);
             slots[targetIdx] = c;
             updateSlotUI();
           };
@@ -851,24 +853,32 @@
       ctx.restore();
     }
 
-    // Shin-chan Illustration
-    function drawShinChanArt(ctx, cx, cy) {
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.fillStyle = '#ffedd5';
-      ctx.beginPath(); ctx.arc(0, 0, 28, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(18, 6, 14, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#000000';
-      ctx.beginPath();
-      ctx.ellipse(-10, -12, 10, 4, -0.2, 0, Math.PI * 2);
-      ctx.ellipse(12, -12, 10, 4, 0.2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath(); ctx.arc(-8, -2, 5, 0, Math.PI * 2); ctx.arc(14, -2, 5, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath(); ctx.arc(-9, -4, 2, 0, Math.PI * 2); ctx.arc(13, -4, 2, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = '#000'; ctx.lineWidth = 2.5;
-      ctx.beginPath(); ctx.arc(6, 12, 8, 0.2, Math.PI * 0.85); ctx.stroke();
-      ctx.restore();
+    // HÀM VẼ ẢNH CHUẨN COVER (KHÔNG BAO GIỜ BỊ BẸP HOẶC KÉO GIÃN KHUÔN MẶT)
+    function drawCoverImage(ctx, img, x, y, w, h, offsetY = 0.38) {
+      if (!img) return;
+      const iw = img.naturalWidth || img.videoWidth || img.width;
+      const ih = img.naturalHeight || img.videoHeight || img.height;
+      if (!iw || !ih) return;
+
+      const imgRatio = iw / ih;
+      const targetRatio = w / h;
+      let sx, sy, sw, sh;
+
+      if (imgRatio > targetRatio) {
+        // Ảnh gốc rộng hơn ô: Crop 2 bên, giữ trọn chiều cao
+        sh = ih;
+        sw = ih * targetRatio;
+        sx = (iw - sw) / 2;
+        sy = 0;
+      } else {
+        // Ảnh gốc cao hơn ô: Crop trên/dưới. Với selfie mặt người, offsetY = 0.38 giữ đỉnh đầu & mặt đẹp nhất
+        sw = iw;
+        sh = iw / targetRatio;
+        sx = 0;
+        sy = Math.max(0, (ih - sh) * offsetY);
+      }
+
+      ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
     }
 
     function drawPhotoInWindow(img, x, y, w, h, idx, r = 10) {
@@ -876,12 +886,250 @@
       roundRect(ctx, x, y, w, h, r);
       ctx.clip();
       if (img) {
-        ctx.drawImage(img, 0, 0, img.width, img.height, x, y, w, h);
+        drawCoverImage(ctx, img, x, y, w, h);
       } else {
         ctx.fillStyle = '#1e293b'; ctx.fillRect(x, y, w, h);
         ctx.fillStyle = '#94a3b8'; ctx.font = "700 32px 'Baloo 2', sans-serif"; ctx.textAlign = 'center';
         ctx.fillText(`Ảnh #${idx}`, x + w/2, y + h/2 + 10);
       }
+      ctx.restore();
+    }
+
+    // Shin-chan Manga Slot
+    function drawShinSlot(x, y, w, h, img, idx, borderColor = '#ef4444') {
+      ctx.save();
+      // Drop shadow
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+      roundRect(ctx, x + 6, y + 6, w, h, 20);
+      ctx.fill();
+
+      // White comic base
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 4;
+      roundRect(ctx, x, y, w, h, 20);
+      ctx.fill();
+      ctx.stroke();
+
+      // Colorful inner border
+      ctx.strokeStyle = borderColor;
+      ctx.lineWidth = 7;
+      roundRect(ctx, x + 6, y + 6, w - 12, h - 12, 16);
+      ctx.stroke();
+
+      // Photo clipping window
+      const pad = 16;
+      const pw = w - pad * 2;
+      const ph = h - pad * 2;
+      const px = x + pad;
+      const py = y + pad;
+
+      ctx.save();
+      roundRect(ctx, px, py, pw, ph, 12);
+      ctx.clip();
+      if (img) {
+        drawCoverImage(ctx, img, px, py, pw, ph, 0.35);
+      } else {
+        ctx.fillStyle = '#fef3c7';
+        ctx.fillRect(px, py, pw, ph);
+        ctx.fillStyle = borderColor;
+        ctx.font = "800 34px 'Baloo 2', sans-serif";
+        ctx.textAlign = 'center';
+        ctx.fillText(`Ô Ảnh #${idx}`, px + pw / 2, py + ph / 2);
+        ctx.font = "600 20px 'Baloo 2', sans-serif";
+        ctx.fillStyle = '#64748b';
+        ctx.fillText("Bấm chụp hoặc tải ảnh lên", px + pw / 2, py + ph / 2 + 38);
+      }
+      ctx.restore();
+
+      // Comic badge on top-left
+      ctx.fillStyle = borderColor;
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(x + 36, y + 36, 22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "900 22px 'Baloo 2', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(idx), x + 36, y + 37);
+
+      ctx.restore();
+    }
+
+    // Shin-chan & Shiro & Chocobi Illustration (Chi tiết, dễ thương chuẩn Anime)
+    function drawShinChanArt(ctx, cx, cy) {
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      // 1. Comic Speech Bubble
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 3.5;
+      roundRect(ctx, -190, -135, 380, 56, 16);
+      ctx.fill(); ctx.stroke();
+      // Bubble pointer tail
+      ctx.beginPath();
+      ctx.moveTo(-40, -79); ctx.lineTo(-20, -55); ctx.lineTo(-10, -79);
+      ctx.fillStyle = '#ffffff'; ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(-40, -79); ctx.lineTo(-20, -55); ctx.lineTo(-10, -79);
+      ctx.stroke();
+
+      ctx.fillStyle = '#ef4444';
+      ctx.font = "800 24px 'Baloo 2', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.fillText("ほっほーい! Chụp Locket nàoo ♡", 0, -99);
+      ctx.restore();
+
+      // 2. Chocobi Crocodile Box (Hộp bánh Chocobi bên trái)
+      ctx.save();
+      ctx.translate(-150, 10);
+      ctx.fillStyle = '#22c55e';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 3;
+      roundRect(ctx, -38, -50, 76, 100, 10);
+      ctx.fill(); ctx.stroke();
+      // Nắp hộp
+      ctx.fillStyle = '#16a34a';
+      roundRect(ctx, -40, -54, 80, 14, 4);
+      ctx.fill(); ctx.stroke();
+      // Cá sấu hồng Waniyama-san
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath(); ctx.arc(0, -6, 20, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 2; ctx.stroke();
+      // Mắt cá sấu
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(-7, -12, 6, 0, Math.PI * 2); ctx.arc(7, -12, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#000000';
+      ctx.beginPath(); ctx.arc(-7, -12, 3, 0, Math.PI * 2); ctx.arc(7, -12, 3, 0, Math.PI * 2); ctx.fill();
+      // Chữ Chocobi
+      ctx.fillStyle = '#ffffff';
+      ctx.font = "800 14px sans-serif";
+      ctx.textAlign = 'center';
+      ctx.fillText("チョコビ", 0, 34);
+      ctx.restore();
+
+      // 3. Shiro (Cún Bạch Tuyết bên phải)
+      ctx.save();
+      ctx.translate(130, 25);
+      // Thân Shiro
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.ellipse(0, 15, 34, 28, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // Đầu Shiro tròn xoe
+      ctx.beginPath(); ctx.arc(-5, -15, 30, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // 2 tai đen cụp
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath(); ctx.ellipse(-30, -18, 9, 18, 0.4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(20, -18, 9, 18, -0.4, 0, Math.PI * 2); ctx.fill();
+      // Mắt Shiro
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath(); ctx.arc(-14, -18, 3.5, 0, Math.PI * 2); ctx.arc(4, -18, 3.5, 0, Math.PI * 2); ctx.fill();
+      // Mũi đen
+      ctx.beginPath(); ctx.arc(-5, -10, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(-5, -6, 5, 0.2, Math.PI * 0.8); ctx.stroke();
+      // Vòng cổ xanh
+      ctx.fillStyle = '#38bdf8';
+      roundRect(ctx, -22, 4, 34, 7, 3); ctx.fill();
+      // Chân trước
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(-14, 40, 9, 0, Math.PI * 2); ctx.arc(8, 40, 9, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.restore();
+
+      // 4. Shin-chan ở giữa
+      ctx.save();
+      ctx.translate(0, 0);
+
+      // Áo đỏ Shin
+      ctx.fillStyle = '#ef4444';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 3.5;
+      roundRect(ctx, -38, 5, 76, 52, 10);
+      ctx.fill(); ctx.stroke();
+
+      // Cổ áo vàng
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath(); ctx.arc(0, 5, 14, 0, Math.PI); ctx.fill(); ctx.stroke();
+
+      // Quần đùi vàng
+      ctx.fillStyle = '#facc15';
+      roundRect(ctx, -34, 52, 68, 28, 6);
+      ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, 62); ctx.lineTo(0, 80); ctx.stroke();
+
+      // Chân Shin
+      ctx.fillStyle = '#fed7aa';
+      roundRect(ctx, -26, 78, 18, 22, 4); ctx.fill(); ctx.stroke();
+      roundRect(ctx, 8, 78, 18, 22, 4); ctx.fill(); ctx.stroke();
+      // Giày vàng
+      ctx.fillStyle = '#fde047';
+      ctx.beginPath(); ctx.ellipse(-17, 98, 14, 8, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(17, 98, 14, 8, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+      // Tay trái vẫy
+      ctx.fillStyle = '#fed7aa';
+      ctx.beginPath(); ctx.arc(-42, 22, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // Tay phải giơ
+      ctx.beginPath(); ctx.arc(44, 20, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+      // Đầu Shin-chan (má bánh bao phúng phính bên trái)
+      ctx.fillStyle = '#fed7aa';
+      ctx.beginPath();
+      ctx.arc(-2, -45, 46, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath();
+      ctx.arc(-30, -32, 22, 0, Math.PI * 2); ctx.fill();
+
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.arc(-30, -32, 22, Math.PI * 0.5, Math.PI * 1.5);
+      ctx.arc(-2, -45, 46, Math.PI * 1.1, Math.PI * 2.3);
+      ctx.stroke();
+
+      // Tóc húi cua Shin
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.arc(-2, -58, 42, Math.PI * 0.9, Math.PI * 2.05);
+      ctx.fill();
+
+      // 2 Lông mày sâu róm Shin-chan huyền thoại (cong dày)
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 8;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-32, -62); ctx.quadraticCurveTo(-20, -74, -6, -64); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(8, -64); ctx.quadraticCurveTo(22, -74, 34, -62); ctx.stroke();
+
+      // 2 Mắt tròn long lanh
+      ctx.fillStyle = '#000000';
+      ctx.beginPath(); ctx.arc(-16, -46, 8.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(18, -46, 8.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(-18, -49, 3.2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(16, -49, 3.2, 0, Math.PI * 2); ctx.fill();
+
+      // Má hồng
+      ctx.fillStyle = 'rgba(251, 113, 133, 0.55)';
+      ctx.beginPath(); ctx.ellipse(-26, -34, 10, 6, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(24, -34, 10, 6, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Miệng cười tươi
+      ctx.fillStyle = '#ef4444';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(2, -26, 11, 0.1, Math.PI * 0.9);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+
+      ctx.restore();
       ctx.restore();
     }
 
@@ -951,7 +1199,7 @@
       ctx.clearRect(0, 0, W, H);
       applyLocketSquircleClip(W, H);
 
-      // Nền hoa nhí
+      // Nền hoa nhí vintage
       ctx.fillStyle = '#f7f1e9';
       ctx.fillRect(0, 0, W, H);
       for (let x = 40; x < W; x += 85) {
@@ -961,29 +1209,38 @@
         }
       }
 
-      // 2 Khung ren sò lớn xếp trên dưới cực vừa vặn
-      const fw = 1060, fh = 470;
-      const x = (W - fw) / 2;
-      const y1 = 120, y2 = 660;
-
-      drawScallopedFrame(ctx, x, y1, fw, fh, 14, '#fffbf5', '#e6ccb2');
-      drawPhotoInWindow(slots[0], x + 30, y1 + 30, fw - 60, fh - 60, 1);
-
-      drawScallopedFrame(ctx, x, y2, fw, fh, 14, '#fffbf5', '#e6ccb2');
-      drawPhotoInWindow(slots[1] || slots[0], x + 30, y2 + 30, fw - 60, fh - 60, 2);
-
-      // Phụ kiện Pinterest: Phong thư sáp đỏ, hoa khô, ngôi sao nỉ
-      drawWaxEnvelope(ctx, x + 70, y1 + fh + 35, 95, 62);
-      drawMiniRose(ctx, x + fw - 45, y1 + 30, 28, '#991b1b');
-      drawMiniRose(ctx, x + fw - 15, y1 + 60, 24, '#be123c');
-
+      // Header Vintage Cursive
       ctx.save();
-      ctx.fillStyle = '#991b1b';
-      ctx.font = "42px sans-serif";
-      ctx.fillText("★", x + 35, y2 + fh - 25);
+      ctx.font = "700 38px 'Playfair Display', serif";
+      ctx.fillStyle = '#881337';
+      ctx.textAlign = 'center';
+      ctx.fillText("C O T T A G E C O R E   M E M O R I E S", W / 2, 75);
       ctx.restore();
 
-      drawWashi(ctx, x + fw - 70, y2 + fh - 10, 110, 28, -25, 'rgba(230, 204, 178, 0.7)');
+      // 2 Khung ren vỏ sò dọc (tỉ lệ chân dung 520x860 cực đẹp cho selfie)
+      const fw = 520, fh = 860, topY = 130;
+      const x1 = 80, x2 = 680;
+
+      drawScallopedFrame(ctx, x1, topY, fw, fh, 14, '#fffbf5', '#e6ccb2');
+      drawPhotoInWindow(slots[0], x1 + 25, topY + 25, fw - 50, fh - 50, 1, 14);
+
+      drawScallopedFrame(ctx, x2, topY, fw, fh, 14, '#fffbf5', '#e6ccb2');
+      drawPhotoInWindow(slots[1] || slots[0], x2 + 25, topY + 25, fw - 50, fh - 50, 2, 14);
+
+      // Phụ kiện Pinterest: Phong thư sáp đỏ góc trái dưới, hoa hồng khô ép, washi tape
+      drawWaxEnvelope(ctx, 110, H - 180, 120, 80);
+      drawMiniRose(ctx, x2 + fw - 50, topY + 30, 36, '#991b1b');
+      drawMiniRose(ctx, x2 + fw - 20, topY + 70, 28, '#be123c');
+      drawWashi(ctx, x1 + 100, topY + 10, 130, 32, -15, 'rgba(230, 204, 178, 0.85)');
+      drawWashi(ctx, x2 + fw - 120, topY + fh - 20, 130, 32, 20, 'rgba(230, 204, 178, 0.85)');
+
+      ctx.save();
+      ctx.fillStyle = '#881337';
+      ctx.font = "700 32px 'Caveat', cursive";
+      ctx.textAlign = 'center';
+      const cap = document.getElementById('captionInput')?.value || "sweet love with you ♡";
+      ctx.fillText(cap, W / 2, H - 70);
+      ctx.restore();
 
       ctx.restore();
     }
@@ -995,43 +1252,48 @@
       ctx.clearRect(0, 0, W, H);
       applyLocketSquircleClip(W, H);
 
-      // Nền vàng pastel chấm bi
+      // Nền vàng pastel chấm bi tươi sáng
       ctx.fillStyle = '#fef08a';
       ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = '#fde047';
-      for (let x = 20; x < W; x += 36) {
-        for (let y = 20; y < H; y += 36) {
-          ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI * 2); ctx.fill();
+      const dots = ['#f87171', '#60a5fa', '#facc15', '#4ade80'];
+      for (let x = 30; x < W; x += 44) {
+        for (let y = 30; y < H; y += 44) {
+          ctx.fillStyle = dots[Math.floor((x * 7 + y * 13) % dots.length)];
+          ctx.globalAlpha = 0.35;
+          ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
         }
       }
+      ctx.globalAlpha = 1.0;
 
-      // Title
+      // Header Banner phong cách Crayon Shin-chan
       ctx.save();
-      ctx.font = "800 46px 'Baloo 2', sans-serif";
-      ctx.fillStyle = '#dc2626';
+      ctx.fillStyle = '#ef4444';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 4;
+      roundRect(ctx, W / 2 - 340, 25, 680, 68, 18);
+      ctx.fill(); ctx.stroke();
+
+      ctx.font = "900 34px 'Baloo 2', sans-serif";
+      ctx.fillStyle = '#ffffff';
       ctx.textAlign = 'center';
-      ctx.fillText("クレヨンしんちゃん • SHIN-CHAN LOCKET", W / 2, 75);
+      ctx.textBaseline = 'middle';
+      ctx.fillText("🖍️ クレヨンしんちゃん • SHIN-CHAN LOCKET", W / 2, 59);
       ctx.restore();
 
-      // Bố cục truyện tranh 3 ô: Cột trái 2 ô vuông, Cột phải 1 ô lớn + Shin-chan
+      // Bố cục truyện tranh 3 ô: Cột trái 2 ô, Cột phải 1 ô lớn + Shin-chan & Shiro
       const cW = 540, gap = 24, startY = 120;
       const leftX = 70, rightX = 670;
 
-      // Trái: 2 ô
-      const h2 = 480;
+      // Trái: 2 ô (Tỉ lệ 540x470 gần vuông, siêu đẹp cho chân dung)
+      const h2 = 470;
       drawShinSlot(leftX, startY, cW, h2, slots[0], 1, '#f43f5e');
-      drawShinSlot(leftX, startY + h2 + gap, cW, h2, slots[1] || slots[2], 2, '#3b82f6');
+      drawShinSlot(leftX, startY + h2 + gap, cW, h2, slots[1] || slots[0], 2, '#3b82f6');
 
-      // Phải: 1 ô lớn + Panel hình vẽ Shin-chan & Shiro
-      drawShinSlot(rightX, startY, cW, 680, slots[2] || slots[3] || slots[0], 3, '#10b981');
+      // Phải: 1 ô lớn chân dung (540x630)
+      drawShinSlot(rightX, startY, cW, 630, slots[2] || slots[0], 3, '#10b981');
 
-      // Khu vực vẽ Shin-chan & Chocobi
-      drawShinChanArt(ctx, rightX + 160, startY + 700 + 130);
-      ctx.save();
-      ctx.font = "700 32px 'Baloo 2', sans-serif";
-      ctx.fillStyle = '#ef4444';
-      ctx.fillText("チョコビ! 🐊", rightX + 270, startY + 700 + 140);
-      ctx.restore();
+      // Khu vực vẽ Shin-chan & Shiro & Chocobi (dưới ô 3)
+      drawShinChanArt(ctx, rightX + cW / 2, startY + 630 + 190);
 
       ctx.restore();
     }
@@ -1049,27 +1311,43 @@
       ctx.fillStyle = '#2e080e';
       for (let x = 0; x < W; x += 14) ctx.fillRect(x, 0, 6, H);
 
-      // 2 Khung ren sò kem lớn
-      const fw = 1080, fh = 480;
-      const x = (W - fw) / 2;
-      drawScallopedFrame(ctx, x, 110, fw, fh, 14, '#FFFDF8', '#D6B8A2');
-      drawPhotoInWindow(slots[0], x + 30, 110 + 30, fw - 60, fh - 60, 1);
+      // Header Serif
+      ctx.save();
+      ctx.fillStyle = '#fce7f3';
+      ctx.font = "700 36px 'Playfair Display', serif";
+      ctx.textAlign = 'center';
+      ctx.fillText("V I N T A G E   V E L V E T", W / 2, 75);
+      ctx.restore();
 
-      drawScallopedFrame(ctx, x, 660, fw, fh, 14, '#FFFDF8', '#D6B8A2');
-      drawPhotoInWindow(slots[1] || slots[0], x + 30, 660 + 30, fw - 60, fh - 60, 2);
+      // 2 Khung ren sò kem dọc (520 x 860)
+      const fw = 520, fh = 860, topY = 130;
+      const x1 = 80, x2 = 680;
+
+      drawScallopedFrame(ctx, x1, topY, fw, fh, 14, '#FFFDF8', '#D6B8A2');
+      drawPhotoInWindow(slots[0], x1 + 25, topY + 25, fw - 50, fh - 50, 1, 14);
+
+      drawScallopedFrame(ctx, x2, topY, fw, fh, 14, '#FFFDF8', '#D6B8A2');
+      drawPhotoInWindow(slots[1] || slots[0], x2 + 25, topY + 25, fw - 50, fh - 50, 2, 14);
 
       // Hoa trà đỏ khô & dải ruy băng ren giữa
-      drawMiniRose(ctx, x + 35, 645, 34, '#881337');
-      drawMiniRose(ctx, x + 65, 675, 26, '#9f1239');
-      drawMiniRose(ctx, x + fw - 35, 100, 34, '#881337');
+      drawMiniRose(ctx, x1 + 45, topY + 35, 36, '#881337');
+      drawMiniRose(ctx, x2 + fw - 45, topY + 35, 36, '#881337');
+      drawMiniRose(ctx, W / 2, topY + fh / 2, 42, '#9f1239');
 
       ctx.save();
       ctx.strokeStyle = '#D6B8A2';
       ctx.lineWidth = 3;
       ctx.setLineDash([8, 6]);
       ctx.beginPath();
-      ctx.moveTo(x + 40, 625); ctx.lineTo(x + fw - 40, 625);
+      ctx.moveTo(W / 2, topY + 30); ctx.lineTo(W / 2, topY + fh - 30);
       ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = '#fce7f3';
+      ctx.font = "700 32px 'Caveat', cursive";
+      ctx.textAlign = 'center';
+      ctx.fillText("forever in my heart ♡", W / 2, H - 70);
       ctx.restore();
 
       ctx.restore();
@@ -1082,9 +1360,11 @@
       ctx.clearRect(0, 0, W, H);
       applyLocketSquircleClip(W, H);
 
-      const splitX = 520;
+      const splitX = 640;
+      // Nửa trái: Caro đỏ Gingham
       drawGingham(ctx, splitX, H, '#fee2e2', 'rgba(239, 68, 68, 0.45)');
 
+      // Nửa phải: Bò Denim xanh
       ctx.save();
       ctx.fillStyle = '#1e3a8a';
       ctx.fillRect(splitX, 0, W - splitX, H);
@@ -1096,23 +1376,34 @@
       ctx.stroke();
       ctx.restore();
 
-      // 2 Khung ren ngang
-      const fw = 1060, fh = 480;
-      const x = (W - fw) / 2 + 15;
-      drawScallopedFrame(ctx, x, 110, fw, fh, 12, '#ffffff', '#e2e8f0');
-      drawPhotoInWindow(slots[0], x + 25, 110 + 25, fw - 50, fh - 50, 1);
+      // Header
+      ctx.save();
+      ctx.font = "800 36px 'Baloo 2', sans-serif";
+      ctx.fillStyle = '#991b1b';
+      ctx.fillText("RED GINGHAM", 180, 80);
+      ctx.fillStyle = '#bfdbfe';
+      ctx.fillText("DENIM CAT", W - 320, 80);
+      ctx.restore();
 
-      drawScallopedFrame(ctx, x, 660, fw, fh, 12, '#ffffff', '#e2e8f0');
-      drawPhotoInWindow(slots[1] || slots[0], x + 25, 660 + 25, fw - 50, fh - 50, 2);
+      // 2 Khung ren dọc: Trái và Phải (510 x 860)
+      const fw = 510, fh = 860, topY = 130;
+      const x1 = 65, x2 = 705;
 
-      // Táo đỏ & Mèo đen
-      drawRedApple(ctx, x + 35, 110 + 35);
-      drawBlackCat(ctx, 160, H - 140, 1.3);
+      drawScallopedFrame(ctx, x1, topY, fw, fh, 12, '#ffffff', '#e2e8f0');
+      drawPhotoInWindow(slots[0], x1 + 25, topY + 25, fw - 50, fh - 50, 1, 12);
+
+      drawScallopedFrame(ctx, x2, topY, fw, fh, 12, '#ffffff', '#e2e8f0');
+      drawPhotoInWindow(slots[1] || slots[0], x2 + 25, topY + 25, fw - 50, fh - 50, 2, 12);
+
+      // Táo đỏ & Mèo đen Kuro
+      drawRedApple(ctx, x1 + 45, topY + 45);
+      drawBlackCat(ctx, x2 + fw - 90, topY + fh - 70, 1.3);
 
       ctx.save();
-      ctx.font = "700 32px 'Caveat', cursive";
+      ctx.font = "700 34px 'Caveat', cursive";
       ctx.fillStyle = '#f8fafc';
-      ctx.fillText("sweet memory with you ♡", W / 2 + 80, H - 45);
+      ctx.textAlign = 'center';
+      ctx.fillText("sweet memory with you ♡", W / 2, H - 65);
       ctx.restore();
 
       ctx.restore();
@@ -1130,22 +1421,23 @@
       ctx.fillStyle = 'rgba(213, 189, 175, 0.25)';
       for (let x = 0; x < W; x += 20) ctx.fillRect(x, 0, 2, H);
 
-      // Bố cục 3 ảnh: 1 ảnh ngang trên, 2 ảnh vuông dưới
-      const topW = 1060, topH = 460, x = (W - topW) / 2;
-      drawPolaroidWithShadow(x, 120, topW, topH, slots[0], 1);
-      drawWashi(ctx, x + 80, 120 + 10, 120, 28, -15, 'rgba(176, 137, 104, 0.7)');
+      // Scrapbook 3 ảnh: Cột trái 1 ảnh polaroid dọc lớn, Cột phải 2 ảnh polaroid vuông
+      const leftW = 520, leftH = 920, topY = 120, leftX = 80;
+      drawPolaroidWithShadow(leftX, topY, leftW, leftH, slots[0], 1);
+      drawWashi(ctx, leftX + 80, topY + 10, 130, 30, -15, 'rgba(176, 137, 104, 0.75)');
 
-      const botW = 515, botH = 480, gap = 30;
-      drawPolaroidWithShadow(x, 640, botW, botH, slots[1] || slots[0], 2);
-      drawPolaroidWithShadow(x + botW + gap, 640, botW, botH, slots[2] || slots[0], 3);
+      const rightW = 520, rightH = 440, gap = 40, rightX = 680;
+      drawPolaroidWithShadow(rightX, topY, rightW, rightH, slots[1] || slots[0], 2);
+      drawPolaroidWithShadow(rightX, topY + rightH + gap, rightW, rightH, slots[2] || slots[0], 3);
+      drawWashi(ctx, rightX + rightW - 120, topY + rightH + gap + 10, 130, 30, 18, 'rgba(176, 137, 104, 0.75)');
 
-      drawTeddyBear(ctx, 110, 100, 1.2);
+      drawTeddyBear(ctx, 130, 110, 1.25);
 
       ctx.save();
       ctx.fillStyle = '#4a3525';
-      ctx.font = "700 28px 'Playfair Display', serif";
+      ctx.font = "700 32px 'Playfair Display', serif";
       ctx.textAlign = 'center';
-      ctx.fillText("T H E   L O V E   S T O R Y", W / 2, H - 55);
+      ctx.fillText("T H E   L O V E   S T O R Y", W / 2, H - 65);
       ctx.restore();
 
       ctx.restore();
@@ -1164,19 +1456,20 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, W, H);
 
-      // 1 Cửa sổ chính lớn trên + 2 cửa sổ nhỏ dưới
-      const topW = 1100, topH = 550, x = (W - topW) / 2;
+      // Cửa sổ chính lớn trên (1100 x 540)
+      const topW = 1100, topH = 540, x = (W - topW) / 2;
       drawWebcamWindow(x, 100, topW, topH, slots[0], "📹 Live_Webcam_01.exe", 1);
 
-      const botW = 535, botH = 480, gap = 30;
-      drawWebcamWindow(x, 690, botW, botH, slots[1] || slots[0], "💾 Cam_A.bmp", 2);
-      drawWebcamWindow(x + botW + gap, 690, botW, botH, slots[2] || slots[0], "💾 Cam_B.bmp", 3);
+      // 2 cửa sổ nhỏ dưới (535 x 460)
+      const botW = 535, botH = 460, gap = 30;
+      drawWebcamWindow(x, 680, botW, botH, slots[1] || slots[0], "💾 Cam_A.bmp", 2);
+      drawWebcamWindow(x + botW + gap, 680, botW, botH, slots[2] || slots[0], "💾 Cam_B.bmp", 3);
 
       // Phụ kiện Headphone & Bướm
       ctx.save();
       ctx.font = "55px sans-serif";
       ctx.fillText("🎧", 65, 80);
-      ctx.fillText("🦋", W - 110, 670);
+      ctx.fillText("🦋", W - 110, 660);
       ctx.restore();
 
       ctx.restore();
@@ -1195,8 +1488,8 @@
       // Sao li ti
       ctx.fillStyle = '#ffffff';
       for (let i = 0; i < 220; i++) {
-        const sx = Math.random() * W, sy = Math.random() * H;
-        ctx.beginPath(); ctx.arc(sx, sy, Math.random() * 2.2 + 0.8, 0, Math.PI * 2); ctx.fill();
+        const sx = (i * 137.5) % W, sy = (i * 269.3) % H;
+        ctx.beginPath(); ctx.arc(sx, sy, (i % 3 === 0 ? 2 : 1), 0, Math.PI * 2); ctx.fill();
       }
 
       // Sao 4 cánh lớn
@@ -1204,17 +1497,17 @@
         drawCyberStar(ctx, cx, cy, 22, '#ffffff');
       });
 
-      // 2 Khung polaroid vuông lớn
-      const pw = 520, ph = 580, gap = 40, x = (W - pw * 2 - gap) / 2;
-      drawPolaroidWithShadow(x, 350, pw, ph, slots[0], 1);
-      drawPolaroidWithShadow(x + pw + gap, 350, pw, ph, slots[1] || slots[0], 2);
+      // 2 Khung polaroid chân dung lớn (520 x 860)
+      const pw = 520, ph = 860, gap = 40, x = (W - pw * 2 - gap) / 2;
+      drawPolaroidWithShadow(x, 180, pw, ph, slots[0], 1);
+      drawPolaroidWithShadow(x + pw + gap, 180, pw, ph, slots[1] || slots[0], 2);
 
       ctx.save();
       ctx.font = "700 36px 'Caveat', cursive";
       ctx.fillStyle = '#f8fafc';
       ctx.textAlign = 'center';
-      ctx.fillText("Under the same stars with you ✨", W / 2, 220);
-      ctx.fillText("Seoul Night Memories • 2026", W / 2, H - 120);
+      ctx.fillText("Under the same stars with you ✨", W / 2, 120);
+      ctx.fillText("Seoul Night Memories • 2026", W / 2, H - 70);
       ctx.restore();
 
       ctx.restore();
@@ -1242,14 +1535,14 @@
       ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
       roundRect(ctx, startX, topY, colW, rowH, 16); ctx.stroke();
 
-      // Slot 2: OVAL BẦU DỤC (Chất riêng Pin 10)
+      // Slot 2: OVAL BẦU DỤC
       const ox = startX + colW + gap, ovalCX = ox + colW / 2, ovalCY = topY + rowH / 2;
       ctx.save();
       ctx.beginPath();
       ctx.ellipse(ovalCX, ovalCY, colW / 2, rowH / 2, 0, 0, Math.PI * 2);
       ctx.clip();
       if (slots[1]) {
-        ctx.drawImage(slots[1], 0, 0, slots[1].width, slots[1].height, ox, topY, colW, rowH);
+        drawCoverImage(ctx, slots[1], ox, topY, colW, rowH);
       } else {
         ctx.fillStyle = '#1e293b'; ctx.fillRect(ox, topY, colW, rowH);
         ctx.fillStyle = '#fff'; ctx.font = "700 36px 'Baloo 2', sans-serif"; ctx.textAlign = 'center';
@@ -1260,13 +1553,18 @@
       ctx.lineWidth = 8; ctx.strokeStyle = '#ffffff';
       ctx.beginPath(); ctx.ellipse(ovalCX, ovalCY, colW / 2, rowH / 2, 0, 0, Math.PI * 2); ctx.stroke();
 
-      // Hàng dưới: 1 Ô chữ nhật dài
-      const botW = colW * 2 + gap, botY = 630, botH = 430;
-      drawPhotoInWindow(slots[2] || slots[0], startX, botY, botW, botH, 3, 16);
-      roundRect(ctx, startX, botY, botW, botH, 16); ctx.stroke();
+      // Hàng dưới: 2 ô cân đối (520 x 440)
+      const botY = 630, botH = 440;
+      drawPhotoInWindow(slots[2] || slots[0], startX, botY, colW, botH, 3, 16);
+      ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
+      roundRect(ctx, startX, botY, colW, botH, 16); ctx.stroke();
+
+      drawPhotoInWindow(slots[3] || slots[1] || slots[0], ox, botY, colW, botH, 4, 16);
+      roundRect(ctx, ox, botY, colW, botH, 16); ctx.stroke();
 
       // Dải bàn cờ vua đen trắng ở chân
-      const chY = 1100, chH = 70, sq = 35;
+      const chY = 1110, chH = 60, sq = 30;
+      const botW = colW * 2 + gap;
       for (let x = startX; x < startX + botW; x += sq) {
         for (let y = chY; y < chY + chH; y += sq) {
           const isWhite = (((x - startX) / sq + (y - chY) / sq) % 2 === 0);
@@ -1288,31 +1586,60 @@
       ctx.fillStyle = '#09090b';
       ctx.fillRect(0, 0, W, H);
 
-      // Lỗ răng cưa mép trái và phải
-      const count = 18, step = H / count;
-      ctx.fillStyle = '#ffffff';
-      ctx.strokeStyle = '#f59e0b';
-      ctx.lineWidth = 2;
-      for (let i = 0; i < count; i++) {
-        const sy = i * step + step * 0.2;
-        roundRect(ctx, 20, sy, 26, 36, 4); ctx.fill(); ctx.stroke();
-        roundRect(ctx, W - 46, sy, 26, 36, 4); ctx.fill(); ctx.stroke();
-      }
+      // Header Kodak Film
+      ctx.save();
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = "800 32px monospace";
+      ctx.textAlign = 'center';
+      ctx.fillText("▶ KODAK PORTRA 400 • 35MM CINEMA ARCHIVE", W / 2, 75);
+      ctx.restore();
 
-      // 2 Khung phim điện ảnh Widescreen
-      const fw = 1060, fh = 470, x = (W - fw) / 2;
-      drawPhotoInWindow(slots[0], x, 120, fw, fh, 1, 8);
-      ctx.lineWidth = 4; ctx.strokeStyle = '#f59e0b';
-      roundRect(ctx, x, 120, fw, fh, 8); ctx.stroke();
+      // 2 Cuộn phim 35mm dọc song song (Trái và Phải)
+      const stripW = 540, stripH = 960, topY = 120;
+      const x1 = 70, x2 = 670;
 
-      drawPhotoInWindow(slots[1] || slots[0], x, 660, fw, fh, 2, 8);
-      roundRect(ctx, x, 660, fw, fh, 8); ctx.stroke();
+      [x1, x2].forEach((sx, sIdx) => {
+        // Nền cuộn phim
+        ctx.fillStyle = '#18181b';
+        ctx.strokeStyle = '#3f3f46';
+        ctx.lineWidth = 3;
+        roundRect(ctx, sx, topY, stripW, stripH, 12);
+        ctx.fill(); ctx.stroke();
+
+        // Răng cưa phim bên trái và phải của cuộn
+        const spStep = 50;
+        ctx.fillStyle = '#ffffff';
+        for (let y = topY + 15; y < topY + stripH - 20; y += spStep) {
+          roundRect(ctx, sx + 8, y, 16, 26, 4); ctx.fill();
+          roundRect(ctx, sx + stripW - 24, y, 16, 26, 4); ctx.fill();
+        }
+
+        // 2 ô ảnh mỗi cuộn (gần vuông 430 x 410)
+        const fw = 430, fh = 410, fx = sx + 55;
+        const fy1 = topY + 45;
+        const fy2 = topY + 505;
+
+        const idx1 = sIdx * 2;
+        const idx2 = sIdx * 2 + 1;
+
+        drawPhotoInWindow(slots[idx1] || slots[0], fx, fy1, fw, fh, idx1 + 1, 6);
+        ctx.lineWidth = 3; ctx.strokeStyle = '#f59e0b';
+        roundRect(ctx, fx, fy1, fw, fh, 6); ctx.stroke();
+
+        drawPhotoInWindow(slots[idx2] || slots[idx1] || slots[0], fx, fy2, fw, fh, idx2 + 1, 6);
+        roundRect(ctx, fx, fy2, fw, fh, 6); ctx.stroke();
+
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = "700 20px monospace";
+        ctx.fillText(`FRAME ${sIdx + 1}A • ISO 400`, fx + 10, fy1 - 12);
+        ctx.fillText(`FRAME ${sIdx + 1}B • EXPOSURE`, fx + 10, fy2 - 12);
+      });
 
       ctx.save();
       ctx.fillStyle = '#f59e0b';
-      ctx.font = "800 28px monospace";
-      ctx.fillText("▶ KODAK PORTRA 400 • 35MM CINEMA 1A", x + 10, 100);
-      ctx.fillText("▶ KODAK PORTRA 400 • 35MM CINEMA 2A", x + 10, 640);
+      ctx.font = "700 28px monospace";
+      ctx.textAlign = 'center';
+      ctx.fillText("DEVELOPED BY NGDUIKHANH • LOCKET 2026", W / 2, H - 55);
       ctx.restore();
 
       ctx.restore();
@@ -1332,25 +1659,25 @@
       ctx.fillRect(0, 0, W, H);
 
       // Thước sọc nước mờ bên trái
-      ctx.fillStyle = 'rgba(244, 114, 182, 0.12)';
+      ctx.fillStyle = 'rgba(244, 114, 182, 0.15)';
       for (let x = 0; x < 320; x += 22) ctx.fillRect(x, 0, 10, H);
 
-      // 2 Ô lệch nghệ thuật
-      const fw = 820, fh = 460, fx = 350;
-      drawPhotoInWindow(slots[0], fx, 120, fw, fh, 1, 14);
+      // 2 Khung ảnh cân đối (780 x 510)
+      const fw = 780, fh = 510, fx = 380;
+      drawPhotoInWindow(slots[0], fx, 110, fw, fh, 1, 14);
       ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
-      roundRect(ctx, fx, 120, fw, fh, 14); ctx.stroke();
+      roundRect(ctx, fx, 110, fw, fh, 14); ctx.stroke();
 
       drawPhotoInWindow(slots[1] || slots[0], fx, 660, fw, fh, 2, 14);
       roundRect(ctx, fx, 660, fw, fh, 14); ctx.stroke();
 
-      drawLilyFlower(ctx, 160, H - 220, 1.5);
-      drawLilyFlower(ctx, 140, 220, 1.1);
+      drawLilyFlower(ctx, 180, H - 240, 1.6);
+      drawLilyFlower(ctx, 160, 260, 1.2);
 
       ctx.save();
-      ctx.font = "600 32px 'Playfair Display', serif";
+      ctx.font = "600 34px 'Playfair Display', serif";
       ctx.fillStyle = '#be185d';
-      ctx.fillText("Lily Blossom • Memory with You", fx + 30, H - 55);
+      ctx.fillText("Lily Blossom • Memory with You", fx + 30, H - 65);
       ctx.restore();
 
       ctx.restore();
