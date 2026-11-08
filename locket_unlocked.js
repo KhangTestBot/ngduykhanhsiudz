@@ -269,18 +269,19 @@ if (true) {
     ];
 
     var frameCatalog = {
+        loopy_3d: "https://iili.io/nDYZGe9.png",
+        loopy_vip: "https://iili.io/nDYbi1j.png",
+        loopy_chu_nhat: "https://iili.io/nDYm1Eb.png",
+        loopy_thu: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
         shin_chan: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
-        loopy_3d: "https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/Code_Generated_Image.png",
         hello_kitty: "https://i.ibb.co/RTm5P1n9/kitty-1.png",
         khung_ins: "https://i.ibb.co/JjLZ3cvD/khung-ins.png",
         khung_sin: "https://i.ibb.co/S74Rm5mm/khungsin.png",
-        loopy_thu: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
-        bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
         doraemon: baseFramesUrl + "doraemon.png"
     };
 
-    var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "shin_chan";
-    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png";
+    var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "loopy_3d";
+    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://iili.io/nDYZGe9.png";
 
     Object.assign(obj.entries, {
         widget_frame_event_max_images: "5",
