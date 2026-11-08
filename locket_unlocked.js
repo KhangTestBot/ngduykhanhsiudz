@@ -256,7 +256,7 @@ if (true) {
     var nowWidgetUtc = new Date();
     var vnWidgetTime = new Date(nowWidgetUtc.getTime() + 7 * 3600 * 1000 + nowWidgetUtc.getTimezoneOffset() * 60000);
     var vnWidgetDay = vnWidgetTime.getDay(); // 0: Chủ Nhật, 1: Thứ 2 ... 6: Thứ 7
-    var baseFramesUrl = "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/frames/";
+    var baseFramesUrl = "https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/frames/";
 
     var dailyLoopyFrames = [
         "chu_nhat.png", // Chủ Nhật rồi bạn iu ơi
@@ -292,7 +292,7 @@ if (true) {
         widget_last_sent_indicator: "false",
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
-            uid: "midautumn_2026",
+            uid: "bokhanh_loopy_" + vnWidgetDay + "_" + vnWidgetTime.getDate(),
             url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
