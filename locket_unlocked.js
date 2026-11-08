@@ -6,7 +6,12 @@
 // ============================================================
 
 var ua = ($request.headers && ($request.headers["User-Agent"] || $request.headers["user-agent"])) || "";
-var obj = JSON.parse($response.body || "{}");
+var obj = {};
+try {
+    obj = JSON.parse($response.body || "{}");
+} catch (e) {
+    obj = {};
+}
 
 if (true) {
     obj.state = "UPDATE";
@@ -14,7 +19,7 @@ if (true) {
     obj.entries = obj.entries || {};
 
     // ============================================================
-    // 1. CẤU HÌNH GOLD, FEATURE GATES & PAYWALL
+    // 1. CẤU HÌNH GOLD, FEATURE GATES, PAYWALL & AI FILTERS ✨
     // ============================================================
     Object.assign(obj.entries, {
         feature_gates: JSON.stringify({
@@ -30,7 +35,13 @@ if (true) {
             remove_ads: "enabled",
             video: "enabled",
             custom_widget_frames: "enabled",
-            streak_recovery: "enabled"
+            streak_recovery: "enabled",
+            ai_appearance: "enabled",
+            ai_styles: "enabled",
+            generative_ai: "enabled",
+            magic_editor: "enabled",
+            camera_filters: "enabled",
+            holiday_filters: "enabled"
         }),
         upsell_features: JSON.stringify({
             app_icon_picker: true,
@@ -38,8 +49,31 @@ if (true) {
             camera_theme: true,
             locket_views: true,
             remove_ads: true,
-            custom_widget_frames: true
+            custom_widget_frames: true,
+            ai_appearance: true,
+            generative_ai: true
         }),
+        camera_filters_enabled: "true",
+        camera_filter_enabled: "true",
+        holiday_filters_enabled: "true",
+        ai_filters_enabled: "true",
+        ai_appearance_enabled: "true",
+        ai_styles_enabled: "true",
+        generative_ai_enabled: "true",
+        magic_editor_enabled: "true",
+        camera_filter_gold_only: "false",
+        camera_filters_gold_only: "false",
+        holiday_filters_gold_only: "false",
+        filter_paywall_enabled: "false",
+        camera_filter_paywall_enabled: "false",
+        filter_upsell_enabled: "false",
+        require_gold_for_filters: "false",
+        free_filters_enabled: "true",
+        camera_filter_sheet_selection_enabled: "true",
+        sheet_filters_selectable: "true",
+        dismiss_filter_sheet_on_select: "true",
+        camera_filter_max_count: "50",
+        max_camera_filters: "50",
         paywall_presentation_config: JSON.stringify({
             uid: "paywall_testflight",
             onboarding: false,
@@ -61,7 +95,7 @@ if (true) {
                 }
             ],
             primary_button_title: "Xong",
-            campaign: "locket_gold_welcome_v3",
+            campaign: "locket_gold_welcome_v8",
             start_at: "2020-01-01T00:00:00",
             end_at: "2099-12-31T23:59:59",
             use_local_time_zone: true
@@ -788,4 +822,8 @@ if (true) {
     });
 }
 
-$done({ body: JSON.stringify(obj) });
+$done({
+    status: 200,
+    headers: $response.headers,
+    body: JSON.stringify(obj)
+});

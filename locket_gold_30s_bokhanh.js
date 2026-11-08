@@ -54,9 +54,17 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
 
     var goldProduct = "locket_1600_1y";
     obj.subscriber.subscriptions[goldProduct] = makeSub(goldProduct, 399000.0, "VND");
+    obj.subscriber.subscriptions["locket_gold_yearly"] = makeSub("locket_gold_yearly", 399000.0, "VND");
     obj.subscriber.entitlements["Gold"] = makeEnt(goldProduct);
+    obj.subscriber.entitlements["gold"] = makeEnt(goldProduct);
+    obj.subscriber.entitlements["pro"] = makeEnt(goldProduct);
+    obj.subscriber.entitlements["locket_gold"] = makeEnt(goldProduct);
 
-    $done({ body: JSON.stringify(obj) });
+    $done({
+        status: 200,
+        headers: $response.headers,
+        body: JSON.stringify(obj)
+    });
 } else {
     // 2. NẾU LÀ FIREBASE REMOTE CONFIG -> BƠM TRỌN BỘ TÍNH NĂNG (GIỐNG HỆT Locket_Unlocked.js)
     if (true) {
@@ -857,5 +865,9 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     });
 }
 
-$done({ body: JSON.stringify(obj) });
+$done({
+    status: 200,
+    headers: $response.headers,
+    body: JSON.stringify(obj)
+});
 }
