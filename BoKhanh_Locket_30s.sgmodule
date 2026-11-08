@@ -11,7 +11,6 @@
 AND,((DOMAIN,firebaseremoteconfig.googleapis.com),(PROTOCOL,UDP)),REJECT
 AND,((DOMAIN,api.revenuecat.com),(PROTOCOL,UDP)),REJECT
 AND,((DOMAIN,api.locketcamera.com),(PROTOCOL,UDP)),REJECT
-AND,((DOMAIN-SUFFIX,locketcamera.com),(PROTOCOL,UDP)),REJECT
 
 # Chặn Sentry
 DOMAIN-SUFFIX,sentry.io,REJECT
@@ -33,27 +32,21 @@ DOMAIN-SUFFIX,ingest.sentry.io,REJECT
 ^https?:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ header-del If-Modified-Since
 ^https?:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ header-del x-goog-if-none-match
 
-# Xóa Cache / ETag trên Locket Camera API
-^https?:\/\/api\.locketcamera\.com\/.+ header-del if-none-match
-^https?:\/\/api\.locketcamera\.com\/.+ header-del If-None-Match
-^https?:\/\/api\.locketcamera\.com\/.+ header-del if-modified-since
-^https?:\/\/api\.locketcamera\.com\/.+ header-del If-Modified-Since
-
 [Script]
 # LocketGold - NgDuyKhanh
-revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_vip.js?v=ngduykhanh_v18, requires-body=true, max-size=-1, timeout=60
-deleteHeader = type=http-request, pattern=^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/deleteheader.js?v=ngduykhanh_v18, timeout=60
-deleteHeader_RC = type=http-request, pattern=^https?:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/deleteheader.js?v=ngduykhanh_v18, timeout=60
-locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_unlocked.js?v=ngduykhanh_v18, requires-body=true, max-size=-1, timeout=60
+revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_vip.js?v=ngduykhanh_v19, requires-body=true, max-size=-1, timeout=60
+deleteHeader = type=http-request, pattern=^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/deleteheader.js?v=ngduykhanh_v19, timeout=60
+deleteHeader_RC = type=http-request, pattern=^https?:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/deleteheader.js?v=ngduykhanh_v19, timeout=60
+locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_unlocked.js?v=ngduykhanh_v19, requires-body=true, max-size=-1, timeout=60
 
 # Động cơ Photobooth 4 Ô Liên Hoàn
-locket_pb_req = type=http-request, pattern=^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_photobooth.js?v=ngduykhanh_v18, requires-body=true, max-size=-1, timeout=60
+locket_pb_req = type=http-request, pattern=^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_photobooth.js?v=ngduykhanh_v19, requires-body=true, max-size=-1, timeout=60
 
-# Bộ Lọc AI, Mở Khóa Khung & Cầu Nối Web Photobooth
-locket_filter = type=http-response, pattern=^https?:\/\/api\.locketcamera\.com\/.+, script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_filter.js?v=ngduykhanh_v18, requires-body=true, max-size=-1, timeout=60
+# Mở Khóa Profile Gold & Cầu Nối Web Photobooth
+locket_filter = type=http-response, pattern=^https?:\/\/api\.locketcamera\.com\/(changeProfileInfo|bokhanh-photobooth-bridge), script-path=https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/locket_filter.js?v=ngduykhanh_v19, requires-body=true, max-size=-1, timeout=60
 
 [Host]
 firebaseremoteconfigrealtime.googleapis.com = 0.0.0.0
 
 [MITM]
-hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, *.locketcamera.com, us-central1-locket-4252a.cloudfunctions.net, api.rc-backup.com
+hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, us-central1-locket-4252a.cloudfunctions.net, api.rc-backup.com

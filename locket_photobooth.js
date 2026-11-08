@@ -47,12 +47,19 @@
                 delete resObj.result.errors;
             }
 
+            let respHeaders = Object.assign({}, ($response && $response.headers) || {});
+            delete respHeaders["Content-Encoding"];
+            delete respHeaders["content-encoding"];
+            delete respHeaders["Content-Length"];
+            delete respHeaders["content-length"];
+            delete respHeaders["Transfer-Encoding"];
+            delete respHeaders["transfer-encoding"];
+            respHeaders["Content-Type"] = "application/json; charset=utf-8";
+            respHeaders["Access-Control-Allow-Origin"] = "*";
+
             return $done({
                 status: 200,
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                    "Access-Control-Allow-Origin": "*"
-                },
+                headers: respHeaders,
                 body: JSON.stringify(resObj)
             });
         }

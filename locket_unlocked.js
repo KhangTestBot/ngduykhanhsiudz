@@ -5,7 +5,7 @@
 // Tác giả: NgDuyKhanh
 // ============================================================
 
-var ua = ($request.headers && ($request.headers["User-Agent"] || $request.headers["user-agent"])) || "";
+var ua = (typeof $request !== "undefined" && $request && $request.headers && ($request.headers["User-Agent"] || $request.headers["user-agent"])) || "";
 var obj = JSON.parse($response.body || "{}");
 
 if (true) {
@@ -122,7 +122,7 @@ if (true) {
     };
 
     var locketCelebrityFilterConfig = {
-        celebrityUid: ngduykhanh_vip,
+        celebrityUid: "ngduykhanh_vip",
         cameraFilterConfig: locketCameraFilterConfig
     };
 
@@ -134,32 +134,32 @@ if (true) {
             video: true,
             viewing: true,
             catch_up: true,
-            widget_looping_mode: never
+            widget_looping_mode: "never"
         }),
-        camera_roll_preview_enabled: true,
-        camera_roll_video_enabled: true,
-        camera_roll_video_upload_enabled: true,
-        internal_camera_roll_video_upload_enabled: true,
-        longer_camera_roll_videos_enabled: true,
-        camera_roll_video_max_duration: 45.0,
-        camera_roll_max_duration: 45.0,
-        camera_roll_duration: 45.0,
-        max_video_duration: 45.0,
-        video_max_duration: 45.0,
-        video_trim_max_duration: 45.0,
-        trim_max_duration: 45.0,
-        gold_max_duration: 45.0,
-        video_quality_mbps: 0.6,
-        video_sound_enabled: true,
-        microphone_enabled: true,
-        camera_microphone_enabled: true,
-        audio_session_deactivation_enabled: true,
-        zoom_enabled: true,
-        upload_main: false,
-        upload_main_image_quality: 1.0,
-        upload_main_image_size: 1440,
-        upload_thumbnail_image_quality: 1.0,
-        upload_thumbnail_image_size: 1020
+        camera_roll_preview_enabled: "true",
+        camera_roll_video_enabled: "true",
+        camera_roll_video_upload_enabled: "true",
+        internal_camera_roll_video_upload_enabled: "true",
+        longer_camera_roll_videos_enabled: "true",
+        camera_roll_video_max_duration: "45.0",
+        camera_roll_max_duration: "45.0",
+        camera_roll_duration: "45.0",
+        max_video_duration: "45.0",
+        video_max_duration: "45.0",
+        video_trim_max_duration: "45.0",
+        trim_max_duration: "45.0",
+        gold_max_duration: "45.0",
+        video_quality_mbps: "0.6",
+        video_sound_enabled: "true",
+        microphone_enabled: "true",
+        camera_microphone_enabled: "true",
+        audio_session_deactivation_enabled: "true",
+        zoom_enabled: "true",
+        upload_main: "false",
+        upload_main_image_quality: "1.0",
+        upload_main_image_size: "1440",
+        upload_thumbnail_image_quality: "1.0",
+        upload_thumbnail_image_size: "1020"
     });
 
     // ============================================================

@@ -7,7 +7,7 @@ const mapping = {
   'Locket': ['Gold', 'locket_1600_1y']
 };
 
-var ua = ($request.headers && ($request.headers["User-Agent"] || $request.headers["user-agent"])) || "";
+var ua = (typeof $request !== "undefined" && $request && $request.headers && ($request.headers["User-Agent"] || $request.headers["user-agent"])) || "";
 var obj = {};
 try {
   obj = JSON.parse($response.body || "{}");
