@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/generateFilteredImage", "destination": "/api/generateFilteredImage" },
+    { "source": "/api/generateFilteredImage", "destination": "/api/generateFilteredImage" },
+    { "source": "/images/:id", "destination": "/api/images?id=:id" },
+    { "source": "/api/images/:id", "destination": "/api/images?id=:id" },
+    { "source": "/reset", "destination": "/api/reset" },
+    { "source": "/api/reset", "destination": "/api/reset" },
+    { "source": "/health", "destination": "/api/health" },
+    { "source": "/api/vip-users", "destination": "/api/vip-users" },
+    { "source": "/", "destination": "/api/index" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS, PUT, DELETE" },
+        { "key": "Access-Control-Allow-Headers", "value": "*" }
+      ]
+    }
+  ]
+}
