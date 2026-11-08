@@ -6,15 +6,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Locket Photobooth" />
-  <title>📸 Locket Photobooth 4 Cut & Gold VIP</title>
+  <title>📸 Locket Photobooth Studio • NgDuyKhanh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f0f14;
-      --card: #1a1a24;
-      --card-border: rgba(255, 180, 205, 0.18);
+      --bg: #0c0c12;
+      --card: #161622;
+      --card-border: rgba(255, 180, 205, 0.2);
       --pink: #ff6b9d;
       --pink-light: #ffb8d0;
       --gold: #fbbf24;
@@ -23,33 +23,33 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
-      background: radial-gradient(circle at top, #271526 0%, var(--bg) 55%);
+      background: radial-gradient(circle at top, #231222 0%, var(--bg) 60%);
       color: var(--text);
       font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
-      padding: env(safe-area-inset-top, 16px) 14px 40px;
+      padding: env(safe-area-inset-top, 16px) 14px 50px;
     }
-    .container { max-width: 520px; margin: 0 auto; }
+    .container { max-width: 540px; margin: 0 auto; }
     header {
       text-align: center;
-      padding: 14px 0 12px;
+      padding: 14px 0 10px;
     }
     .badge-top {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: linear-gradient(90deg, rgba(255,107,157,0.2), rgba(251,191,36,0.2));
-      border: 1px solid rgba(255,184,208,0.35);
+      background: linear-gradient(90deg, rgba(255,107,157,0.22), rgba(251,191,36,0.22));
+      border: 1px solid rgba(255,184,208,0.4);
       color: var(--pink-light);
       font-size: 12px;
       font-weight: 700;
-      padding: 5px 14px;
+      padding: 5px 15px;
       border-radius: 999px;
       margin-bottom: 8px;
     }
     h1 {
       font-family: 'Baloo 2', cursive;
-      font-size: 26px;
+      font-size: 27px;
       line-height: 1.2;
       background: linear-gradient(90deg, #fff, #ffb8d0, #fbbf24);
       -webkit-background-clip: text;
@@ -94,7 +94,7 @@
       border-radius: 22px;
       padding: 16px;
       margin-bottom: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
     .card-title {
       font-size: 15px;
@@ -169,7 +169,7 @@
       font-weight: 800;
       color: #fff;
       text-shadow: 0 6px 30px rgba(236,72,153,0.9);
-      background: rgba(0,0,0,0.25);
+      background: rgba(0,0,0,0.3);
       z-index: 5;
     }
     .flash-layer {
@@ -263,32 +263,93 @@
       border: 1px solid rgba(255,255,255,0.14);
     }
 
-    /* Controls */
+    /* Layout Toggle */
+    .layout-toggle-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.04);
+      padding: 4px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-layout {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-layout.active {
+      background: linear-gradient(135deg, #ff6b9d, #ec4899);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(236,72,153,0.3);
+    }
+
+    /* Filter Chips */
+    .category-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .category-pills::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      flex: 0 0 auto;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #94a3b8;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .cat-pill.active {
+      background: rgba(255,107,157,0.2);
+      border-color: var(--pink);
+      color: var(--pink-light);
+    }
+
     .chips-scroll {
       display: flex;
       gap: 7px;
       overflow-x: auto;
-      padding-bottom: 6px;
+      padding-bottom: 8px;
       margin-bottom: 10px;
-      scrollbar-width: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,107,157,0.3) transparent;
     }
-    .chips-scroll::-webkit-scrollbar { display: none; }
     .chip {
       flex: 0 0 auto;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.12);
       color: #e2e8f0;
-      padding: 7px 13px;
+      padding: 8px 14px;
       border-radius: 999px;
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
+      transition: all 0.2s;
     }
     .chip.active {
-      background: rgba(255, 107, 157, 0.25);
-      border-color: var(--pink);
+      background: linear-gradient(135deg, #ff6b9d, #ec4899);
+      border-color: #ff6b9d;
       color: #fff;
+      box-shadow: 0 4px 12px rgba(236,72,153,0.3);
     }
+
     .input-text {
       width: 100%;
       background: rgba(0,0,0,0.35);
@@ -305,17 +366,21 @@
     /* Final Photobooth Canvas Preview */
     .preview-wrap {
       width: 100%;
-      aspect-ratio: 1 / 1;
       border-radius: 24px;
       overflow: hidden;
       background: #111;
       border: 2px solid rgba(255,184,208,0.3);
       margin-bottom: 12px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     canvas#boothCanvas {
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-height: 75vh;
+      object-fit: contain;
       display: block;
     }
     .hint {
@@ -330,9 +395,9 @@
 <body>
   <div class="container">
     <header>
-      <div class="badge-top">👑 LOCKET GOLD & PHOTOBOOTH STUDIO</div>
+      <div class="badge-top">👑 NGDUYKHANH • LOCKET PHOTOBOOTH STUDIO</div>
       <h1>Photobooth 4 Ảnh Locket</h1>
-      <p class="subtitle">Chụp 4 ảnh liên tiếp hoặc chọn từ máy ➔ Ghép khung Loopy 3D chuẩn Locket 1:1</p>
+      <p class="subtitle">Chụp 4 ảnh hoặc chọn từ máy ➔ Ghép 16+ nền Hàn Quốc, Y2K & Coquette siêu nét</p>
     </header>
 
     <div class="tabs">
@@ -390,19 +455,49 @@
       <!-- Tùy chỉnh Khung Viền Photobooth -->
       <div class="card">
         <div class="card-title">
-          <span>2. Chọn Viền Khung Photobooth & Kết Quả</span>
+          <span>2. Chọn Bố Cục & 16 Nền Photobooth Hot Trend</span>
         </div>
 
+        <!-- Bố cục: 2x2 vs Dải dọc -->
+        <div class="layout-toggle-row">
+          <button class="btn-layout active" id="btnLayoutGrid" onclick="setLayout('grid')">
+            🔲 Lưới 2x2 (Chuẩn Locket)
+          </button>
+          <button class="btn-layout" id="btnLayoutStrip" onclick="setLayout('strip')">
+            🎞️ Dải Dọc 4 Ô (인생네컷 Life4Cuts)
+          </button>
+        </div>
+
+        <!-- Phân loại Nền -->
+        <div class="category-pills">
+          <button class="cat-pill active" onclick="filterThemes('all')">🌟 Tất Cả (16 Nền)</button>
+          <button class="cat-pill" onclick="filterThemes('korean')">🇰🇷 Chuẩn Hàn Quốc</button>
+          <button class="cat-pill" onclick="filterThemes('cute')">🎀 Coquette & Cute</button>
+          <button class="cat-pill" onclick="filterThemes('vintage')">🎞️ Vintage & Film</button>
+          <button class="cat-pill" onclick="filterThemes('y2k')">✦ Y2K & Cyber</button>
+        </div>
+
+        <!-- 16 Nền Photobooth -->
         <div class="chips-scroll" id="themeChips">
-          <button class="chip active" data-theme="loopy">🐰 Loopy 3D Hồng</button>
-          <button class="chip" data-theme="pastel">🎀 Life4Cut Pastel</button>
-          <button class="chip" data-theme="film">🎞️ Film Đen Cổ Điển</button>
-          <button class="chip" data-theme="gold">👑 Luxury Gold</button>
-          <button class="chip" data-theme="matcha">🍵 Matcha Kem</button>
-          <button class="chip" data-theme="white">🤍 Studio Trắng</button>
+          <button class="chip active" data-theme="life4cuts_black" data-cat="korean">🖤 Life4Cuts Đen</button>
+          <button class="chip" data-theme="life4cuts_white" data-cat="korean">🤍 Studio Trắng Tinh</button>
+          <button class="chip" data-theme="coquette_ribbon" data-cat="cute">🎀 Coquette Nơ & Cherry</button>
+          <button class="chip" data-theme="kodak_35mm_film" data-cat="vintage">🎞️ Kodak 35mm Vintage</button>
+          <button class="chip" data-theme="y2k_silver_chrome" data-cat="y2k">✦ Y2K Tráng Bạc</button>
+          <button class="chip" data-theme="capybara_chill" data-cat="cute">🍊 Capybara Chill</button>
+          <button class="chip" data-theme="matcha_daisy" data-cat="cute">🌼 Matcha & Daisy</button>
+          <button class="chip" data-theme="sunset_peach" data-cat="korean">🌅 Sunset Hoàng Hôn</button>
+          <button class="chip" data-theme="cyber_neon" data-cat="y2k">⚡ Cyber Neon</button>
+          <button class="chip" data-theme="heart_pink_love" data-cat="cute">💖 Sweet Valentine</button>
+          <button class="chip" data-theme="denim_ripped" data-cat="vintage">👖 Denim Bò Sữa</button>
+          <button class="chip" data-theme="scrapbook_paper" data-cat="vintage">📜 Vintage Scrapbook</button>
+          <button class="chip" data-theme="retro_arcade" data-cat="y2k">🎮 Retro 90s Gameboy</button>
+          <button class="chip" data-theme="loopy" data-cat="cute">🐰 Loopy 3D Hồng</button>
+          <button class="chip" data-theme="gold" data-cat="korean">👑 Luxury Gold</button>
+          <button class="chip" data-theme="pastel" data-cat="korean">🌸 Life4Cut Pastel</button>
         </div>
 
-        <input type="text" id="customTitle" class="input-text" placeholder="Nhập dòng chữ trên đỉnh khung (VD: Thứ 7 rồi bạn iu ơi)" oninput="renderPhotobooth()" />
+        <input type="text" id="customTitle" class="input-text" placeholder="Nhập dòng chữ trên đỉnh khung (VD: Thứ 2 rồi bạn iu ơi)" oninput="renderPhotobooth()" />
         <input type="text" id="locketCaption" class="input-text" placeholder="💬 Nhập Caption hiển thị trên Locket (tuỳ chọn)..." />
 
         <div class="preview-wrap">
@@ -416,7 +511,7 @@
           <button class="btn btn-primary" onclick="shareOrSaveImage()">📲 Lưu Ảnh / Chia Sẻ</button>
           <button class="btn btn-secondary" onclick="downloadImage()">⬇️ Tải File PNG Nét</button>
         </div>
-        <p class="hint">💡 <b>3 Cách Dùng Photobooth:</b><br>1️⃣ Trong camera Locket bấm nút <b>✨ Filter</b> ở góc phải dưới ➔ mục <b>📸 Photobooth & Khung VIP</b> để chụp kèm khung ngay trong Locket.<br>2️⃣ Hoặc chụp 4 ảnh tại đây rồi bấm <b>🚀 Bắn Thẳng 4 Ảnh Lên Locket</b> (tự động lấy phiên từ Shadowrocket, không cần lưu ảnh).<br>3️⃣ Trong Cài đặt Locket bấm nút <b>TikTok / Instagram</b> để mở thẳng Photobooth này ngay bên trong app Locket!</p>
+        <p class="hint">💡 <b>Cách Dùng:</b> Bạn có thể chọn tải ảnh từ thư viện hoặc chụp trực tiếp tại đây, đổi kiểu <b>Lưới 2x2</b> hoặc <b>Dải Dọc Hàn Quốc</b> rồi bấm <b>Bắn Thẳng Lên Locket</b> hoặc <b>Lưu Ảnh</b> về máy nhé!</p>
       </div>
     </div>
 
@@ -451,14 +546,11 @@
     let isMirrored = true;
     let facingMode = 'user';
     let currentFilter = 'none';
-    let currentTheme = 'loopy';
+    let currentTheme = 'life4cuts_black';
+    let currentLayout = 'grid'; // 'grid' | 'strip'
     let streamRef = null;
 
-    // Đặt tiêu đề mặc định theo Thứ hôm nay
-    const dayNames = ["Chủ Nhật rồi bạn iu ơi", "Thứ 2 rồi bạn iu ơi", "Thứ 3 rồi bạn iu ơi", "Thứ 4 rồi bạn iu ơi", "Thứ 5 rồi bạn iu ơi", "Thứ 6 rồi bạn iu ơi", "Thứ 7 rồi bạn iu ơi"];
-    document.getElementById('customTitle').value = dayNames[new Date().getDay()];
-
-    // Tải trước 2 sticker Loopy 3D tách nền
+    // Load optional 3D mascot assets
     const mascotLeft = new Image();
     mascotLeft.crossOrigin = "anonymous";
     mascotLeft.src = "frames/mascot_left.png";
@@ -477,6 +569,26 @@
       document.getElementById('tab-install').classList.toggle('active', tab === 'install');
     }
 
+    function setLayout(layout) {
+      currentLayout = layout;
+      document.getElementById('btnLayoutGrid').classList.toggle('active', layout === 'grid');
+      document.getElementById('btnLayoutStrip').classList.toggle('active', layout === 'strip');
+      renderPhotobooth();
+    }
+
+    function filterThemes(cat) {
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.querySelectorAll('#themeChips .chip').forEach(chip => {
+        if (cat === 'all' || chip.dataset.cat === cat) {
+          chip.style.display = 'inline-block';
+        } else {
+          chip.style.display = 'none';
+        }
+      });
+    }
+
     async function initCamera() {
       try {
         if (streamRef) streamRef.getTracks().forEach(t => t.stop());
@@ -486,7 +598,7 @@
         });
         video.srcObject = streamRef;
       } catch (e) {
-        console.warn("Camera access note:", e);
+        console.warn("Camera note:", e);
       }
     }
 
@@ -497,30 +609,37 @@
 
     function switchCamera() {
       facingMode = (facingMode === 'user') ? 'environment' : 'user';
-      isMirrored = (facingMode === 'user');
-      video.classList.toggle('mirrored', isMirrored);
+      if (facingMode === 'environment') {
+        isMirrored = false;
+        video.classList.remove('mirrored');
+      } else {
+        isMirrored = true;
+        video.classList.add('mirrored');
+      }
       initCamera();
     }
 
-    function getCssFilter(f) {
-      switch (f) {
-        case 'pinky': return 'brightness(1.07) contrast(0.98) saturate(1.22) hue-rotate(-6deg)';
-        case 'bright': return 'brightness(1.14) contrast(1.03) saturate(1.08)';
-        case 'vintage': return 'sepia(0.28) contrast(1.06) brightness(1.03) saturate(0.9)';
-        case 'bw': return 'grayscale(1) contrast(1.12)';
-        default: return 'none';
-      }
-    }
-
+    // Camera Color Filters
     document.querySelectorAll('#filterChips .chip').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#filterChips .chip').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentFilter = btn.dataset.filter;
-        video.style.filter = getCssFilter(currentFilter);
+        applyVideoFilter();
       });
     });
 
+    function applyVideoFilter() {
+      switch (currentFilter) {
+        case 'pinky': video.style.filter = 'brightness(1.08) saturate(1.22) hue-rotate(-8deg)'; break;
+        case 'bright': video.style.filter = 'brightness(1.18) contrast(1.04) saturate(1.08)'; break;
+        case 'vintage': video.style.filter = 'sepia(0.35) contrast(1.15) brightness(0.95)'; break;
+        case 'bw': video.style.filter = 'grayscale(1) contrast(1.25)'; break;
+        default: video.style.filter = 'none'; break;
+      }
+    }
+
+    // Theme Chips Selection
     document.querySelectorAll('#themeChips .chip').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#themeChips .chip').forEach(b => b.classList.remove('active'));
@@ -532,24 +651,29 @@
 
     function selectSlot(idx) {
       currentSlot = idx;
-      document.getElementById('slotIndicator').textContent = `Ô đang chọn: #${idx + 1}`;
       document.querySelectorAll('.slot-item').forEach((el, i) => {
         el.classList.toggle('active-slot', i === idx);
       });
+      document.getElementById('slotIndicator').textContent = `Ô đang chọn: #${idx + 1}`;
+    }
+
+    function clearAllSlots() {
+      for (let i = 0; i < 4; i++) slots[i] = null;
+      selectSlot(0);
+      updateSlotUI();
     }
 
     function triggerFlash() {
       const fl = document.getElementById('flashLayer');
       fl.style.opacity = '0.9';
-      setTimeout(() => { fl.style.opacity = '0'; }, 140);
+      setTimeout(() => { fl.style.opacity = '0'; }, 160);
     }
 
     function grabVideoFrame() {
       const c = document.createElement('canvas');
-      c.width = 720;
-      c.height = 720;
+      c.width = 720; c.height = 720;
       const g = c.getContext('2d');
-      g.filter = getCssFilter(currentFilter);
+      g.filter = video.style.filter || 'none';
 
       const vw = video.videoWidth || 720;
       const vh = video.videoHeight || 720;
@@ -631,187 +755,402 @@
         };
         reader.readAsDataURL(file);
       });
-      e.target.value = '';
-    }
-
-    function clearAllSlots() {
-      for (let i = 0; i < 4; i++) slots[i] = null;
-      selectSlot(0);
-      updateSlotUI();
     }
 
     function roundRectPath(ctx, x, y, w, h, r) {
       ctx.beginPath();
       ctx.moveTo(x + r, y);
-      ctx.arcTo(x + w, y, x + w, y + h, r);
-      ctx.arcTo(x + w, y + h, x, y + h, r);
-      ctx.arcTo(x, y + h, x, y, r);
-      ctx.arcTo(x, y, x + w, y, r);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
       ctx.closePath();
     }
 
     function drawBow(ctx, cx, cy, w, h, mainColor, darkColor) {
       ctx.save();
-      ctx.translate(cx, cy);
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = '#fff8fa';
       ctx.fillStyle = mainColor;
-      // Left wing
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(-w*0.44, -h*0.42);
-      ctx.lineTo(-w*0.48, 0);
-      ctx.lineTo(-w*0.42, h*0.42);
-      ctx.closePath();
-      ctx.stroke(); ctx.fill();
-      // Right wing
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(w*0.44, -h*0.42);
-      ctx.lineTo(w*0.48, 0);
-      ctx.lineTo(w*0.42, h*0.42);
-      ctx.closePath();
-      ctx.stroke(); ctx.fill();
-      // Center knot
-      ctx.fillStyle = '#ffc2d6';
       ctx.strokeStyle = darkColor;
       ctx.lineWidth = 3;
-      roundRectPath(ctx, -w*0.13, -h*0.24, w*0.26, h*0.48, 8);
+
+      // Left loop
+      ctx.beginPath();
+      ctx.moveTo(cx - 10, cy);
+      ctx.bezierCurveTo(cx - w/2, cy - h/2, cx - w/2, cy + h/2, cx - 10, cy);
+      ctx.fill(); ctx.stroke();
+
+      // Right loop
+      ctx.beginPath();
+      ctx.moveTo(cx + 10, cy);
+      ctx.bezierCurveTo(cx + w/2, cy - h/2, cx + w/2, cy + h/2, cx + 10, cy);
+      ctx.fill(); ctx.stroke();
+
+      // Center knot
+      ctx.beginPath();
+      ctx.arc(cx, cy, 12, 0, Math.PI * 2);
       ctx.fill(); ctx.stroke();
       ctx.restore();
     }
 
+    function drawBarcode(ctx, x, y, w, h, color) {
+      ctx.save();
+      ctx.fillStyle = color;
+      const bars = [2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 2, 1, 3, 1, 2, 3, 1, 2, 4, 1, 3];
+      let curX = x;
+      const total = bars.reduce((a, b) => a + b, 0);
+      const scale = w / total;
+      bars.forEach((b, idx) => {
+        if (idx % 2 === 0) {
+          ctx.fillRect(curX, y, b * scale, h);
+        }
+        curX += b * scale;
+      });
+      ctx.restore();
+    }
+
+    function drawCyberStar(ctx, cx, cy, size, color) {
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - size);
+      ctx.quadraticCurveTo(cx, cy, cx + size * 0.35, cy);
+      ctx.quadraticCurveTo(cx, cy, cx, cy + size);
+      ctx.quadraticCurveTo(cx, cy, cx - size * 0.35, cy);
+      ctx.quadraticCurveTo(cx, cy, cx, cy - size);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(cx - size, cy);
+      ctx.quadraticCurveTo(cx, cy, cx, cy + size * 0.35);
+      ctx.quadraticCurveTo(cx, cy, cx + size, cy);
+      ctx.quadraticCurveTo(cx, cy, cx, cy - size * 0.35);
+      ctx.quadraticCurveTo(cx, cy, cx - size, cy);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDaisy(ctx, cx, cy, radius) {
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      for (let i = 0; i < 8; i++) {
+        const angle = (i * Math.PI) / 4;
+        const px = cx + Math.cos(angle) * radius * 0.65;
+        const py = cy + Math.sin(angle) * radius * 0.65;
+        ctx.beginPath();
+        ctx.arc(px, py, radius * 0.45, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = '#FBBF24';
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius * 0.42, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawSprockets(ctx, w, h) {
+      ctx.save();
+      ctx.fillStyle = '#050505';
+      ctx.strokeStyle = '#F59E0B';
+      ctx.lineWidth = 2;
+      const count = (currentLayout === 'strip') ? 28 : 16;
+      const step = h / count;
+      for (let i = 0; i < count; i++) {
+        const y = i * step + step * 0.18;
+        roundRectPath(ctx, 8, y, 20, 28, 5);
+        ctx.fill(); ctx.stroke();
+        roundRectPath(ctx, w - 28, y, 20, 28, 5);
+        ctx.fill(); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // THEME PALETTES & SETTINGS
+    const THEMES = {
+      life4cuts_black: {
+        name: "인생네컷 Black",
+        bg1: "#121214", bg2: "#19191d", border: "#27272a", text: "#f4f4f5", sub: "#a1a1aa",
+        stickerColor: "#ffffff", brand: "인 생 네 컷 • LIFE FOUR CUTS", barcode: true
+      },
+      life4cuts_white: {
+        name: "Life4Cuts Studio White",
+        bg1: "#fdfdfd", bg2: "#f3f4f6", border: "#e5e7eb", text: "#111827", sub: "#4b5563",
+        stickerColor: "#111827", brand: "인 생 네 컷 • STUDIO WHITE", barcode: true
+      },
+      coquette_ribbon: {
+        name: "Coquette Ribbon & Cherry",
+        bg1: "#ffe4e6", bg2: "#fff1f2", border: "#f43f5e", text: "#e11d48", sub: "#fb7185",
+        bows: true, brand: "COQUETTE STUDIO • CHERRY KISS"
+      },
+      kodak_35mm_film: {
+        name: "Kodak 35mm Vintage Film",
+        bg1: "#18181b", bg2: "#09090b", border: "#f59e0b", text: "#fbbf24", sub: "#f59e0b",
+        sprockets: true, brand: "KODAK PORTRA 400 • 35MM FILM • EXP 24"
+      },
+      y2k_silver_chrome: {
+        name: "Y2K Silver Chrome",
+        bg1: "#cbd5e1", bg2: "#94a3b8", border: "#f8fafc", text: "#0f172a", sub: "#334155",
+        cyberStars: true, brand: "✦ Y2K ARCHIVE • CYBER 2000s ✦"
+      },
+      capybara_chill: {
+        name: "Capybara Chill Vibes",
+        bg1: "#fef3c7", bg2: "#fde68a", border: "#f59e0b", text: "#b45309", sub: "#d97706",
+        capybara: true, brand: "🍊 CAPYBARA CHILL • DON'T WORRY BE HAPPY"
+      },
+      matcha_daisy: {
+        name: "Matcha & Daisy Blossom",
+        bg1: "#ecfdf5", bg2: "#d1fae5", border: "#10b981", text: "#047857", sub: "#059669",
+        daisies: true, brand: "🌼 MATCHA & DAISY • KOREAN CAFE DIARY"
+      },
+      sunset_peach: {
+        name: "Sunset Peach Gradient",
+        bg1: "#fed7aa", bg2: "#f472b6", border: "#fb923c", text: "#be185d", sub: "#c2410c",
+        brand: "🌅 SUNSET PEACH • GOLDEN HOUR MEMORIES"
+      },
+      cyber_neon: {
+        name: "Cyber Neon Glow",
+        bg1: "#090d16", bg2: "#0f172a", border: "#06b6d4", text: "#22d3ee", sub: "#e879f9",
+        neon: true, brand: "⚡ CYBER NEON 2077 • NIGHT CITY ⚡"
+      },
+      heart_pink_love: {
+        name: "Sweet Valentine",
+        bg1: "#ffe4e6", bg2: "#fecdd3", border: "#fb7185", text: "#e11d48", sub: "#f43f5e",
+        hearts: true, brand: "💖 SWEET VALENTINE • FOREVER WITH YOU"
+      },
+      denim_ripped: {
+        name: "Denim Ripped Bò Sữa",
+        bg1: "#1e3a8a", bg2: "#1d4ed8", border: "#93c5fd", text: "#ffffff", sub: "#bfdbfe",
+        stitching: true, brand: "👖 DENIM RIPPED • 1990 STREETWEAR"
+      },
+      scrapbook_paper: {
+        name: "Vintage Scrapbook Giấy Xé",
+        bg1: "#fef9c3", bg2: "#fef08a", border: "#ca8a04", text: "#713f12", sub: "#854d0e",
+        washi: true, brand: "📜 VINTAGE SCRAPBOOK • MEMORIES DIARY"
+      },
+      retro_arcade: {
+        name: "Retro 90s Pixel Arcade",
+        bg1: "#312e81", bg2: "#4338ca", border: "#34d399", text: "#a7f3d0", sub: "#f472b6",
+        brand: "🎮 LEVEL UP • 90S PIXEL ARCADE 🎮"
+      },
+      loopy: {
+        name: "Loopy 3D Hồng",
+        bg1: "#ffbfd4", bg2: "#ff9ebb", border: "#e880a2", text: "#ec5f8a", sub: "#9d3658",
+        loopyMascot: true, brand: "🐰 LOOPY 3D • PHOTOBOOTH KOREA"
+      },
+      gold: {
+        name: "Luxury Obsidian Gold",
+        bg1: "#18181b", bg2: "#27272a", border: "#f59e0b", text: "#fde047", sub: "#f59e0b",
+        brand: "👑 LUXURY OBSIDIAN GOLD • VIP EDITION"
+      },
+      pastel: {
+        name: "Life4Cut Pastel",
+        bg1: "#fbcfe8", bg2: "#c7d2fe", border: "#f472b6", text: "#db2777", sub: "#6366f1",
+        loopyMascot: true, brand: "🌸 LIFE4CUT PASTEL • SWEET COTTON"
+      }
+    };
+
     function renderPhotobooth() {
-      const S = 1280;
-      ctx.clearRect(0, 0, S, S);
+      const isStrip = (currentLayout === 'strip');
+      const W = isStrip ? 900 : 1280;
+      const H = isStrip ? 2400 : 1280;
 
-      const themes = {
-        loopy:  { bg1: '#ffbfd4', bg2: '#ff9ebb', border: '#e880a2', text: '#ec5f8a', sub: '#9d3658' },
-        pastel: { bg1: '#fbcfe8', bg2: '#c7d2fe', border: '#f472b6', text: '#db2777', sub: '#6366f1' },
-        film:   { bg1: '#18181b', bg2: '#09090b', border: '#3f3f46', text: '#fbbf24', sub: '#a1a1aa' },
-        gold:   { bg1: '#1c1917', bg2: '#292524', border: '#f59e0b', text: '#fde047', sub: '#fbbf24' },
-        matcha: { bg1: '#d9f99d', bg2: '#bbf7d0', border: '#4ade80', text: '#15803d', sub: '#166534' },
-        white:  { bg1: '#ffffff', bg2: '#f1f5f9', border: '#cbd5e1', text: '#0f172a', sub: '#64748b' }
-      };
-      const t = themes[currentTheme] || themes.loopy;
+      boothCanvas.width = W;
+      boothCanvas.height = H;
+      ctx.clearRect(0, 0, W, H);
 
-      // 1. Background Squircle
-      const grad = ctx.createLinearGradient(0, 0, S, S);
+      const t = THEMES[currentTheme] || THEMES.life4cuts_black;
+
+      // 1. Background Gradient
+      const grad = ctx.createLinearGradient(0, 0, W, H);
       grad.addColorStop(0, t.bg1);
       grad.addColorStop(1, t.bg2);
       ctx.fillStyle = grad;
-      roundRectPath(ctx, 0, 0, S, S, 160);
+      roundRectPath(ctx, 0, 0, W, H, isStrip ? 60 : 160);
       ctx.fill();
 
       // Outer border
-      ctx.lineWidth = 18;
+      ctx.lineWidth = isStrip ? 14 : 18;
       ctx.strokeStyle = t.border;
-      roundRectPath(ctx, 9, 9, S - 18, S - 18, 152);
+      roundRectPath(ctx, 8, 8, W - 16, H - 16, isStrip ? 54 : 152);
       ctx.stroke();
 
-      // Inner white highlight
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = 'rgba(255,255,255,0.75)';
-      roundRectPath(ctx, 22, 22, S - 44, S - 44, 142);
-      ctx.stroke();
+      // Theme-specific background patterns
+      if (t.sprockets) {
+        drawSprockets(ctx, W, H);
+      }
+      if (t.stitching) {
+        ctx.save();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 4;
+        ctx.setLineDash([12, 10]);
+        roundRectPath(ctx, 24, 24, W - 48, H - 48, isStrip ? 42 : 138);
+        ctx.stroke();
+        ctx.restore();
+      }
+      if (t.neon) {
+        ctx.save();
+        ctx.shadowColor = '#06b6d4';
+        ctx.shadowBlur = 24;
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = '#22d3ee';
+        roundRectPath(ctx, 22, 22, W - 44, H - 44, isStrip ? 42 : 138);
+        ctx.stroke();
+        ctx.restore();
+      }
 
-      // 2. Draw 4 Photo Windows (2x2 Grid)
-      const marginX = 52;
-      const topY = 92;
-      const bottomMargin = 108;
-      const gap = 26;
-      const cellW = (S - marginX * 2 - gap) / 2;
-      const cellH = (S - topY - bottomMargin - gap) / 2;
+      // 2. Draw 4 Photo Windows
+      const coords = [];
+      let cellW, cellH, cellRadius;
 
-      const coords = [
-        [marginX, topY],
-        [marginX + cellW + gap, topY],
-        [marginX, topY + cellH + gap],
-        [marginX + cellW + gap, topY + cellH + gap]
-      ];
+      if (isStrip) {
+        // Vertical Strip: 4 slots stacked
+        const padX = 70;
+        const topY = 120;
+        const gap = 34;
+        cellW = W - padX * 2;
+        cellH = 460;
+        cellRadius = 24;
+
+        for (let i = 0; i < 4; i++) {
+          coords.push([padX, topY + i * (cellH + gap)]);
+        }
+      } else {
+        // 2x2 Grid (1:1 Square)
+        const marginX = 52;
+        const topY = 92;
+        const bottomMargin = 108;
+        const gap = 26;
+        cellW = (W - marginX * 2 - gap) / 2;
+        cellH = (H - topY - bottomMargin - gap) / 2;
+        cellRadius = 64;
+
+        coords.push(
+          [marginX, topY],
+          [marginX + cellW + gap, topY],
+          [marginX, topY + cellH + gap],
+          [marginX + cellW + gap, topY + cellH + gap]
+        );
+      }
 
       coords.forEach(([x, y], idx) => {
         ctx.save();
-        roundRectPath(ctx, x, y, cellW, cellH, 64);
-        ctx.fillStyle = '#1e293b';
+        roundRectPath(ctx, x, y, cellW, cellH, cellRadius);
+        ctx.fillStyle = '#0f172a';
         ctx.fill();
         ctx.clip();
 
         if (slots[idx]) {
-          // Cover crop into cellW x cellH
           const src = slots[idx];
           ctx.drawImage(src, 0, 0, src.width, src.height, x, y, cellW, cellH);
         } else {
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.72)';
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
           ctx.fillRect(x, y, cellW, cellH);
           ctx.fillStyle = 'rgba(255,255,255,0.45)';
-          ctx.font = "700 42px 'Baloo 2', sans-serif";
+          ctx.font = isStrip ? "700 48px 'Baloo 2', sans-serif" : "700 42px 'Baloo 2', sans-serif";
           ctx.textAlign = 'center';
           ctx.fillText(`Ảnh #${idx + 1}`, x + cellW / 2, y + cellH / 2 + 14);
         }
         ctx.restore();
 
-        // White sticker border around each slot
-        ctx.lineWidth = 7;
-        ctx.strokeStyle = '#ffffff';
-        roundRectPath(ctx, x, y, cellW, cellH, 64);
+        // White border around photo window
+        ctx.lineWidth = isStrip ? 6 : 7;
+        ctx.strokeStyle = (currentTheme === 'life4cuts_white') ? '#0f172a' : '#ffffff';
+        roundRectPath(ctx, x, y, cellW, cellH, cellRadius);
         ctx.stroke();
+
+        // Photo index marker
+        ctx.save();
+        ctx.font = "800 24px 'Baloo 2', sans-serif";
+        ctx.fillStyle = t.text;
+        if (isStrip) {
+          ctx.fillText(`0${idx + 1}`, x + 16, y - 8);
+        }
+        ctx.restore();
       });
 
-      // 3. Top Header Sticker Text
-      const titleText = (document.getElementById('customTitle').value || 'PHOTOBOOTH • LOCKET 4 CUT').trim();
+      // 3. Header Title
+      const titleText = (document.getElementById('customTitle').value || t.brand || 'PHOTOBOOTH 4 CUT').trim();
       ctx.save();
-      ctx.font = "800 58px 'Baloo 2', sans-serif";
+      ctx.font = isStrip ? "800 52px 'Baloo 2', sans-serif" : "800 56px 'Baloo 2', sans-serif";
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.lineJoin = 'round';
-      ctx.lineWidth = 18;
+      ctx.lineWidth = 14;
       ctx.strokeStyle = t.border;
-      ctx.strokeText(titleText, S / 2, 50);
-      ctx.lineWidth = 11;
-      ctx.strokeStyle = '#fff9f5';
-      ctx.strokeText(titleText, S / 2, 48);
+      const headerY = isStrip ? 62 : 48;
+      ctx.strokeText(titleText, W / 2, headerY);
       ctx.fillStyle = t.text;
-      ctx.fillText(titleText, S / 2, 48);
+      ctx.fillText(titleText, W / 2, headerY);
       ctx.restore();
 
-      // 4. Center Bow & Date Footer
-      drawBow(ctx, S / 2, topY + cellH + gap / 2, 110, 72, '#ff8fab', '#db2777');
+      // 4. Decorations per theme
+      if (t.bows) {
+        if (!isStrip) {
+          drawBow(ctx, W / 2, 92 + cellH + 13, 110, 72, '#ff8fab', '#db2777');
+        }
+        drawBow(ctx, 90, H - 70, 80, 50, '#ff8fab', '#db2777');
+        drawBow(ctx, W - 90, H - 70, 80, 50, '#ff8fab', '#db2777');
+      }
 
+      if (t.cyberStars) {
+        drawCyberStar(ctx, 60, headerY, 26, '#ffffff');
+        drawCyberStar(ctx, W - 60, headerY, 26, '#ffffff');
+        drawCyberStar(ctx, W / 2, H - 110, 32, '#ffffff');
+      }
+
+      if (t.daisies) {
+        drawDaisy(ctx, 70, headerY, 24);
+        drawDaisy(ctx, W - 70, headerY, 24);
+        drawDaisy(ctx, 110, H - 65, 26);
+        drawDaisy(ctx, W - 110, H - 65, 26);
+      }
+
+      // 5. Footer: Date & Brand & Barcode
       const now = new Date();
       const pad = n => (n < 10 ? '0' + n : n);
-      const dateStr = `📸 PHOTOBOOTH 4 CUT • ${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()} • ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      const dateStr = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()} • ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
       ctx.save();
-      ctx.font = "700 30px 'Be Vietnam Pro', sans-serif";
+      ctx.font = isStrip ? "700 32px 'Be Vietnam Pro', sans-serif" : "700 28px 'Be Vietnam Pro', sans-serif";
       ctx.textAlign = 'center';
-      ctx.lineWidth = 8;
-      ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-      if (currentTheme === 'film' || currentTheme === 'gold') ctx.strokeStyle = 'rgba(0,0,0,0.8)';
-      ctx.strokeText(dateStr, S / 2, S - 52);
       ctx.fillStyle = t.sub;
-      ctx.fillText(dateStr, S / 2, S - 52);
+
+      if (isStrip) {
+        ctx.fillText(`인 생 네 컷 • LIFE FOUR CUTS`, W / 2, H - 145);
+        ctx.font = "600 24px 'Be Vietnam Pro', sans-serif";
+        ctx.fillText(`DATE: ${dateStr} • STUDIO BOOTH #01`, W / 2, H - 105);
+        drawBarcode(ctx, W / 2 - 130, H - 75, 260, 42, t.text);
+      } else {
+        const fullFooter = `📸 PHOTOBOOTH 4 CUT • ${dateStr} • NGDUYKHANH`;
+        ctx.fillText(fullFooter, W / 2, H - 52);
+
+        if (t.barcode) {
+          drawBarcode(ctx, W / 2 - 100, H - 98, 200, 30, t.text);
+        }
+      }
       ctx.restore();
 
-      // 5. Draw 3D Loopy Mascots at bottom-left and bottom-right corners
-      if (currentTheme === 'loopy' || currentTheme === 'pastel') {
+      // Loopy mascots on compatible themes
+      if (t.loopyMascot && !isStrip) {
         if (mascotLeft.complete && mascotLeft.naturalWidth > 0) {
           const lw = 285;
           const lh = mascotLeft.naturalHeight * (lw / mascotLeft.naturalWidth);
-          ctx.drawImage(mascotLeft, 16, S - lh - 10, lw, lh);
+          ctx.drawImage(mascotLeft, 16, H - lh - 10, lw, lh);
         }
         if (mascotRight.complete && mascotRight.naturalWidth > 0) {
           const rw = 340;
           const rh = mascotRight.naturalHeight * (rw / mascotRight.naturalWidth);
-          ctx.drawImage(mascotRight, S - rw - 10, S - rh - 12, rw, rh);
+          ctx.drawImage(mascotRight, W - rw - 10, H - rh - 12, rw, rh);
         }
-        drawBow(ctx, 320, S - 46, 92, 60, '#ff94b2', '#e15f87');
-        drawBow(ctx, S - 340, S - 46, 92, 60, '#ff94b2', '#e15f87');
       }
     }
 
     function downloadImage() {
       const link = document.createElement('a');
-      link.download = `Locket_Photobooth_${Date.now()}.png`;
+      link.download = `Locket_Photobooth_${currentTheme}_${Date.now()}.png`;
       link.href = boothCanvas.toDataURL('image/png');
       link.click();
     }
@@ -828,7 +1167,7 @@
         let idToken = localStorage.getItem('bk_locket_token') || '';
         let uid = localStorage.getItem('bk_locket_uid') || '';
 
-        // 1. Thử lấy tự động từ cầu nối Shadowrocket (locket_filter.js)
+        // 1. Thử lấy tự động từ cầu nối Shadowrocket
         try {
           const bridgeRes = await fetch('https://api.locketcamera.com/bokhanh-photobooth-bridge', { cache: 'no-store' });
           if (bridgeRes.ok) {
@@ -844,7 +1183,7 @@
 
         if (!idToken || !uid) {
           statusEl.style.color = '#fca5a5';
-          statusEl.innerHTML = '⚠️ Chưa bắt được phiên Locket tự động. Hãy bật <b>Shadowrocket</b> (đã cài Module mới nhất), mở app <b>Locket</b> 1 lần rồi quay lại bấm nút này — hoặc bấm <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới nhé!';
+          statusEl.innerHTML = '⚠️ Chưa bắt được phiên Locket tự động. Hãy bật <b>Shadowrocket</b> (đã cập nhật v24), mở app <b>Locket</b> 1 lần rồi quay lại bấm nút này — hoặc bấm <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới để đăng nhé!';
           btn.disabled = false;
           return;
         }
@@ -935,7 +1274,7 @@
         statusEl.innerHTML = '🎉 <b>Đã đăng thẳng ảnh Photobooth 4 ô lên Locket thành công!</b> Mở Locket kiểm tra ngay nhé!';
       } catch (err) {
         statusEl.style.color = '#fca5a5';
-        statusEl.innerHTML = '⚠️ ' + (err.message || 'Không thể đăng trực tiếp') + ' — Hãy bấm nút <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới để lưu về máy rồi chọn từ thư viện Locket nhé!';
+        statusEl.innerHTML = '⚠️ ' + (err.message || 'Không thể đăng trực tiếp') + ' — Hãy bấm nút <b>📲 Lưu Ảnh / Chia Sẻ</b> bên dưới để lưu về máy nhé!';
       } finally {
         btn.disabled = false;
       }
@@ -944,7 +1283,7 @@
     async function shareOrSaveImage() {
       boothCanvas.toBlob(async (blob) => {
         if (!blob) return downloadImage();
-        const file = new File([blob], `Locket_Photobooth_${Date.now()}.png`, { type: 'image/png' });
+        const file = new File([blob], `Locket_Photobooth_${currentTheme}_${Date.now()}.png`, { type: 'image/png' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
