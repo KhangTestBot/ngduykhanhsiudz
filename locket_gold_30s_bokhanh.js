@@ -196,7 +196,6 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
             sheet_enabled: true,
             open_sheet_immediately: true,
             sheet_filters: [
-                { title: { en: "📸 Chụp Photobooth 4 Ô" }, filter_ids: ["okay_wig", "cutesy", "sticker_face", "flower_crown", "love_bug"] },
                 { title: { en: "Goofy" }, filter_ids: ["okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows"] },
                 { title: { en: "Looks" }, filter_ids: ["bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns", "tatted", "mohawk", "braces", "bye_brows"] },
                 { title: { en: "Celebrate" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] },
@@ -343,23 +342,22 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     ];
 
     var frameCatalog = {
-        auto_daily: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png",
+        shin_chan: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
+        loopy_3d: "https://cdn.jsdelivr.net/gh/KhangTestBot/ngduykhanhsiudz@main/Code_Generated_Image.png",
+        hello_kitty: "https://i.ibb.co/RTm5P1n9/kitty-1.png",
+        khung_ins: "https://i.ibb.co/JjLZ3cvD/khung-ins.png",
+        khung_sin: "https://i.ibb.co/S74Rm5mm/khungsin.png",
         loopy_thu: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
         bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
-        hello_kitty: baseFramesUrl + "hello_kitty.png",
-        shin_chan: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
-        doraemon: baseFramesUrl + "doraemon.png",
-        khung_ins: baseFramesUrl + "khung_ins.png"
+        doraemon: baseFramesUrl + "doraemon.png"
     };
 
-    var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "auto_daily";
-    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || frameCatalog.auto_daily;
+    var selectedFrameMode = (typeof $argument !== "undefined" && $argument && frameCatalog[$argument]) ? $argument : "shin_chan";
+    var activeWidgetFrameUrl = frameCatalog[selectedFrameMode] || "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png";
 
     Object.assign(obj.entries, {
         widget_frame_event_max_images: "5",
         android_widget_frame_event_enabled: "true",
-        ios_widget_frame_event_enabled: "true",
-        widget_frame_event_enabled: "true",
         widget_badge_enabled: "true",
         widget_badge_v2: "true",
         widget_stale_state_enabled: "false",
