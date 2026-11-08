@@ -2,7 +2,7 @@
 // Locket Remote Config Rewrite
 // Endpoint: firebaseremoteconfig.googleapis.com
 // Dùng cho: Loon / Quantumult X / Surge / Shadowrocket
-// Tác giả: Bố Khánh
+// Tác giả: NgDuyKhanh
 // ============================================================
 
 var ua = ($request.headers && ($request.headers["User-Agent"] || $request.headers["user-agent"])) || "";
@@ -49,19 +49,19 @@ if (true) {
             profile_banner: true
         }),
         feature_discovery_popup_config: JSON.stringify({
-            tag: "LOCKET GOLD • BỐ KHÁNH",
+            tag: "LOCKET GOLD • NGDUYKHANH",
             tag_gradient: true,
             tag_style: "gold_gradient",
             title: "Lên Locket Gold rồi đó 😎",
             feature_set: [
                 {
                     title: "Hẹ Hẹ Hẹ ✨",
-                    body: " BỐ KHÁNH NÈ MẤY EM  💛",
-                    imageURL: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png"
+                    body: " NGDUYKHANH NÈ MẤY EM  💛",
+                    imageURL: "https://i.ibb.co/hFq8Th2W/user-with-loopy-frame.png"
                 }
             ],
             primary_button_title: "Xong",
-            campaign: "locket_gold_welcome_v3",
+            campaign: "locket_gold_welcome_v5",
             start_at: "2020-01-01T00:00:00",
             end_at: "2099-12-31T23:59:59",
             use_local_time_zone: true
@@ -367,7 +367,7 @@ if (true) {
     });
 
     // ============================================================
-    // 8. OVERLAY & SMART DYNAMIC CAPTIONS BY BỐ KHÁNH
+    // 8. OVERLAY & SMART DYNAMIC CAPTIONS BY NGDUYKHANH
     // ============================================================
     var nowUtc = new Date();
     var vnTime = new Date(nowUtc.getTime() + 7 * 3600 * 1000 + nowUtc.getTimezoneOffset() * 60000);

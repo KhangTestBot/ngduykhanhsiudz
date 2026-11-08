@@ -1,6 +1,6 @@
 // ============================================================
 // Locket Gold + Remote Config Full Unlock (Bản Nâng Cấp: Video 45s Chuẩn Server + Khung 640x640 iOS + AI + Caption VIP)
-// Thương hiệu: Bố Khánh
+// Thương hiệu: NgDuyKhanh
 // Kho GitHub: https://github.com/KhangTestBot/ngduykhanhsiudz
 // LƯU Ý QUAN TRỌNG: TẮT DỊCH TỰ ĐỘNG CỦA TRÌNH DUYỆT CỐC CỐC KHI TẢI HOẶC XEM FILE NÀY!
 // ============================================================
@@ -11,7 +11,7 @@ var obj = JSON.parse($response.body || "{}");
 
 // 1. NẾU LÀ API REVENUECAT -> MỞ KHÓA LOCKET GOLD VĨNH VIỄN (9999)
 if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1) {
-    obj.Attention = "Chúc mừng bạn! Cấu hình bởi Bố Khánh";
+    obj.Attention = "Chúc mừng bạn! Cấu hình bởi NgDuyKhanh";
     var FAR_FUTURE = "9999-05-03T10:10:14Z";
     var PAST = "2006-05-03T10:10:14Z";
 
@@ -106,19 +106,19 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
             profile_banner: true
         }),
         feature_discovery_popup_config: JSON.stringify({
-            tag: "LOCKET GOLD • BỐ KHÁNH",
+            tag: "LOCKET GOLD • NGDUYKHANH",
             tag_gradient: true,
             tag_style: "gold_gradient",
-            title: "Đã lên Gold rồi đó nha 😎",
+            title: "Lên Locket Gold rồi đó 😎",
             feature_set: [
                 {
-                    title: "Lên Locket Gold thành công rồi nha ✨",
-                    body: "BỐ KHÁNH NÈ MẤY EM 💛",
-                    imageURL: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png"
+                    title: "Hẹ Hẹ Hẹ ✨",
+                    body: "NGDUYKHANH NÈ MẤY EM 💛",
+                    imageURL: "https://i.ibb.co/hFq8Th2W/user-with-loopy-frame.png"
                 }
             ],
             primary_button_title: "Xong rồi nhé!",
-            campaign: "locket_gold_welcome_v3",
+            campaign: "locket_gold_welcome_v5",
             start_at: "2020-01-01T00:00:00",
             end_at: "2099-12-31T23:59:59",
             use_local_time_zone: true

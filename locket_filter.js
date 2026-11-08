@@ -1,6 +1,6 @@
 /***********************************************
 > Locket AI Filter Unlocker, Photobooth Frame Filter & Token Bridge
-> Tác giả: Bố Khánh
+> Tác giả: NgDuyKhanh
 > Endpoint: ^https:\/\/api\.locketcamera\.com\/.+
 ***********************************************/
 

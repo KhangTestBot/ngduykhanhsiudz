@@ -46,13 +46,13 @@
                 </dict>
             </array>
             <key>PayloadDescription</key>
-            <string>Cấu hình DNS giữ Locket Gold vĩnh viễn bởi Bố Khánh</string>
+            <string>Cấu hình DNS giữ Locket Gold vĩnh viễn bởi NgDuyKhanh</string>
             <key>PayloadDisplayName</key>
-            <string>Locket Gold DNS • Bố Khánh</string>
+            <string>Locket Gold DNS • NgDuyKhanh</string>
             <key>PayloadOrganization</key>
-            <string>Bố Khánh</string>
+            <string>NgDuyKhanh</string>
             <key>PayloadIdentifier</key>
-            <string>com.apple.dnsSettings.managed.bokhanh.locketvip</string>
+            <string>com.apple.dnsSettings.managed.ngduykhanh.locketvip</string>
             <key>PayloadType</key>
             <string>com.apple.dnsSettings.managed</string>
             <key>PayloadUUID</key>
@@ -62,13 +62,13 @@
         </dict>
     </array>
     <key>PayloadDescription</key>
-    <string>Hồ sơ cấu hình VIP chặn thu hồi Locket Gold vĩnh viễn.&#10;Đã lên Gold rồi đó nha 💛&#10;Thương hiệu: Bố Khánh</string>
+    <string>Hồ sơ cấu hình VIP chặn thu hồi Locket Gold vĩnh viễn.&#10;Đã lên Gold rồi đó nha 💛&#10;Thương hiệu: NgDuyKhanh</string>
     <key>PayloadDisplayName</key>
-    <string>Locket Gold 💛 (Bố Khánh)</string>
+    <string>Locket Gold 💛 (NgDuyKhanh)</string>
     <key>PayloadIdentifier</key>
-    <string>com.bokhanh.locket.vip</string>
+    <string>com.ngduykhanh.locket.vip</string>
     <key>PayloadOrganization</key>
-    <string>Bố Khánh</string>
+    <string>NgDuyKhanh</string>
     <key>PayloadRemovalDisallowed</key>
     <false/>
     <key>PayloadType</key>

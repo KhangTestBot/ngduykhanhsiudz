@@ -1,13 +1,13 @@
-# 👑 Dự Án Locket Gold 30s/60s + Khung Tiện Ích Doraemon — Bố Khánh
+# 👑 Dự Án Locket Gold 30s/60s + Khung Tiện Ích Loopy 3D — NgDuyKhanh
 
-* **Thương hiệu:** **Bố Khánh**
+* **Thương hiệu:** **NgDuyKhanh**
 * **GitHub:** [KhangTestBot/ngduykhanhsiudz](https://github.com/KhangTestBot/ngduykhanhsiudz)
 * **📸 Web App Chụp & Ghép Photobooth 4 Ảnh Chuẩn Locket:** [https://khangtestbot.github.io/ngduykhanhsiudz/](https://khangtestbot.github.io/ngduykhanhsiudz/)
 
 ## ✨ Tính năng tích hợp trong bản cập nhật này
 
 1. **Mở khóa Locket Gold Vĩnh Viễn (Hạn đến năm 9999):** Lên huy hiệu Gold, mở toàn bộ tính năng VIP thông qua RevenueCat.
-2. **Bảng thông báo Popup Chào Mừng Chính Chủ:** Khi xoá Locket tải lại và mở app, Locket tự động bật bảng thông báo chào mừng của **Bố Khánh**.
+2. **Bảng thông báo Popup Chào Mừng Chính Chủ:** Khi xoá Locket tải lại và mở app, Locket tự động bật bảng thông báo chào mừng của **NgDuyKhanh**.
 3. **Quay Video 60s & Đăng Video Thư Viện 30s Có Tiếng:** Bật sẵn thu âm micro (`microphone_enabled`, `video_sound_enabled`), cam góc rộng, flash và bộ lọc Filter.
 4. **Khung Viền Tiện Ích (Widget Frame) Loopy 3D Tự Đổi Theo Từng Ngày Trong Tuần (`frames/`):**
    - Tự động nhận diện thứ trong tuần (theo giờ Việt Nam `UTC+7`) để đổi khung Widget Loopy 3D hồng mỗi ngày:
@@ -19,13 +19,13 @@
      - `frames/thu_7.png` — *"Thứ 7 rồi bạn iu ơi"*
      - `frames/chu_nhat.png` — *"Chủ Nhật rồi bạn iu ơi"*
    - Kèm kho khung phụ chọn nhanh trong `frames/`: `bokhanh_vip.png`, `hello_kitty.png`, `shin_chan.png`, `doraemon.png`, `khung_ins.png`.
-5. **Caption Động Thông Minh Theo Thời Gian Thực (`⚡ Caption Động Thời Gian Thực • Bố Khánh`):**
+5. **Caption Động Thông Minh Theo Thời Gian Thực (`⚡ Caption Động Thời Gian Thực • NgDuyKhanh`):**
    - **Đồng hồ Live (`UTC+7`):** Tự động cập nhật Thứ, Ngày/Tháng và Giờ:Phút thực tế kèm nền kính mờ (`ultra_thin` blur) và icon `sf_symbol`.
    - **Mood Tự Động Theo Khung Giờ:** Tự động đổi lời chúc, màu Gradient và biểu tượng theo 5 khung giờ trong ngày (Sáng sớm, Nghỉ trưa, Buổi chiều, Buổi tối, Hội cú đêm).
    - **Bộ Đếm Ngược Tự Động (Countdown):** Tự động tính số ngày còn lại tới **Cuối tuần**, **Tết Nguyên Đán**, **Giáng Sinh**, và **Năm Mới**.
    - **Thanh Tiến Độ Năm (`Year Progress`):** Hiển thị trực quan phần trăm năm đã trôi qua (`▓▓▓▓▓▓▓▓░░ 85%`).
-   - **Bộ Huy Hiệu Độc Quyền (`🎨 Decorative by Bố Khánh`):** `Bố Khánh 👑`, `Bố Khánh VIP ✨`, `Verified by Bố Khánh`, `Khánh Siu Dz 😎` cùng hàng trăm caption Tiếng Việt.
-6. **Hồ sơ DNS Giữ Gold (`BoKhanh_LocketGold.mobileconfig`):** Chặn thu hồi Locket Gold sau khi tắt VPN Shadowrocket, hiển thị tên **Bố Khánh** trong Cài đặt iPhone.
+   - **Bộ Huy Hiệu Độc Quyền (`🎨 Decorative by NgDuyKhanh`):** `NgDuyKhanh 👑`, `NgDuyKhanh VIP ✨`, `Verified by NgDuyKhanh`, `Khánh Siu Dz 😎` cùng hàng trăm caption Tiếng Việt.
+6. **Hồ sơ DNS Giữ Gold (`BoKhanh_LocketGold.mobileconfig`):** Chặn thu hồi Locket Gold sau khi tắt VPN Shadowrocket, hiển thị tên **NgDuyKhanh** trong Cài đặt iPhone.
 
 ## 🔗 Danh sách Link Raw & Deep Link Cài Đặt Nhanh (1 Chạm)
 
@@ -57,5 +57,5 @@
 1. **Bước 1:** Bấm vào link **Cài Cấu Hình (`BoKhanh_Locket_30s.conf`)** và **Thêm Module (`BoKhanh_Locket_30s.sgmodule`)** vào Shadowrocket.
 2. **Bước 2:** Trong Shadowrocket, bấm vào chữ `(i)` cạnh file cấu hình ➔ **Giải mã HTTPS (HTTPS Decryption)** ➔ **Chứng chỉ** ➔ **Cài đặt chứng chỉ** ➔ Vào **Cài đặt iPhone ➔ Đã tải về hồ sơ** để cài đặt, sau đó vào **Cài đặt chung ➔ Giới thiệu ➔ Cài đặt tin cậy chứng chỉ** và bật xanh chứng chỉ Shadowrocket.
 3. **Bước 3:** Quay lại Shadowrocket **Bật VPN (Connect)** ➔ Ra màn hình chính **Xóa app Locket cũ và tải lại từ App Store**.
-4. **Bước 4:** Mở Locket và đăng nhập ➔ Bảng thông báo **Bố Khánh** sẽ hiện lên cùng huy hiệu Gold, quay 30s/60s có tiếng và khung tiện ích ngoài Widget.
+4. **Bước 4:** Mở Locket và đăng nhập ➔ Bảng thông báo **NgDuyKhanh** sẽ hiện lên cùng huy hiệu Gold, quay 30s/60s có tiếng và khung tiện ích ngoài Widget.
 5. **Bước 5:** Tắt VPN Shadowrocket và cài đặt hồ sơ **`BoKhanh_LocketGold.mobileconfig`** để giữ Locket Gold vĩnh viễn.

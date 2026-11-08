@@ -1,6 +1,6 @@
 // ========= ID ========= //
 // Locket: Gold Vĩnh Viễn (9999)
-// Thương hiệu: Bố Khánh
+// Thương hiệu: NgDuyKhanh
 // ========= Phần cố định ========= //
 const mapping = {
   '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
@@ -15,9 +15,9 @@ try {
   obj = {};
 }
 
-obj.Attention = "Chúc mừng bạn! Cấu hình Locket Gold bởi Bố Khánh!";
+obj.Attention = "Chúc mừng bạn! Cấu hình Locket Gold bởi NgDuyKhanh!";
 
-var bokhanhSub = {
+var ngduykhanhSub = {
   auto_resume_date: null,
   display_name: "locket_1600_1y",
   is_sandbox: true,
@@ -53,9 +53,9 @@ obj.subscriber.entitlements = obj.subscriber.entitlements || {};
 const match = Object.keys(mapping).find(e => ua.includes(e));
 if (match) {
   let [e, s] = mapping[match];
-  s ? (locketGold.product_identifier = s, obj.subscriber.subscriptions[s] = bokhanhSub) : obj.subscriber.subscriptions["locket_1600_1y"] = bokhanhSub, obj.subscriber.entitlements[e] = locketGold;
+  s ? (locketGold.product_identifier = s, obj.subscriber.subscriptions[s] = ngduykhanhSub) : obj.subscriber.subscriptions["locket_1600_1y"] = ngduykhanhSub, obj.subscriber.entitlements[e] = locketGold;
 } else {
-  obj.subscriber.subscriptions["locket_1600_1y"] = bokhanhSub;
+  obj.subscriber.subscriptions["locket_1600_1y"] = ngduykhanhSub;
   obj.subscriber.entitlements["Gold"] = locketGold;
   obj.subscriber.entitlements.pro = locketGold;
 }
