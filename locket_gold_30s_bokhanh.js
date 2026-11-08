@@ -342,10 +342,11 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
     ];
 
     var frameCatalog = {
-        auto_daily: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
+        auto_daily: "https://raw.githubusercontent.com/KhangTestBot/ngduykhanhsiudz/refs/heads/main/Code_Generated_Image.png",
+        loopy_thu: baseFramesUrl + dailyLoopyFrames[vnWidgetDay],
         bokhanh_vip: baseFramesUrl + "bokhanh_vip.png",
         hello_kitty: baseFramesUrl + "hello_kitty.png",
-        shin_chan: baseFramesUrl + "shin_chan.png",
+        shin_chan: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
         doraemon: baseFramesUrl + "doraemon.png",
         khung_ins: baseFramesUrl + "khung_ins.png"
     };
@@ -364,7 +365,7 @@ if (url.indexOf("revenuecat.com") !== -1 || url.indexOf("rc-backup.com") !== -1)
         widget_last_sent_indicator: "false",
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
-            uid: "bokhanh_loopy_" + vnWidgetDay + "_" + vnWidgetTime.getDate(),
+            uid: "midautumn_2026",
             url: activeWidgetFrameUrl,
             use_local_time_zone: true,
             placement: "below",
